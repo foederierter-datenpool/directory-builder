@@ -124,6 +124,7 @@ function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, col
             // sorted so we can push later nodes down to avoid overlap.
             const incomingYs = new Map()
             for (const e of edges) {
+                if (e.sideInput) continue   // side inputs feed a step without pulling its centering
                 const fromPos = positions.get(e.from)
                 if (!fromPos) continue
                 if (!incomingYs.has(e.to)) incomingYs.set(e.to, [])
@@ -147,6 +148,16 @@ function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, col
             })
         }
     })
+
+    // A side-input source (e.g. the Match step's knowledge graph) is parked one
+    // sibling-gap beside the step it feeds — where a sibling of that step would
+    // sit — so its edge stays short instead of trailing in from the column edge.
+    for (const e of edges) {
+        if (!e.sideInput) continue
+        const tgt = positions.get(e.to)
+        const src = positions.get(e.from)
+        if (tgt && src) positions.set(e.from, { x: src.x, y: tgt.y + siblingGap })
+    }
 
     const targetPos = isVertical ? Position.Top : Position.Left
     const sourcePos = isVertical ? Position.Bottom : Position.Right

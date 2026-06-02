@@ -3,7 +3,7 @@
 // Reads:  federation, pipeline, mapped, ingest-log TTL strings passed by Sources.jsx
 // Does:   returns source[] ({iri, label, format, totalFields, mappedFields, records, …})
 
-import { parseTtl, subjectsOfType } from "../../utils.js"
+import { formatFamily, parseTtl, subjectsOfType } from "../../utils.js"
 
 const NS = "https://civic-data.de/pipeline#"
 const PROV_AT_TIME = "http://www.w3.org/ns/prov#atTime"
@@ -78,7 +78,7 @@ export function loadSources(federationTtl, pipelineTtl, mappedTtl, ingestLogTtl)
         const s = get(sourceIri)
         if (fetchUrlByStep.has(step))     s.fetchUrl     = fetchUrlByStep.get(step)
         if (staticSourceByStep.has(step)) s.staticSource = staticSourceByStep.get(step)
-        if (formatByStep.has(step))       s.format       = formatByStep.get(step)
+        if (formatByStep.has(step))       s.format       = formatFamily(formatByStep.get(step))
     }
 
     // Records: count distinct orgs in mapped.ttl per source via cdp:fromSource.

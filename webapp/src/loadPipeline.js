@@ -3,22 +3,25 @@
 // Does:   returns { nodes, edges } — Source lane-header nodes (transparent
 //         fill, light-gray border) above each Fetch step, step nodes labelled
 //         by their type (fetch/lift/clean/map/match/merge/resolve), and an
-//         End sink so resolve's output is shown on a visible edge. Load is
-//         filtered out and its edges are forwarded past it. Edge labels
-//         describe the payload flowing between steps; multiple outputs
-//         (e.g. merge's :provOutput) stack as newline-separated lines.
+//         End sink so resolve's output is shown on a visible edge, plus a
+//         boundary node for any visible step's :input file (e.g. the Match
+//         step's match-knowledge.ttl). Load is filtered out and its edges are
+//         forwarded past it. Edge labels come
+//         straight from the TTL: a step's :format (uppercased) or its :output/
+//         :provOutput basename(s), and :retrieval on the source→fetch edge.
+//         Multiple outputs (e.g. merge's :provOutput) stack as newline lines.
 
-import { localName, parseTtl } from "../../utils.js"
+import { formatFamily, localName, parseTtl } from "../../utils.js"
 
 const NS = "https://civic-data.de/pipeline#"
 const PPLAN_IS_PRECEDED_BY = "http://purl.org/net/p-plan#isPrecededBy"
 const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label"
 const FROM_SOURCE = `${NS}fromSource`
-const FETCH_URL = `${NS}fetchUrl`
-const STATIC_SOURCE = `${NS}staticSource`
+const RETRIEVAL = `${NS}retrieval`
 const FORMAT = `${NS}format`
 const OUTPUT = `${NS}output`
+const INPUT = `${NS}input`
 const PROV_OUTPUT = `${NS}provOutput`
 const STEP_TYPES = ["Fetch", "Lift", "Clean", "Load", "Map", "Match", "Merge", "Resolve"]
 const HIDDEN_STEPS = new Set(["Load"])
@@ -32,12 +35,12 @@ export function loadPipeline(pipelineTtl, federationTtl) {
 
     const stepType = new Map()
     const rawEdges = []
+    const inputQuads = []
     const sourceOfStep = new Map()
-    const formatOfStep = new Map()
+    const formatBySubject = new Map()
     const outputOfStep = new Map()
     const provOutputOfStep = new Map()
-    const hasFetchUrl = new Set()
-    const hasStaticSource = new Set()
+    const retrievalOfStep = new Map()
     for (const q of quads) {
         const p = q.predicate.value
         if (p === RDF_TYPE && q.object.value.startsWith(NS)) {
@@ -45,11 +48,11 @@ export function loadPipeline(pipelineTtl, federationTtl) {
             if (STEP_TYPES.includes(local)) stepType.set(q.subject.value, local)
         } else if (p === PPLAN_IS_PRECEDED_BY) rawEdges.push({ from: q.object.value, to: q.subject.value })
         else if (p === FROM_SOURCE)    sourceOfStep.set(q.subject.value, q.object.value)
-        else if (p === FETCH_URL)      hasFetchUrl.add(q.subject.value)
-        else if (p === STATIC_SOURCE)  hasStaticSource.add(q.subject.value)
-        else if (p === FORMAT)         formatOfStep.set(q.subject.value, q.object.value)
+        else if (p === RETRIEVAL)      retrievalOfStep.set(q.subject.value, q.object.value)
+        else if (p === FORMAT)         formatBySubject.set(q.subject.value, q.object.value)
         else if (p === OUTPUT)         outputOfStep.set(q.subject.value, q.object.value)
         else if (p === PROV_OUTPUT)    provOutputOfStep.set(q.subject.value, q.object.value)
+        else if (p === INPUT)          inputQuads.push([q.subject.value, q.object.value])
     }
 
     // Forward edges past hidden (Load) steps so clean→load→map collapses to clean→map.
@@ -65,12 +68,14 @@ export function loadPipeline(pipelineTtl, federationTtl) {
         const outs = [outputOfStep.get(fromIri), provOutputOfStep.get(fromIri)].filter(Boolean).map(basename)
         return outs.length ? outs.join("\n") : null
     }
+    // A step's own :format, else its type's class-level :format (e.g.
+    // :Lift :format "rdf" labels every lift edge without repeating it per step).
+    const formatOf = (iri) => formatBySubject.get(iri) ?? formatBySubject.get(`${NS}${stepType.get(iri)}`)
+    // Edge label = the format the step emits (its file-type IRI's short label),
+    // else its output file(s); both come straight from the TTL, nothing hardcoded.
     const edgeLabel = (fromIri) => {
-        const type = stepType.get(fromIri)
-        if (type === "Fetch") return (formatOfStep.get(fromIri) ?? "").toUpperCase() || null
-        if (type === "Lift" || type === "Clean") return "RDF"
-        if (type === "Map" || type === "Match" || type === "Merge") return fileLabel(fromIri)
-        return null
+        const fmt = formatOf(fromIri)
+        return fmt ? formatFamily(fmt) : fileLabel(fromIri)
     }
 
     const stepEdges = []
@@ -104,8 +109,7 @@ export function loadPipeline(pipelineTtl, federationTtl) {
             color: "transparent",
             borderColor: LANE_BORDER,
         })
-        const value = hasFetchUrl.has(iri) ? "API" : hasStaticSource.has(iri) ? "Files" : undefined
-        laneEdges.push({ from: laneId, to: iri, value, centered: true })
+        laneEdges.push({ from: laneId, to: iri, value: retrievalOfStep.get(iri), centered: true })
     }
 
     // End sink so resolve's output (final.ttl) is shown on a visible edge.
@@ -114,12 +118,24 @@ export function loadPipeline(pipelineTtl, federationTtl) {
     const endEdges = []
     if (resolveIri) {
         endNodes.push({ id: "end", label: "end", type: "End", color: "transparent", borderColor: LANE_BORDER })
-        const out = outputOfStep.get(resolveIri)
-        endEdges.push({ from: resolveIri, to: "end", value: out ? basename(out) : undefined, centered: true })
+        endEdges.push({ from: resolveIri, to: "end", value: edgeLabel(resolveIri) ?? undefined, centered: true })
+    }
+
+    // Side inputs: a visible step may consume an :input file besides its upstream
+    // step (the Match step reads config/match-knowledge.ttl). Each becomes a
+    // boundary node feeding that step, labelled with the file basename. Hidden
+    // (Load) steps' :input is the forwarded main flow, so it is skipped.
+    const inputNodes = []
+    const inputEdges = []
+    for (const [iri, path] of inputQuads) {
+        if (hidden.has(iri)) continue
+        const inId = `input:${path}`
+        inputNodes.push({ id: inId, label: "input", type: "Input", color: "transparent", borderColor: LANE_BORDER })
+        inputEdges.push({ from: inId, to: iri, value: basename(path), centered: true, sideInput: true })
     }
 
     return {
-        nodes: [...laneNodes, ...stepNodes, ...endNodes],
-        edges: [...laneEdges, ...stepEdges, ...endEdges],
+        nodes: [...laneNodes, ...inputNodes, ...stepNodes, ...endNodes],
+        edges: [...laneEdges, ...inputEdges, ...stepEdges, ...endEdges],
     }
 }

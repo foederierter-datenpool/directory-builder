@@ -8,6 +8,10 @@ const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 
 export const localName = (iri) => iri.replace(/^.*[#/]/, "")
 
+// Format family of a file-type IRI (EU file-type authority): the code before
+// any "_", used as a short display label — .../RDF_TURTLE -> "RDF", .../JSON -> "JSON".
+export const formatFamily = (iri) => localName(iri).split("_")[0]
+
 export const parseTtl = (turtle) => new Parser().parse(turtle)
 
 // {prefix: namespace} → "PREFIX p1: <ns1>\nPREFIX p2: <ns2>"

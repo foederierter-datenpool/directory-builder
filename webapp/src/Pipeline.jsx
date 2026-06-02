@@ -9,8 +9,8 @@ import { loadPipeline } from "./loadPipeline.js"
 import ColumnGraph from "./ColumnGraph.jsx"
 import React from "react"
 
-const COLUMNS = ["Source", "Fetch", "Lift", "Clean", "Map", "Match", "Merge", "Resolve", "End"]
-const CENTER_COLUMNS = ["Clean", "Map", "Match", "Merge", "Resolve", "End"]
+const COLUMNS = ["Source", "Fetch", "Lift", "Clean", "Map", "Input", "Match", "Merge", "Resolve", "End"]
+const CENTER_COLUMNS = ["Clean", "Map", "Input", "Match", "Merge", "Resolve", "End"]
 const COLORS = {
     Fetch:   "#d4e7ff",
     Lift:    "#e6f3d8",
