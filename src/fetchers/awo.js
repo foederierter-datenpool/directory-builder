@@ -14,17 +14,24 @@ const PLZS = (process.argv[4] ?? "").split(",").map((s) => s.trim()).filter(Bool
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(SRC_DIR, f), "utf8")).data
 
-// The static files cover all of Berlin; scope them to the pipeline's PLZs
-const locations = read("locations_filtered.json")
-const keptLocations = PLZS.length ? locations.filter((l) => PLZS.includes(String(l.plz))) : locations
-const inScope = new Set(keptLocations.map((l) => l.organisation_id))
-const orgInScope = (o) => PLZS.length === 0 || inScope.has(o.id)
+// The static files cover all of Berlin
+const inPlz = (plz) => PLZS.length === 0 || PLZS.includes(String(plz))
+const orgs    = read("organisations_filtered.json")
+const orgsAll = read("organisations_all_filtered.json")
+const keptLocations = read("locations_filtered.json").filter((l) => inPlz(l.plz))
 
-const records = [
-    ...read("organisations_filtered.json").filter(orgInScope),
-    ...read("organisations_all_filtered.json").filter(orgInScope),
-    ...keptLocations,
-]
+let orgInScope = () => true
+if (PLZS.length) {   // DEV scoping — delete this block when no more filters apply
+    const inScope = new Set(keptLocations.map((l) => l.organisation_id))
+    // Orgs with no address row (the AWO "Pflege" branch is exposed only via the
+    // services file) still ride in on a service that serves a kept PLZ.
+    for (const o of orgsAll)
+        for (const s of o.services ?? [])
+            if (inPlz(s.location?.plz)) inScope.add(o.id)
+    orgInScope = (o) => inScope.has(o.id)
+}
+
+const records = [...orgs.filter(orgInScope), ...orgsAll.filter(orgInScope), ...keptLocations]
 
 fs.mkdirSync(OUT_DIR, { recursive: true })
 const outPath = path.join(OUT_DIR, "awo.json")
