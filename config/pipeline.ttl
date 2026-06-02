@@ -8,7 +8,7 @@
 :pipeline a p-plan:Plan ;
     rdfs:label "Directory Federation Pipeline" ;
     :ingestLog "data/ingest/ingest-log.ttl" ;
-    :plz       "10115", "10365", "10963", "10969" .
+    :plz       "10115", "10365", "10963", "10969", "13347", "13349", "13357" .
 
 # ---- Fetch -------------------------------------------------------------
 
