@@ -38,7 +38,7 @@ jobs:
             - run: npm install
 
             - run: node src/ingest.js
-            - run: node src/pipeline.js
+            - run: node src/federate.js
 
             - run: npm install
               working-directory: webapp
