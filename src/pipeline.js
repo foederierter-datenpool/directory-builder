@@ -80,6 +80,7 @@ const buildDirectInsert = ({ sourceGraph, source, targetClass, target }, fields)
     const prefixes = {
         xyz:    XYZ,
         cdp:    CDP,
+        cdf:    "https://civic-data.de/federated-directory#",
         schema: "http://schema.org/",
         foaf:   "http://xmlns.com/foaf/0.1/",
         dct:    "http://purl.org/dc/terms/",

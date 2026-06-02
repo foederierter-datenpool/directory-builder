@@ -6,9 +6,10 @@
 # self-join. Each element of the org's services[] also becomes its own entity
 # (cdp:awo-service-<id>) linked back via cdp:providedBy. Clean stays in xyz:/cdp:
 # vocabulary — no schema: yet; each subject instead carries cdp:targetSchema so
-# the map routes it to the organisation or service schema (where the schema: type
-# is assigned). The org still folds in the first service's BAGFW category for now
-# — that moves onto the service when the service mapping is wired.
+# the map routes it to its tier (where the schema: type is assigned): a Träger
+# org → schema:Organization, an einrichtung Beratungsstelle → cdf:CounselingCentre,
+# and each service → schema:Service. The org still folds in the first service's
+# BAGFW category for now — that moves onto the service when the service mapping is wired.
 
 PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 PREFIX cdp: <https://civic-data.de/pipeline#>
@@ -16,7 +17,7 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 
 CONSTRUCT {
     ?org cdp:fromSource   cdp:awoSource ;
-         cdp:targetSchema cdp:organizationSchema ;
+         cdp:targetSchema ?orgSchema ;
          ?p               ?scalar ;
          xyz:adresse      ?adresse ;
          xyz:plz          ?plz ;
@@ -26,7 +27,7 @@ CONSTRUCT {
          xyz:parent_name  ?parentName .
 
     ?svc cdp:fromSource     cdp:awoSource ;
-         cdp:targetSchema   cdp:serviceSchema ;
+         cdp:targetSchema   cdp:angebotSchema ;
          cdp:providedBy     ?org ;
          xyz:id             ?svcId ;
          xyz:bagfw_category ?svcBc ;
@@ -37,6 +38,11 @@ CONSTRUCT {
 WHERE {
     ?node xyz:type ?type ; xyz:id ?id .
     BIND(IRI(CONCAT(STR(cdp:), "awo-", STR(?id))) AS ?org)
+    # AWO is the one source with an explicit tree: type=traeger is the umbrella
+    # org (→ schema:Organization), type=einrichtung the local Beratungsstelle
+    # (→ cdf:CounselingCentre). Route each to its schema; services (below) hang
+    # off both tiers, so their cdp:providedBy may point at either.
+    BIND(IF(STR(?type) = "traeger", cdp:traegerSchema, cdp:beratungsstelleSchema) AS ?orgSchema)
 
     # The org's own scalar literals (id, name, name_zusatz, webseite, …), with
     # whitespace collapsed. isLiteral skips nested arrays and the xyz:null IRI.

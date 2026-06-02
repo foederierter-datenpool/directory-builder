@@ -1,4 +1,5 @@
 @prefix :       <https://civic-data.de/pipeline#> .
+@prefix cdf:    <https://civic-data.de/federated-directory#> .
 @prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
 @prefix dct:    <http://purl.org/dc/terms/> .
@@ -10,15 +11,29 @@
 
 :federation a :Federation ;
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
-    :hasTargetSchema :organizationSchema, :serviceSchema ;
-    :hasMatchRule    :orgMatch, :serviceMatch ;
+    :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
+    :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
     :hasMergeRule    :merge ;
     :hasResolveRule  :resolve .
 
+# ---- Vocabulary ---------------------------------------------------------
+
+cdf:CounselingCentre a rdfs:Class ;
+    rdfs:subClassOf schema:Organization ;
+    rdfs:label "Beratungsstelle"@de, "Counselling centre"@en .
+
 # ---- Target schemas -----------------------------------------------------
 
-:organizationSchema a :TargetSchema ;
+:traegerSchema a :TargetSchema ;
     :targetClass schema:Organization ;
+    :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
+                    :t-streetAddress, :t-postalCode, :t-locality, :t-country,
+                    :t-telephone, :t-email, :t-homepage, :t-detailUrl,
+                    :t-parentOrganization,
+                    :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
+
+:beratungsstelleSchema a :TargetSchema ;
+    :targetClass cdf:CounselingCentre ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
                     :t-streetAddress, :t-postalCode, :t-locality, :t-country, :t-areaServed,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
@@ -26,7 +41,7 @@
                     :t-openingHours, :t-parentOrganization,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
-:serviceSchema a :TargetSchema ;
+:angebotSchema a :TargetSchema ;
     :targetClass schema:Service ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-areaServed, :t-provider .
 
@@ -55,10 +70,7 @@
 :t-provider             a :TargetField ; :targetPredicate schema:provider .
 :t-codeValue            a :TargetField ; :targetPredicate schema:codeValue .
 
-# Temporal fields, all unmapped for now. :t-harvestedAt would carry a
-# pipeline-side timestamp; the :t-source* trio invites sources to start
-# emitting their own create / modify / last-checked timestamps as part of
-# their data-audit processes.
+# Temporal fields, all unmapped for now
 :t-harvestedAt          a :TargetField ; :targetPredicate prov:generatedAtTime .
 :t-sourceCreated        a :TargetField ; :targetPredicate dct:created .
 :t-sourceModified       a :TargetField ; :targetPredicate dct:modified .
@@ -205,7 +217,7 @@
 
 :caritas-mapping a :Mapping ;
     :fromSource    :caritasSource ;
-    :toTarget      :organizationSchema ;
+    :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:caritas> ;
     :hasFieldMapping
         [ :from :caritas-Guid     ; :to :t-identifier                                                     ] ,
@@ -220,7 +232,7 @@
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
 :sp-org-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
-    :toTarget      :organizationSchema ;
+    :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:sozialplattform> ;
     :hasFieldMapping
         [ :from :sp-office_title                 ; :to :t-name         ] ,
@@ -235,7 +247,7 @@
 
 :sp-service-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
-    :toTarget      :serviceSchema ;
+    :toTarget      :angebotSchema ;
     :sourceGraph   <urn:source:sozialplattform> ;
     :hasFieldMapping
         [ :from :sp-offer_id                        ; :to :t-identifier ] ,
@@ -245,11 +257,11 @@
         [ :from :sp-offer_service_area              ; :to :t-areaServed ] ,
         [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :organizationSchema ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] .
 
 :dhs-mapping a :Mapping ;
     :fromSource    :dhsSource ;
-    :toTarget      :organizationSchema ;
+    :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:dhs> ;
     :hasFieldMapping
         [ :from :dhs-entryId      ; :to :t-identifier                                              ] ,
@@ -269,9 +281,23 @@
         [ :from :dhs-telefon      ; :to :t-telephone               ; :via :dhsContactNode          ] ,
         [ :from :dhs-email        ; :to :t-email                   ; :via :dhsContactNode          ] .
 
+:awo-traeger-mapping a :Mapping ;
+    :fromSource    :awoSource ;
+    :toTarget      :traegerSchema ;
+    :sourceGraph   <urn:source:awo> ;
+    :hasFieldMapping
+        [ :from :awo-id          ; :to :t-identifier         ] ,
+        [ :from :awo-name        ; :to :t-name               ] ,
+        [ :from :awo-name_zusatz ; :to :t-alternateName      ] ,
+        [ :from :awo-webseite    ; :to :t-homepage           ] ,
+        [ :from :awo-parent_name ; :to :t-parentOrganization ] ,
+        [ :from :awo-adresse     ; :to :t-streetAddress      ] ,
+        [ :from :awo-plz         ; :to :t-postalCode         ] ,
+        [ :from :awo-ort         ; :to :t-locality           ] .
+
 :awo-mapping a :Mapping ;
     :fromSource    :awoSource ;
-    :toTarget      :organizationSchema ;
+    :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:awo> ;
     :hasFieldMapping
         [ :from :awo-id          ; :to :t-identifier         ] ,
@@ -286,7 +312,7 @@
 
 :awo-service-mapping a :Mapping ;
     :fromSource    :awoSource ;
-    :toTarget      :serviceSchema ;
+    :toTarget      :angebotSchema ;
     :sourceGraph   <urn:source:awo> ;
     :hasFieldMapping
         [ :from :awo-svc-id           ; :to :t-identifier ] ,
@@ -294,12 +320,13 @@
         [ :from :awo-svc-bagfw-nummer ; :to :t-codeValue  ] ,
         [ :from :awo-svc-area         ; :to :t-areaServed ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :organizationSchema ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] ,
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema ] .
 
 # ---- Match --------------------------------------------------------------
 
-:orgMatch a :MatchRule ;
-    :forTarget           :organizationSchema ;
+:beratungsstelleMatch a :MatchRule ;
+    :forTarget           :beratungsstelleSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "org-" ;
     :matchKnowledgeGraph "config/match-knowledge.ttl" ;
@@ -309,8 +336,13 @@
         [ :on schema:postalCode    ; :weight 0.3 ; :minSimilarity 1.0 ] ,
         [ :on schema:streetAddress ; :weight 0.2 ] .
 
-:serviceMatch a :MatchRule ;
-    :forTarget           :serviceSchema ;
+:traegerMatch a :MatchRule ;
+    :forTarget           :traegerSchema ;
+    :targetNamespace     "https://civic-data.de/federated-directory#" ;
+    :mintedSubjectPrefix "traeger-" .
+
+:angebotMatch a :MatchRule ;
+    :forTarget           :angebotSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "service-" .
 
