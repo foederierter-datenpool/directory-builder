@@ -38,7 +38,7 @@ cdf:CounselingCentre a rdfs:Class ;
                     :t-streetAddress, :t-postalCode, :t-locality, :t-country, :t-areaServed,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
                     :t-category, :t-availableService, :t-audience, :t-accessibilitySummary,
-                    :t-openingHours, :t-parentOrganization,
+                    :t-openingHours, :t-parentOrganization, :t-parentOrgClassification,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
 :angebotSchema a :TargetSchema ;
@@ -69,6 +69,7 @@ cdf:CounselingCentre a rdfs:Class ;
 :t-parentOrganization   a :TargetField ; :targetPredicate schema:parentOrganization .
 :t-provider             a :TargetField ; :targetPredicate schema:provider .
 :t-codeValue            a :TargetField ; :targetPredicate schema:codeValue .
+:t-parentOrgClassification a :TargetField ; :targetPredicate cdf:parentOrgClassification .
 
 # Temporal fields, all unmapped for now
 :t-harvestedAt          a :TargetField ; :targetPredicate prov:generatedAtTime .
@@ -264,18 +265,18 @@ cdf:CounselingCentre a rdfs:Class ;
     :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:dhs> ;
     :hasFieldMapping
-        [ :from :dhs-entryId      ; :to :t-identifier           ] ,
-        [ :from :dhs-name         ; :to :t-name                 ] ,
-        [ :from :dhs-department   ; :to :t-alternateName        ] ,
-        [ :from :dhs-detailLink   ; :to :t-detailUrl            ] ,
-        [ :from :dhs-website      ; :to :t-homepage             ] ,
-        [ :from :dhs-art          ; :to :t-category             ] ,
-        [ :from :dhs-angebote     ; :to :t-availableService     ] ,
-        [ :from :dhs-arbeit       ; :to :t-availableService     ] ,
-        [ :from :dhs-zielgruppe   ; :to :t-audience             ] ,
-        [ :from :dhs-zeiten       ; :to :t-openingHours         ] ,
-        [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary ] ,
-        [ :from :dhs-traeger      ; :to :t-parentOrganization   ] ,
+        [ :from :dhs-entryId      ; :to :t-identifier              ] ,
+        [ :from :dhs-name         ; :to :t-name                    ] ,
+        [ :from :dhs-department   ; :to :t-alternateName           ] ,
+        [ :from :dhs-detailLink   ; :to :t-detailUrl               ] ,
+        [ :from :dhs-website      ; :to :t-homepage                ] ,
+        [ :from :dhs-art          ; :to :t-category                ] ,
+        [ :from :dhs-angebote     ; :to :t-availableService        ] ,
+        [ :from :dhs-arbeit       ; :to :t-availableService        ] ,
+        [ :from :dhs-zielgruppe   ; :to :t-audience                ] ,
+        [ :from :dhs-zeiten       ; :to :t-openingHours            ] ,
+        [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary    ] ,
+        [ :from :dhs-traeger      ; :to :t-parentOrgClassification ] ,
         [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via :dhsAddressNode ] ,
         [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via :dhsAddressNode ] ,
         [ :from :dhs-telefon      ; :to :t-telephone               ; :via :dhsContactNode ] ,
@@ -290,7 +291,6 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-name        ; :to :t-name               ] ,
         [ :from :awo-name_zusatz ; :to :t-alternateName      ] ,
         [ :from :awo-webseite    ; :to :t-homepage           ] ,
-        [ :from :awo-parent_name ; :to :t-parentOrganization ] ,
         [ :from :awo-adresse     ; :to :t-streetAddress      ] ,
         [ :from :awo-plz         ; :to :t-postalCode         ] ,
         [ :from :awo-ort         ; :to :t-locality           ] .
@@ -304,11 +304,12 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-name        ; :to :t-name               ] ,
         [ :from :awo-name_zusatz ; :to :t-alternateName      ] ,
         [ :from :awo-webseite    ; :to :t-homepage           ] ,
-        [ :from :awo-parent_name ; :to :t-parentOrganization ] ,
         [ :from :awo-adresse     ; :to :t-streetAddress      ] ,
         [ :from :awo-plz         ; :to :t-postalCode         ] ,
         [ :from :awo-ort         ; :to :t-locality           ] ,
-        [ :from :awo-category    ; :to :t-category           ] .
+        [ :from :awo-category    ; :to :t-category           ] ;
+    :hasRelationship
+        [ :sourcePredicate :hasParent ; :toTargetField :t-parentOrganization ; :toTargetSchema :traegerSchema ] .
 
 :awo-angebot-mapping a :Mapping ;
     :fromSource    :awoSource ;

@@ -2,8 +2,10 @@
 # xyz:type + xyz:id, so skolemizing each to cdp:awo-<id> unifies them. Copies the
 # org's scalar literals (whitespace collapsed; isLiteral skips nested arrays and
 # the facade-x null IRI), joins the org's address from the locations_filtered
-# table on organisation_id, and resolves parent_id to the parent's name via a
-# self-join. Each element of the org's services[] also becomes its own entity
+# table on organisation_id, and links parent_id to the parent org's IRI via
+# cdp:hasParent (the map step turns that into schema:parentOrganization, an
+# entity link, the same way cdp:providedBy becomes schema:provider).
+# Each element of the org's services[] also becomes its own entity
 # (cdp:awo-service-<id>) linked back via cdp:providedBy. Clean stays in xyz:/cdp:
 # vocabulary — no schema: yet; each subject instead carries cdp:targetSchema so
 # the map routes it to its tier (where the schema: type is assigned): a Träger
@@ -24,7 +26,7 @@ CONSTRUCT {
          xyz:ort          ?ort ;
          xyz:ortsteil     ?ortsteil ;
          xyz:category     ?category ;
-         xyz:parent_name  ?parentName .
+         cdp:hasParent    ?parentOrg .
 
     ?svc cdp:fromSource     cdp:awoSource ;
          cdp:targetSchema   cdp:angebotSchema ;
@@ -91,8 +93,12 @@ WHERE {
         }
     }
 
+    # Mint the parent's IRI straight from parent_id (same skolem as the org's
+    # own ?id above), so einrichtung→Träger becomes an IRI link. The map step
+    # only copies it to schema:parentOrganization when the parent is itself in
+    # scope (i.e. carries cdp:targetSchema); out-of-scope parents drop there.
     OPTIONAL {
         ?node xyz:parent_id ?pid .
-        ?parent xyz:type ?ptype ; xyz:id ?pid ; xyz:name ?parentName .
+        BIND(IRI(CONCAT(STR(cdp:), "awo-", STR(?pid))) AS ?parentOrg)
     }
 }
