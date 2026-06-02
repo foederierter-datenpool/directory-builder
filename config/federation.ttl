@@ -215,27 +215,27 @@ cdf:CounselingCentre a rdfs:Class ;
 
 # ---- Mappings -----------------------------------------------------------
 
-:caritas-mapping a :Mapping ;
+:caritas-beratungsstelle-mapping a :Mapping ;
     :fromSource    :caritasSource ;
     :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:caritas> ;
     :hasFieldMapping
-        [ :from :caritas-Guid     ; :to :t-identifier                                                     ] ,
-        [ :from :caritas-Title    ; :to :t-name                                                           ] ,
-        [ :from :caritas-SubTitle ; :to :t-alternateName                                                  ] ,
-        [ :from :caritas-LeadLine ; :to :t-category                                                       ] ,
-        [ :from :caritas-Link     ; :to :t-detailUrl                                                      ] ,
+        [ :from :caritas-Guid     ; :to :t-identifier    ] ,
+        [ :from :caritas-Title    ; :to :t-name          ] ,
+        [ :from :caritas-SubTitle ; :to :t-alternateName ] ,
+        [ :from :caritas-LeadLine ; :to :t-category      ] ,
+        [ :from :caritas-Link     ; :to :t-detailUrl     ] ,
         [ :from :caritas-Teaser   ; :to :t-streetAddress, :t-postalCode, :t-locality ;
-                                    :via :caritasAddressNode                                              ] .
+                                    :via :caritasAddressNode ] .
 
 # Sozialplattform is offer-first: the clean step splits each row into an office
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
-:sp-org-mapping a :Mapping ;
+:sp-beratungsstelle-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
     :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:sozialplattform> ;
     :hasFieldMapping
-        [ :from :sp-office_title                 ; :to :t-name         ] ,
+        [ :from :sp-office_title                 ; :to :t-name          ] ,
         [ :from :sp-office_opening_hours         ; :to :t-openingHours  ] ,
         [ :from :sp-office_opening_hours_notes   ; :to :t-openingHours  ] ,
         [ :from :sp-office_address-address_line1 ; :to :t-streetAddress ] ,
@@ -245,7 +245,7 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :sp-office_phone                 ; :to :t-telephone     ] ,
         [ :from :sp-office_email                 ; :to :t-email         ] .
 
-:sp-service-mapping a :Mapping ;
+:sp-angebot-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
     :toTarget      :angebotSchema ;
     :sourceGraph   <urn:source:sozialplattform> ;
@@ -259,27 +259,27 @@ cdf:CounselingCentre a rdfs:Class ;
     :hasRelationship
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] .
 
-:dhs-mapping a :Mapping ;
+:dhs-beratungsstelle-mapping a :Mapping ;
     :fromSource    :dhsSource ;
     :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:dhs> ;
     :hasFieldMapping
-        [ :from :dhs-entryId      ; :to :t-identifier                                              ] ,
-        [ :from :dhs-name         ; :to :t-name                                                    ] ,
-        [ :from :dhs-department   ; :to :t-alternateName                                           ] ,
-        [ :from :dhs-detailLink   ; :to :t-detailUrl                                               ] ,
-        [ :from :dhs-website      ; :to :t-homepage                                                ] ,
-        [ :from :dhs-art          ; :to :t-category                                                ] ,
-        [ :from :dhs-angebote     ; :to :t-availableService                                        ] ,
-        [ :from :dhs-arbeit       ; :to :t-availableService                                        ] ,
-        [ :from :dhs-zielgruppe   ; :to :t-audience                                                ] ,
-        [ :from :dhs-zeiten       ; :to :t-openingHours                                            ] ,
-        [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary                                    ] ,
-        [ :from :dhs-traeger      ; :to :t-parentOrganization                                      ] ,
-        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via :dhsAddressNode          ] ,
-        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via :dhsAddressNode          ] ,
-        [ :from :dhs-telefon      ; :to :t-telephone               ; :via :dhsContactNode          ] ,
-        [ :from :dhs-email        ; :to :t-email                   ; :via :dhsContactNode          ] .
+        [ :from :dhs-entryId      ; :to :t-identifier           ] ,
+        [ :from :dhs-name         ; :to :t-name                 ] ,
+        [ :from :dhs-department   ; :to :t-alternateName        ] ,
+        [ :from :dhs-detailLink   ; :to :t-detailUrl            ] ,
+        [ :from :dhs-website      ; :to :t-homepage             ] ,
+        [ :from :dhs-art          ; :to :t-category             ] ,
+        [ :from :dhs-angebote     ; :to :t-availableService     ] ,
+        [ :from :dhs-arbeit       ; :to :t-availableService     ] ,
+        [ :from :dhs-zielgruppe   ; :to :t-audience             ] ,
+        [ :from :dhs-zeiten       ; :to :t-openingHours         ] ,
+        [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary ] ,
+        [ :from :dhs-traeger      ; :to :t-parentOrganization   ] ,
+        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via :dhsAddressNode ] ,
+        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via :dhsAddressNode ] ,
+        [ :from :dhs-telefon      ; :to :t-telephone               ; :via :dhsContactNode ] ,
+        [ :from :dhs-email        ; :to :t-email                   ; :via :dhsContactNode ] .
 
 :awo-traeger-mapping a :Mapping ;
     :fromSource    :awoSource ;
@@ -295,7 +295,7 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-plz         ; :to :t-postalCode         ] ,
         [ :from :awo-ort         ; :to :t-locality           ] .
 
-:awo-mapping a :Mapping ;
+:awo-beratungsstelle-mapping a :Mapping ;
     :fromSource    :awoSource ;
     :toTarget      :beratungsstelleSchema ;
     :sourceGraph   <urn:source:awo> ;
@@ -310,7 +310,7 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-ort         ; :to :t-locality           ] ,
         [ :from :awo-category    ; :to :t-category           ] .
 
-:awo-service-mapping a :Mapping ;
+:awo-angebot-mapping a :Mapping ;
     :fromSource    :awoSource ;
     :toTarget      :angebotSchema ;
     :sourceGraph   <urn:source:awo> ;
