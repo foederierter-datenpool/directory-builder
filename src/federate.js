@@ -1,5 +1,5 @@
 import { newStore, parser as n3Parser, sparqlConstruct, sparqlInsertDelete, sparqlSelect, storeFromTurtles } from "@foerderfunke/sem-ops-utils"
-import { buildPrefixBlock, shrink, topoSort } from "../utils.js"
+import { buildPrefixBlock, PATHS, shrink, sourceGraph, sourceName, stepIri, stepJournal } from "../utils.js"
 import { token_set_ratio } from "fuzzball"
 import { DataFactory, Writer } from "n3"
 import { createHash } from "crypto"
@@ -11,7 +11,7 @@ const df = DataFactory
 const ROOT = path.join(import.meta.dirname, "..")
 const abs = (p) => path.join(ROOT, p)
 const defStore = storeFromTurtles(
-    ["config/federation.ttl", "config/pipeline.ttl", "config/match-knowledge.ttl"].map(p => fs.readFileSync(abs(p), "utf8"))
+    ["config/federation.ttl", "config/match-knowledge.ttl"].map(p => fs.readFileSync(abs(p), "utf8"))
 )
 
 // Dedupe via a Store and sort by subject so the Writer can emit grouped
@@ -32,44 +32,14 @@ const writeTurtleFile = (filePath, quads, prefixes = {}) => new Promise((resolve
     })
 })
 
-// ---- Read Clean, Load, Map, Match and Merge steps -----------------------------
+// ---- Read the sources ----------------------------------------------------
+// The step sequence (clean per source, load, map → match → merge → resolve)
+// is the engine's own shape; config declares only the sources. Paths follow
+// from the source name (see utils.js PATHS).
 
-const rows = await sparqlSelect(`
-    PREFIX :       <https://civic-data.de/pipeline#>
-    PREFIX p-plan: <http://purl.org/net/p-plan#>
-    SELECT ?step ?type ?cleanQuery ?graph ?inPath ?inDir ?outPath ?provOutPath ?directMappingQueries ?pred WHERE {
-        ?step a ?type .
-        FILTER(?type IN (:Clean, :Load, :Map, :Match, :Merge, :Resolve))
-        OPTIONAL { ?step :cleanQuery           ?cleanQuery           }
-        OPTIONAL { ?step :graph                ?graph                }
-        OPTIONAL { ?step :input                ?inPath               }
-        OPTIONAL { ?step :inputDir             ?inDir                }
-        OPTIONAL { ?step :output               ?outPath              }
-        OPTIONAL { ?step :provOutput           ?provOutPath          }
-        OPTIONAL { ?step :directMappingQueries ?directMappingQueries }
-        OPTIONAL { ?step p-plan:isPrecededBy   ?pred                 }
-    }`, [defStore])
-
-const steps = new Map()
-const preds = new Map()
-for (const r of rows) {
-    if (!steps.has(r.step)) {
-        steps.set(r.step, {
-            type: r.type.split("#").pop(),
-            cleanQuery: r.cleanQuery,
-            graph: r.graph,
-            inPath: r.inPath,
-            inDir: r.inDir,
-            outPath: r.outPath,
-            provOutPath: r.provOutPath,
-            directMappingQueries: r.directMappingQueries,
-        })
-        preds.set(r.step, [])
-    }
-    if (r.pred && !preds.get(r.step).includes(r.pred)) preds.get(r.step).push(r.pred)
-}
-
-const sorted = topoSort(steps, (iri) => preds.get(iri) ?? [])
+const sources = (await sparqlSelect(`
+    PREFIX : <https://civic-data.de/pipeline#>
+    SELECT ?source WHERE { :federation :hasSource ?source } ORDER BY ?source`, [defStore])).map(r => r.source)
 
 // ---- Direct-mapping generator ------------------------------------------
 
@@ -583,57 +553,63 @@ const runResolve = async (store, outPath) => {
     console.log(`resolve: wrote ${finalQuads.length} triples → ${outPath}`)
 }
 
-// ---- Dispatch each step -------------------------------------------------
+// ---- Run: clean per source, load, then map → match → merge → resolve -----
+// Each step runs through the journal, which records what executed and is
+// rendered by the webapp's Pipeline page — evidence, not a hand-written plan.
+// The clean steps' predecessors are the other engine's lift steps,
+// referenced by their conventional stepIri.
 
 const store = newStore()
+const journal = stepJournal()
 
-for (const iri of sorted) {
-    const s = steps.get(iri)
-
-    if (s.type === "Clean") {
-        const cleanQuery = fs.readFileSync(abs(s.cleanQuery), "utf8")
-        let ttls
-        if (s.inDir) {
-            // Run CONSTRUCT per file so each lifted TTL stays isolated in its
-            // own store — the clean SPARQL can't cross-join across documents.
-            const inAbs = abs(s.inDir)
-            const files = fs.readdirSync(inAbs).filter(f => f.endsWith(".ttl")).sort()
-            ttls = files.map(f => fs.readFileSync(path.join(inAbs, f), "utf8"))
-            console.log(`clean  ${s.inDir} (${ttls.length} files) → ${s.outPath}`)
-        } else {
-            ttls = [fs.readFileSync(abs(s.inPath), "utf8")]
-            console.log(`clean  ${s.inPath} → ${s.outPath}`)
-        }
+const cleanSteps = []
+for (const src of sources) {
+    const name = sourceName(src)
+    cleanSteps.push(await journal.step("clean", { source: src, after: [stepIri("lift", name)] }, async () => {
+        const cleanQuery = fs.readFileSync(abs(PATHS.cleanQuery(name)), "utf8")
+        const inDir = PATHS.lifted(name)
+        const outPath = PATHS.cleaned(name)
+        // Run CONSTRUCT per file so each lifted TTL stays isolated in its
+        // own store — the clean SPARQL can't cross-join across documents.
+        const inAbs = abs(inDir)
+        const files = fs.readdirSync(inAbs).filter(f => f.endsWith(".ttl")).sort()
+        console.log(`clean  ${inDir} (${files.length} files) → ${outPath}`)
         const allQuads = []
-        for (const ttl of ttls) {
-            const src = storeFromTurtles([ttl])
-            allQuads.push(...await sparqlConstruct(cleanQuery, [src]))
+        for (const f of files) {
+            const fileStore = storeFromTurtles([fs.readFileSync(path.join(inAbs, f), "utf8")])
+            allQuads.push(...await sparqlConstruct(cleanQuery, [fileStore]))
         }
-        await writeTurtleFile(abs(s.outPath), allQuads, {
+        await writeTurtleFile(abs(outPath), allQuads, {
             xyz: "http://sparql.xyz/facade-x/data/",
             cdp: "https://civic-data.de/pipeline#",
         })
+    }))
+}
 
-    } else if (s.type === "Load") {
-        console.log(`load   ${s.inPath} → <${s.graph}>`)
-        const graph = df.namedNode(s.graph)
-        for (const quad of n3Parser.parse(fs.readFileSync(abs(s.inPath), "utf8"))) {
-            store.addQuad(df.quad(quad.subject, quad.predicate, quad.object, graph))
-        }
-
-    } else if (s.type === "Map") {
-        await runMap(s.directMappingQueries)
-        const quads = store.getQuads(null, null, null, MAPPED_GRAPH)
-        await writeTurtleFile(abs(s.outPath), quads, { ...COMMON_PREFIXES, cdp: CDP })
-        console.log(`map: wrote ${quads.length} triples → ${s.outPath}`)
-
-    } else if (s.type === "Match") {
-        await runMatch(store, s.outPath)
-
-    } else if (s.type === "Merge") {
-        await runMerge(store, s.outPath, s.provOutPath)
-
-    } else if (s.type === "Resolve") {
-        await runResolve(store, s.outPath)
+// Load each source's cleaned TTL into its own graph — plain mechanics, not a
+// pipeline step.
+for (const src of sources) {
+    const name = sourceName(src)
+    console.log(`load   ${PATHS.cleaned(name)} → <${sourceGraph(name)}>`)
+    const graph = df.namedNode(sourceGraph(name))
+    for (const quad of n3Parser.parse(fs.readFileSync(abs(PATHS.cleaned(name)), "utf8"))) {
+        store.addQuad(df.quad(quad.subject, quad.predicate, quad.object, graph))
     }
 }
+
+const mapStep = await journal.step("map", { after: cleanSteps }, async () => {
+    await runMap(PATHS.mappingQueries)
+    const mappedQuads = store.getQuads(null, null, null, MAPPED_GRAPH)
+    await writeTurtleFile(abs(PATHS.mapped), mappedQuads, { ...COMMON_PREFIXES, cdp: CDP })
+    console.log(`map: wrote ${mappedQuads.length} triples → ${PATHS.mapped}`)
+})
+const matchStep   = await journal.step("match",   { after: [mapStep] },   () => runMatch(store, PATHS.matches))
+const mergeStep   = await journal.step("merge",   { after: [matchStep] }, () => runMerge(store, PATHS.merged, PATHS.provenance))
+await journal.step("resolve", { after: [mergeStep] }, () => runResolve(store, PATHS.final))
+
+fs.writeFileSync(abs(PATHS.federateLog), `@prefix :      <${CDP}> .
+@prefix p-plan: <http://purl.org/net/p-plan#> .
+
+${journal.toTurtle()}
+`)
+console.log(`log:   wrote steps → ${PATHS.federateLog}`)

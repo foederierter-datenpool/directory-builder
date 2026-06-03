@@ -6,6 +6,7 @@
 @prefix foaf:   <http://xmlns.com/foaf/0.1/> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
+@prefix ft:     <http://publications.europa.eu/resource/authority/file-type/> .
 
 # ---- Federation ---------------------------------------------------------
 
@@ -14,7 +15,8 @@
     :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
     :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
     :hasMergeRule    :merge ;
-    :hasResolveRule  :resolve .
+    :hasResolveRule  :resolve ;
+    :hasRunParam     [ :name "plz" ; :value "10115", "10365", "10963", "10969", "13347", "13349", "13357" ] .
 
 # ---- Vocabulary ---------------------------------------------------------
 
@@ -85,6 +87,9 @@ cdf:CounselingCentre a rdfs:Class ;
 :caritasSource a :Source ;
     rdfs:label    "Caritas" ;
     skos:notation "ca" ;
+    :fetchUrl     "https://www.caritas.de/Api/search/searchbyquery" ;
+    :retrieval    "API" ;
+    :format       ft:JSON ;
     :hasField   :caritas-Categories, :caritas-ContentType, :caritas-ContentTypeGuid, :caritas-Date, :caritas-Distance,
                 :caritas-Format, :caritas-Guid, :caritas-Index, :caritas-LeadLine, :caritas-Link,
                 :caritas-OnlineConsultingUrl, :caritas-SearchResultHtml, :caritas-SubTitle, :caritas-Teaser,
@@ -112,6 +117,9 @@ cdf:CounselingCentre a rdfs:Class ;
 :sozialplattformSource a :Source ;
     rdfs:label    "Sozialplattform" ;
     skos:notation "sp" ;
+    :fetchUrl     "https://sozialplattform.de/content/de/api/v1/consultation/search" ;
+    :retrieval    "API" ;
+    :format       ft:JSON ;
     :hasField   :sp-offer_chat_topic, :sp-offer_external_id_booking, :sp-offer_external_service_booking,
                 :sp-offer_external_service_consulting, :sp-offer_external_service_link_text,
                 :sp-offer_external_service_link_url, :sp-offer_external_service_type, :sp-offer_id, :sp-offer_nid,
@@ -162,6 +170,11 @@ cdf:CounselingCentre a rdfs:Class ;
 :dhsSource a :Source ;
     rdfs:label    "Deutsche Hauptstelle für Suchtfragen (DHS)" ;
     skos:notation "dhs" ;
+    :fetchUrl     "https://www.dhs.de/service/suchthilfeverzeichnis/" ;
+    :retrieval    "API" ;
+    :format       ft:HTML ;
+    # Passed to the lift query as a SPARQL Anything variable
+    :hasLiftParam [ :name "selector" ; :value "html" ] ;
     :hasField   :dhs-angebote, :dhs-arbeit, :dhs-art, :dhs-barrierefrei, :dhs-department, :dhs-detailLink, :dhs-email,
                 :dhs-entryId, :dhs-name, :dhs-plzort, :dhs-strasse, :dhs-telefon, :dhs-traeger, :dhs-website,
                 :dhs-zeiten, :dhs-zielgruppe .
@@ -188,6 +201,8 @@ cdf:CounselingCentre a rdfs:Class ;
 :awoSource a :Source ;
     rdfs:label    "Arbeiterwohlfahrt (AWO)" ;
     skos:notation "awo" ;
+    :retrieval    "Files" ;
+    :format       ft:JSON ;
     :hasField   :awo-id, :awo-name, :awo-name_zusatz, :awo-webseite, :awo-parent_name,
                 :awo-adresse, :awo-plz, :awo-ort, :awo-ortsteil, :awo-category,
                 :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .

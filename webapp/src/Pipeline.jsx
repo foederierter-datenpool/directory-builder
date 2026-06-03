@@ -1,9 +1,12 @@
-// Pipeline view: the fetch→lift→…→resolve step graph from the pipeline config.
-// Reads:  config/pipeline.ttl, config/federation.ttl (via loadPipeline.js)
+// Pipeline view: the fetch→lift→…→resolve step graph the engines journaled
+// while running — evidence of the executed pipeline, not a hand-written plan.
+// Reads:  data/ingest/ingest-log.ttl, data/pipeline/federate-log.ttl,
+//         config/federation.ttl (via loadPipeline.js)
 // Does:   renders the Pipeline page (horizontal <ColumnGraph>) with a Source
 //         lane-header per Fetch and payload labels on the edges
 
-import pipelineTtl from "../../config/pipeline.ttl?raw"
+import ingestLogTtl from "../../data/ingest/ingest-log.ttl?raw"
+import federateLogTtl from "../../data/pipeline/federate-log.ttl?raw"
 import federationTtl from "../../config/federation.ttl?raw"
 import { loadPipeline } from "./loadPipeline.js"
 import ColumnGraph from "./ColumnGraph.jsx"
@@ -21,7 +24,7 @@ const COLORS = {
     Resolve: "#c5e0e8",
 }
 
-const { nodes, edges } = loadPipeline(pipelineTtl, federationTtl)
+const { nodes, edges } = loadPipeline([ingestLogTtl, federateLogTtl], federationTtl)
 
 export default function Pipeline() {
     return (

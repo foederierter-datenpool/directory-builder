@@ -1,10 +1,11 @@
 // Source identity lives in config: federation.ttl declares each :Source (label,
-// skos:notation, order); pipeline.ttl ties it to a cleaned-data file. JS never
-// hardcodes a source name — it resolves records to a :Source via cdp:fromSource.
-// Reads:  TTL strings passed in (federation, pipeline, mapped, ingest-log)
+// skos:notation, order); its cleaned-data file follows from the source name by
+// the PATHS conventions. JS never hardcodes a source name — it resolves records
+// to a :Source via cdp:fromSource.
+// Reads:  TTL strings passed in (federation, mapped, ingest-log)
 // Does:   returns lookup maps + helpers (used by loadMerge, OrgCard, MapGraph, MatchGraph)
 
-import { parseTtl } from "../../utils.js"
+import { parseTtl, PATHS, sourceName } from "../../utils.js"
 
 const NS = "https://civic-data.de/pipeline#"
 const RDFS_LABEL    = "http://www.w3.org/2000/01/rdf-schema#label"
@@ -13,9 +14,6 @@ const PROV_AT_TIME  = "http://www.w3.org/ns/prov#atTime"
 const HAS_SOURCE    = `${NS}hasSource`
 const FROM_SOURCE   = `${NS}fromSource`
 const OF_SOURCE     = `${NS}ofSource`
-const SOURCE_GRAPH  = `${NS}sourceGraph`
-const GRAPH         = `${NS}graph`
-const INPUT         = `${NS}input`
 
 // Map<SourceIRI, {iri, label, notation, order}> from federation.ttl; order
 // follows the :hasSource list. Assumes each :Source has a label and notation.
@@ -67,44 +65,18 @@ export function loadHarvestBySource(logTtl) {
     return out
 }
 
-// Map<SourceIRI, cleaned-TTL raw string>, resolved from config alone: federation
-// maps each :Source to a graph (:fromSource/:sourceGraph), pipeline maps that
-// graph to a file (:Load :graph/:input), then files are matched by basename.
+// Map<SourceIRI, cleaned-TTL raw string> for every source a :Mapping draws
+// from (:fromSource); the file is the conventional cleaned path's basename.
 // `rawByPath` comes from import.meta.glob(".../cleaned/*.ttl", ...).
-export function loadCleanedBySource(federationTtl, pipelineTtl, rawByPath) {
-    const sourceOf = new Map()
-    const sourceGraphOf = new Map()
-    for (const q of parseTtl(federationTtl)) {
-        if      (q.predicate.value === FROM_SOURCE)  sourceOf.set(q.subject.value, q.object.value)
-        else if (q.predicate.value === SOURCE_GRAPH) sourceGraphOf.set(q.subject.value, q.object.value)
-    }
-    const graphOfSource = new Map()
-    for (const [mapping, src] of sourceOf) {
-        const graph = sourceGraphOf.get(mapping)
-        if (graph) graphOfSource.set(src, graph)
-    }
-
-    const fileOfGraph = new Map()
-    const graphOfStep = new Map()
-    const inputOfStep = new Map()
-    for (const q of parseTtl(pipelineTtl)) {
-        if      (q.predicate.value === GRAPH) graphOfStep.set(q.subject.value, q.object.value)
-        else if (q.predicate.value === INPUT) inputOfStep.set(q.subject.value, q.object.value)
-    }
-    for (const [step, graph] of graphOfStep) {
-        const input = inputOfStep.get(step)
-        if (input) fileOfGraph.set(graph, input)
-    }
-
+export function loadCleanedBySource(federationTtl, rawByPath) {
     const basename = (p) => p.split("/").pop()
-    const rawByBase = new Map()
-    for (const [path, raw] of Object.entries(rawByPath)) rawByBase.set(basename(path), raw)
+    const rawByBase = new Map(Object.entries(rawByPath).map(([path, raw]) => [basename(path), raw]))
 
     const out = new Map()
-    for (const [src, graph] of graphOfSource) {
-        const file = fileOfGraph.get(graph)
-        const raw = file && rawByBase.get(basename(file))
-        if (raw) out.set(src, raw)
+    for (const q of parseTtl(federationTtl)) {
+        if (q.predicate.value !== FROM_SOURCE) continue
+        const raw = rawByBase.get(basename(PATHS.cleaned(sourceName(q.object.value))))
+        if (raw) out.set(q.object.value, raw)
     }
     return out
 }

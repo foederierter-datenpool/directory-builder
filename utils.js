@@ -8,6 +8,66 @@ const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 
 export const localName = (iri) => iri.replace(/^.*[#/]/, "")
 
+// ---- Path conventions ----------------------------------------------------
+// All file paths follow from the source name (the :Source IRI's local name
+// minus its "Source" suffix): a source's artefacts live in sources/<name>/,
+// its data flows through data/ingest/ and data/pipeline/ under the same name.
+
+export const sourceName = (sourceIri) => localName(sourceIri).replace(/Source$/, "")
+
+export const sourceGraph = (name) => `urn:source:${name}`
+
+// Local name of the step IRIs the engines mint when journaling their run
+// (ingest-log.ttl / federate-log.ttl): ("fetch", "caritas") → "fetchCaritas".
+// Shared so the journals' cross-file p-plan:isPrecededBy references line up.
+export const stepIri = (type, name) => type + name[0].toUpperCase() + name.slice(1)
+
+// Journal of executed pipeline steps, recorded as a side effect of running
+// them: step() executes fn and only then keeps the entry, so a step appears
+// in the journal iff it ran, and the isPrecededBy edges are the IRIs actual
+// execution threaded through (cross-engine edges reference the other
+// journal's IRIs via stepIri). Per-source steps mint stepIri(type, source
+// name), singletons "<type>Step". toTurtle() emits the p-plan triples; the
+// engine owns its file's prefix header.
+export function stepJournal() {
+    const steps = []
+    return {
+        async step(type, { source, after = [] } = {}, fn) {
+            const iri = source ? stepIri(type, sourceName(source)) : `${type}Step`
+            await fn()
+            steps.push({ iri, type, source, after })
+            return iri
+        },
+        toTurtle: () => steps.map((s) =>
+            `:${s.iri} a :${s.type[0].toUpperCase()}${s.type.slice(1)}, p-plan:Step` +
+            (s.source ? ` ; :fromSource :${localName(s.source)}` : "") +
+            (s.after.length ? ` ; p-plan:isPrecededBy ${s.after.map((a) => `:${a}`).join(", ")}` : "") +
+            " .").join("\n"),
+    }
+}
+
+// Engine invariant, mirrored for display: the lift step always emits Turtle
+// (ingest.js invokes SPARQL Anything with -f TTL).
+export const LIFTED_FORMAT = "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
+
+export const PATHS = {
+    fetchScript: (name) => `sources/${name}/fetch.js`,
+    staticDir:   (name) => `sources/${name}/static/`,
+    cleanQuery:  (name) => `sources/${name}/clean.sparql`,
+    liftQuery:   (formatIri) => `src/lift/${localName(formatIri).toLowerCase()}.sparql`,
+    raw:         (name) => `data/ingest/raw/${name}/`,
+    lifted:      (name) => `data/ingest/lifted/${name}/`,
+    cleaned:     (name) => `data/pipeline/cleaned/${name}.ttl`,
+    ingestLog:   "data/ingest/ingest-log.ttl",
+    federateLog: "data/pipeline/federate-log.ttl",
+    mappingQueries: "data/pipeline/direct-mapping-queries/",
+    mapped:      "data/pipeline/mapped.ttl",
+    matches:     "data/pipeline/matches.ttl",
+    merged:      "data/pipeline/merged.ttl",
+    provenance:  "data/pipeline/provenance.ttl",
+    final:       "data/pipeline/final.ttl",
+}
+
 // Format family of a file-type IRI (EU file-type authority): the code before
 // any "_", used as a short display label — .../RDF_TURTLE -> "RDF", .../JSON -> "JSON".
 export const formatFamily = (iri) => localName(iri).split("_")[0]
@@ -25,27 +85,6 @@ export const shrink = (iri, prefixMap) => {
         if (iri.startsWith(ns)) return `${p}:${iri.slice(ns.length)}`
     }
     return iri
-}
-
-// Kahn's algorithm: process nodes whose predecessors are all done, breaking
-// ties alphabetically for a deterministic ordering. Predecessors that fall
-// outside the loaded subset are silently ignored.
-export function topoSort(nodes, predsOf) {
-    const remaining = new Map()
-    for (const iri of nodes.keys()) remaining.set(iri, predsOf(iri).filter(p => nodes.has(p)).length)
-    const sorted = []
-    while (remaining.size) {
-        const ready = [...remaining].filter(([, n]) => n === 0).map(([iri]) => iri).sort()
-        if (!ready.length) throw new Error("Cycle in dependency graph")
-        for (const iri of ready) {
-            sorted.push(iri)
-            remaining.delete(iri)
-            for (const [other] of remaining) {
-                if (predsOf(other).includes(iri)) remaining.set(other, remaining.get(other) - 1)
-            }
-        }
-    }
-    return sorted
 }
 
 // Set of subjects typed `rdf:type typeIri`. Iteration order = encounter order.

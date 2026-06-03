@@ -1,9 +1,9 @@
-// Helper for the Sources view: aggregate per-:Source facts (label, field counts,
-// record count, freshness) across config + pipeline data.
-// Reads:  federation, pipeline, mapped, ingest-log TTL strings passed by Sources.jsx
+// Helper for the Sources view: aggregate per-:Source facts (label, URL, format,
+// field counts, record count, freshness) across config + pipeline data.
+// Reads:  federation, mapped, ingest-log TTL strings passed by Sources.jsx
 // Does:   returns source[] ({iri, label, format, totalFields, mappedFields, records, …})
 
-import { formatFamily, parseTtl, subjectsOfType } from "../../utils.js"
+import { formatFamily, parseTtl, PATHS, sourceName, subjectsOfType } from "../../utils.js"
 
 const NS = "https://civic-data.de/pipeline#"
 const PROV_AT_TIME = "http://www.w3.org/ns/prov#atTime"
@@ -14,9 +14,8 @@ const setAdd = (map, key, val) => {
     map.get(key).add(val)
 }
 
-export function loadSources(federationTtl, pipelineTtl, mappedTtl, ingestLogTtl) {
+export function loadSources(federationTtl, mappedTtl, ingestLogTtl) {
     const fedQuads = parseTtl(federationTtl)
-    const pipeQuads = parseTtl(pipelineTtl)
     const mappedQuads = mappedTtl ? parseTtl(mappedTtl) : []
     const logQuads = ingestLogTtl ? parseTtl(ingestLogTtl) : []
 
@@ -38,6 +37,10 @@ export function loadSources(federationTtl, pipelineTtl, mappedTtl, ingestLogTtl)
     for (const q of fedQuads) {
         const p = q.predicate.value
         if (p === RDFS_LABEL && sourceIris.has(q.subject.value))   get(q.subject.value).label = q.object.value
+        else if (p === `${NS}fetchUrl` && sourceIris.has(q.subject.value))
+                                               get(q.subject.value).fetchUrl = q.object.value
+        else if (p === `${NS}format` && sourceIris.has(q.subject.value))
+                                               get(q.subject.value).format = formatFamily(q.object.value)
         else if (p === `${NS}hasField`)        setAdd(topFieldsOf, q.subject.value, q.object.value)
         else if (p === `${NS}hasSubField`)     setAdd(subFieldsOf, q.subject.value, q.object.value)
         else if (p === `${NS}fromSource`)      mappingSource.set(q.subject.value, q.object.value)
@@ -61,24 +64,9 @@ export function loadSources(federationTtl, pipelineTtl, mappedTtl, ingestLogTtl)
         get(sourceIri).mappedFields = mapped.size
     }
 
-    // Pipeline-level: fetchUrl / staticSource + format via :fromSource on Fetch step.
-    const fetchUrlByStep = new Map()
-    const staticSourceByStep = new Map()
-    const formatByStep = new Map()
-    const stepToSource = new Map()
-    for (const q of pipeQuads) {
-        const p = q.predicate.value
-        if (p === `${NS}fetchUrl`)          fetchUrlByStep.set(q.subject.value, q.object.value)
-        else if (p === `${NS}staticSource`) staticSourceByStep.set(q.subject.value, q.object.value)
-        else if (p === `${NS}format`)       formatByStep.set(q.subject.value, q.object.value)
-        else if (p === `${NS}fromSource`)   stepToSource.set(q.subject.value, q.object.value)
-    }
-    for (const [step, sourceIri] of stepToSource) {
-        if (!sourceIris.has(sourceIri)) continue
-        const s = get(sourceIri)
-        if (fetchUrlByStep.has(step))     s.fetchUrl     = fetchUrlByStep.get(step)
-        if (staticSourceByStep.has(step)) s.staticSource = staticSourceByStep.get(step)
-        if (formatByStep.has(step))       s.format       = formatFamily(formatByStep.get(step))
+    // Static-file sources (no :fetchUrl) read from the conventional static dir.
+    for (const sourceIri of sourceIris) {
+        if (!get(sourceIri).fetchUrl) get(sourceIri).staticSource = PATHS.staticDir(sourceName(sourceIri))
     }
 
     // Records: count distinct orgs in mapped.ttl per source via cdp:fromSource.
