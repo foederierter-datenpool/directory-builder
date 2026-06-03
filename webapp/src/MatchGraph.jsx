@@ -20,7 +20,8 @@ import { loadMatch } from "./loadMatch.js"
 const SCHEMA_IDENTIFIER = "http://schema.org/identifier"
 const CDF_NS = "https://civic-data.de/federated-directory#"
 const CDP_NS = "https://civic-data.de/pipeline#"
-const HAS_MATCH_CRITERION = `${CDP_NS}hasMatchCriterion`
+const HARD_CRITERION = `${CDP_NS}hasHardCriterion`
+const WEIGHTED_CRITERION = `${CDP_NS}hasWeightedCriterion`
 const ON = `${CDP_NS}on`
 const OWL_SAME_AS = "http://www.w3.org/2002/07/owl#sameAs"
 
@@ -40,7 +41,7 @@ const sourceCode = (iri) => { const s = sourceOfRecord.get(iri); return (s && so
 const criteriaPredicates = (() => {
     const quads = parseTtl(federationTtl)
     const bnodes = new Set()
-    for (const q of quads) if (q.predicate.value === HAS_MATCH_CRITERION) bnodes.add(q.object.value)
+    for (const q of quads) if (q.predicate.value === HARD_CRITERION || q.predicate.value === WEIGHTED_CRITERION) bnodes.add(q.object.value)
     return quads.filter(q => q.predicate.value === ON && bnodes.has(q.subject.value)).map(q => q.object.value)
 })()
 

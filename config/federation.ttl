@@ -334,11 +334,11 @@ cdf:CounselingCentre a rdfs:Class ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "org-" ;
     :matchKnowledgeGraph "config/match-knowledge.ttl" ;
-    :minScore            0.85 ;
-    :hasMatchCriterion
+    :hasHardCriterion     [ :on schema:postalCode ] ;
+    :minScore             0.55 ;
+    :hasWeightedCriterion
         [ :on schema:name          ; :weight 0.5 ; :stripBeforeMatch :berlinBezirke ] ,
-        [ :on schema:postalCode    ; :weight 0.3 ; :minSimilarity 1.0 ] ,
-        [ :on schema:streetAddress ; :weight 0.2 ] .
+        [ :on schema:streetAddress ; :weight 0.2 ; :minSimilarity 0.7 ] .
 
 :traegerMatch a :MatchRule ;
     :forTarget           :traegerSchema ;
@@ -348,7 +348,10 @@ cdf:CounselingCentre a rdfs:Class ;
 :angebotMatch a :MatchRule ;
     :forTarget           :angebotSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
-    :mintedSubjectPrefix "service-" .
+    :mintedSubjectPrefix "service-" ;
+    :hasHardCriterion     [ :on schema:provider ] ;
+    :minScore             0.85 ;
+    :hasWeightedCriterion [ :on schema:name ; :weight 1.0 ] .
 
 # ---- Merge --------------------------------------------------------------
 

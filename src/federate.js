@@ -284,10 +284,16 @@ const runMatch = async (store, outPath) => {
     const criteriaRows = await sparqlSelect(`
         PREFIX : <https://civic-data.de/pipeline#>
         SELECT ?match ?on ?weight ?minSim ?stripList WHERE {
-            ?match a :MatchRule ; :hasMatchCriterion ?c .
+            ?match a :MatchRule ; :hasWeightedCriterion ?c .
             ?c :on ?on ; :weight ?weight .
             OPTIONAL { ?c :minSimilarity ?minSim }
             OPTIONAL { ?c :stripBeforeMatch ?stripList }
+        }`, [defStore])
+    // Hard criteria: fields that must be identical in both records (pass/fail gates).
+    const hardRows = await sparqlSelect(`
+        PREFIX : <https://civic-data.de/pipeline#>
+        SELECT ?match ?on WHERE {
+            ?match a :MatchRule ; :hasHardCriterion ?h . ?h :on ?on .
         }`, [defStore])
     const tokenRows = await sparqlSelect(`
         PREFIX : <https://civic-data.de/pipeline#>
@@ -324,6 +330,11 @@ const runMatch = async (store, outPath) => {
             strip:  r.stripList ? buildStripper(r.stripList) : null,
         })
     }
+    const hardByMatch = new Map()
+    for (const r of hardRows) {
+        if (!hardByMatch.has(r.match)) hardByMatch.set(r.match, [])
+        hardByMatch.get(r.match).push({ pred: df.namedNode(r.on) })
+    }
     // owl:sameAs assertions are shared; each pass only acts on the pairs whose
     // endpoints are in its own subject set (gated by parent.has below).
     const sameAsRows = await sparqlSelect(`
@@ -351,35 +362,37 @@ const runMatch = async (store, outPath) => {
         const namespace    = rule.ns
         const mintedPrefix = rule.prefix
         const minScore     = parseFloat(rule.minScore)
-        const criteria     = criteriaByMatch.get(rule.match) ?? []
+        const hard     = hardByMatch.get(rule.match) ?? []
+        const weighted = criteriaByMatch.get(rule.match) ?? []
 
         // Subjects of this rule's target class only — passes never cross types.
         const subjects = [...new Set(store.getQuads(null, RDF_TYPE, df.namedNode(rule.targetClass), MAPPED_GRAPH)
             .filter(qu => qu.subject.termType === "NamedNode")
             .map(qu => qu.subject.value))]
 
-        const valuesFor = new Map()
-        for (const s of subjects) {
-            const subj = df.namedNode(s)
-            valuesFor.set(s, criteria.map(c => {
-                const qs = store.getQuads(subj, c.pred, null, MAPPED_GRAPH)
-                return qs.length ? qs[0].object.value : null
-            }))
+        const valOf = (s, pred) => {
+            const qs = store.getQuads(df.namedNode(s), pred, null, MAPPED_GRAPH)
+            return qs.length ? qs[0].object.value : null
         }
+        const hardVals     = new Map(subjects.map(s => [s, hard.map(h => valOf(s, h.pred))]))
+        const weightedVals = new Map(subjects.map(s => [s, weighted.map(c => valOf(s, c.pred))]))
 
-        // Weighted aggregate: sum(sim_i * weight_i) over all criteria, vs. minScore.
-        // A criterion may also declare a hard floor via :minSimilarity (e.g. PLZ
-        // must equal 1.0); failing the floor short-circuits regardless of aggregate.
+        // A pair matches when every hard criterion is present and identical in both,
+        // and the weighted criteria's aggregate (sum of sim·weight, each optionally
+        // floored by :minSimilarity) clears :minScore. No criteria at all → every
+        // subject stays its own cluster.
         const matches = (a, b) => {
-            // No criteria → no basis to declare two records the same; every
-            // subject stays its own cluster (independent of :minScore).
-            if (!criteria.length) return null
-            const va = valuesFor.get(a), vb = valuesFor.get(b)
+            if (!hard.length && !weighted.length) return null
+            const ha = hardVals.get(a), hb = hardVals.get(b)
+            for (let i = 0; i < hard.length; i++) {
+                if (ha[i] == null || hb[i] == null || ha[i] !== hb[i]) return null
+            }
+            const va = weightedVals.get(a), vb = weightedVals.get(b)
             const scores = []
             let weightedSum = 0
-            for (let i = 0; i < criteria.length; i++) {
+            for (let i = 0; i < weighted.length; i++) {
                 if (va[i] == null || vb[i] == null) return null
-                const c = criteria[i]
+                const c = weighted[i]
                 const a2 = c.strip ? c.strip(va[i]) : va[i]
                 const b2 = c.strip ? c.strip(vb[i]) : vb[i]
                 const sim = similarity(a2, b2)
@@ -388,7 +401,7 @@ const runMatch = async (store, outPath) => {
                               strippedA: c.strip ? a2 : null, strippedB: c.strip ? b2 : null })
                 weightedSum += sim * c.weight
             }
-            if (weightedSum < minScore) return null
+            if (weighted.length && weightedSum < minScore) return null
             return { scores, aggregate: weightedSum }
         }
 
