@@ -247,18 +247,12 @@ const runMatch = async (store, outPath) => {
         } ORDER BY ?match`, [defStore])
     if (!rules.length) throw new Error(":MatchRule config missing in federation.ttl")
 
-    // Stop-token lists from match-knowledge.ttl: any criterion with
-    // :stripBeforeMatch ?list gets ?list's :token literals stripped (whole
-    // word, case-insensitive) from both values before similarity is computed.
-    // The stripped form is used only for scoring; the original values stay
-    // verbatim in mapped.ttl and in the evidence's :valueA/:valueB.
     const criteriaRows = await sparqlSelect(`
         PREFIX : <https://civic-data.de/pipeline#>
-        SELECT ?match ?on ?weight ?minSim ?stripList WHERE {
+        SELECT ?match ?on ?weight ?minSim WHERE {
             ?match a :MatchRule ; :hasWeightedCriterion ?c .
             ?c :on ?on ; :weight ?weight .
             OPTIONAL { ?c :minSimilarity ?minSim }
-            OPTIONAL { ?c :stripBeforeMatch ?stripList }
         }`, [defStore])
     // Hard criteria: fields that must be identical in both records (pass/fail gates).
     const hardRows = await sparqlSelect(`
@@ -266,30 +260,6 @@ const runMatch = async (store, outPath) => {
         SELECT ?match ?on WHERE {
             ?match a :MatchRule ; :hasHardCriterion ?h . ?h :on ?on .
         }`, [defStore])
-    const tokenRows = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
-        SELECT ?list ?token WHERE { ?list a :StopTokenList ; :token ?token }`, [defStore])
-    const tokensByList = new Map()
-    for (const r of tokenRows) {
-        if (!tokensByList.has(r.list)) tokensByList.set(r.list, [])
-        tokensByList.get(r.list).push(r.token)
-    }
-    const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-    const buildStripper = (listIri) => {
-        const tokens = tokensByList.get(listIri) ?? []
-        if (!tokens.length) return null
-        const re = new RegExp(`\\b(?:${tokens.map(escapeRe).join("|")})\\b`, "giu")
-        return (s) => {
-            const original = s ?? ""
-            const stripped = original.replace(re, " ").replace(/\s+/g, " ").trim()
-            // Guard: if stripping leaves fewer than 2 tokens, keep the original.
-            // Protects short names like "AID Lichtenberg" from collapsing to a
-            // single generic token; long names like "Pfarrei St. Mauritius -
-            // Lichtenberg-Friedrichshain" still lose their geographic suffix.
-            const remaining = stripped.split(/\s+/).filter(Boolean).length
-            return remaining >= 2 ? stripped : original
-        }
-    }
     // Criteria keyed by their owning rule, so each pass scores on its own fields.
     const criteriaByMatch = new Map()
     for (const r of criteriaRows) {
@@ -298,7 +268,6 @@ const runMatch = async (store, outPath) => {
             pred:   df.namedNode(r.on),
             weight: parseFloat(r.weight),
             minSim: r.minSim != null ? parseFloat(r.minSim) : null,
-            strip:  r.stripList ? buildStripper(r.stripList) : null,
         })
     }
     const hardByMatch = new Map()
@@ -322,8 +291,6 @@ const runMatch = async (store, outPath) => {
     const WEIGHT             = df.namedNode(CDP + "weight")
     const VALUE_A            = df.namedNode(CDP + "valueA")
     const VALUE_B            = df.namedNode(CDP + "valueB")
-    const STRIPPED_A         = df.namedNode(CDP + "strippedValueA")
-    const STRIPPED_B         = df.namedNode(CDP + "strippedValueB")
     const AGGREGATE_SCORE    = df.namedNode(CDP + "aggregateScore")
     const VIA_MANUAL_MATCH   = df.namedNode(CDP + "viaManualMatch")
     const XSD_DECIMAL        = df.namedNode("http://www.w3.org/2001/XMLSchema#decimal")
@@ -364,12 +331,9 @@ const runMatch = async (store, outPath) => {
             for (let i = 0; i < weighted.length; i++) {
                 if (va[i] == null || vb[i] == null) return null
                 const c = weighted[i]
-                const a2 = c.strip ? c.strip(va[i]) : va[i]
-                const b2 = c.strip ? c.strip(vb[i]) : vb[i]
-                const sim = similarity(a2, b2)
+                const sim = similarity(va[i], vb[i])
                 if (c.minSim != null && sim < c.minSim) return null
-                scores.push({ pred: c.pred, sim, weight: c.weight, valueA: va[i], valueB: vb[i],
-                              strippedA: c.strip ? a2 : null, strippedB: c.strip ? b2 : null })
+                scores.push({ pred: c.pred, sim, weight: c.weight, valueA: va[i], valueB: vb[i] })
                 weightedSum += sim * c.weight
             }
             if (weighted.length && weightedSum < minScore) return null
@@ -445,10 +409,6 @@ const runMatch = async (store, outPath) => {
                     store.addQuad(df.quad(cNode, WEIGHT, df.literal(s.weight.toFixed(2), XSD_DECIMAL), MATCH_GRAPH))
                     store.addQuad(df.quad(cNode, VALUE_A, df.literal(s.valueA), MATCH_GRAPH))
                     store.addQuad(df.quad(cNode, VALUE_B, df.literal(s.valueB), MATCH_GRAPH))
-                    if (s.strippedA !== null) {
-                        store.addQuad(df.quad(cNode, STRIPPED_A, df.literal(s.strippedA), MATCH_GRAPH))
-                        store.addQuad(df.quad(cNode, STRIPPED_B, df.literal(s.strippedB), MATCH_GRAPH))
-                    }
                 }
             }
         }

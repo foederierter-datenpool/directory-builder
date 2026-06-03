@@ -346,7 +346,7 @@ cdf:CounselingCentre a rdfs:Class ;
     :hasHardCriterion     [ :on schema:postalCode ] ;
     :minScore             0.55 ;
     :hasWeightedCriterion
-        [ :on schema:name          ; :weight 0.5 ; :stripBeforeMatch :berlinBezirke ] ,
+        [ :on schema:name          ; :weight 0.5 ] ,
         [ :on schema:streetAddress ; :weight 0.2 ; :minSimilarity 0.7 ] .
 
 :traegerMatch a :MatchRule ;

@@ -15,12 +15,3 @@
 # "ZENTRUM FÜR VERHALTENSSUCHT - Frühintervention, Beratung und Nachsorge (Café Beispiellos + Lost in Space)" (caritas) <> "Cafe Beispiellos / Lost in Space Beratungsstelle für Glücksspiel-, Computerspiel- und Internetsüchtige und deren Angehörige" (sozialplattform)
 :sp-org-f0014df88f6e
     owl:sameAs :caritas-e5486914-965e-40b6-9d06-e94f3dcc8d3e .
-
-# ---- Stop-token lists ---------------------------------------------------
-
-:berlinBezirke a :StopTokenList ;
-    :token "Berlin", "Mitte", "Friedrichshain", "Kreuzberg", "Pankow",
-        "Charlottenburg", "Wilmersdorf", "Spandau", "Steglitz",
-        "Zehlendorf", "Tempelhof", "Schöneberg", "Neukölln",
-        "Treptow", "Köpenick", "Marzahn", "Hellersdorf",
-        "Lichtenberg", "Reinickendorf" .
