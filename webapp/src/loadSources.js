@@ -3,9 +3,8 @@
 // Reads:  federation, mapped, ingest-log TTL strings passed by Sources.jsx
 // Does:   returns source[] ({iri, label, format, totalFields, mappedFields, records, …})
 
-import { formatFamily, parseTtl, PATHS, sourceName, subjectsOfType } from "../../utils.js"
+import { CDP as NS, formatFamily, parseTtl, PATHS, sourceName, subjectsOfType } from "../../utils.js"
 
-const NS = "https://civic-data.de/pipeline#"
 const PROV_AT_TIME = "http://www.w3.org/ns/prov#atTime"
 const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label"
 

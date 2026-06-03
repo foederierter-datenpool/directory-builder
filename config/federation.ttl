@@ -342,7 +342,6 @@ cdf:CounselingCentre a rdfs:Class ;
     :forTarget           :beratungsstelleSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "org-" ;
-    :matchKnowledgeGraph "config/match-knowledge.ttl" ;
     :hasHardCriterion     [ :on schema:postalCode ] ;
     :minScore             0.55 ;
     :hasWeightedCriterion

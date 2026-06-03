@@ -6,6 +6,9 @@ import { Parser } from "n3"
 
 const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 
+// The engine's vocabulary namespace (config, journals, cdp: in artifacts).
+export const CDP = "https://civic-data.de/pipeline#"
+
 export const localName = (iri) => iri.replace(/^.*[#/]/, "")
 
 // ---- Path conventions ----------------------------------------------------
@@ -51,6 +54,8 @@ export function stepJournal() {
 export const LIFTED_FORMAT = "http://publications.europa.eu/resource/authority/file-type/RDF_TURTLE"
 
 export const PATHS = {
+    federation:     "config/federation.ttl",
+    matchKnowledge: "config/match-knowledge.ttl",
     fetchScript: (name) => `sources/${name}/fetch.js`,
     staticDir:   (name) => `sources/${name}/static/`,
     cleanQuery:  (name) => `sources/${name}/clean.sparql`,
@@ -87,6 +92,13 @@ export const shrink = (iri, prefixMap) => {
     }
     return iri
 }
+
+// Objects of every `predIri` triple, deduped, in encounter order. RDF has no
+// statement order, but Turtle parse order preserves it — so the federation's
+// :hasSource declaration order is meaningful and governs source ordering
+// everywhere (engine runs, journals, webapp lanes/cards).
+export const objectsOf = (quads, predIri) =>
+    [...new Set(quads.filter((q) => q.predicate.value === predIri).map((q) => q.object.value))]
 
 // Set of subjects typed `rdf:type typeIri`. Iteration order = encounter order.
 export function subjectsOfType(quads, typeIri) {
@@ -126,21 +138,3 @@ export function groupBySubject(quads, { literalsOnly = false } = {}) {
     }
     return out
 }
-
-// Reference snippet — kept for re-use, not currently invoked.
-const fetchPostalCodesFromWikidata = async () => {
-    const QUERY = `SELECT DISTINCT ?postalCode WHERE {
-    # Bezirk Mitte | postal code
-        wd:Q163966 wdt:P281 ?postalCode .
-    } ORDER BY ?postalCode`
-    const url = `https://query.wikidata.org/sparql?query=${encodeURIComponent(QUERY)}`
-    const res = await fetch(url, {headers: {
-        "Accept":     "application/sparql-results+json",
-        "User-Agent": "directory-builder",
-    }})
-    if (!res.ok) throw new Error(`Wikidata returned ${res.status}: ${await res.text()}`)
-    const {results} = await res.json()
-    for (const b of results.bindings) console.log(b.postalCode.value)
-}
-
-// await fetchPostalCodesFromWikidata()

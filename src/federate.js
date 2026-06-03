@@ -1,5 +1,5 @@
 import { newStore, parser as n3Parser, sparqlConstruct, sparqlInsertDelete, sparqlSelect, storeFromTurtles } from "@foerderfunke/sem-ops-utils"
-import { buildPrefixBlock, PATHS, shrink, sourceGraph, sourceName, stepIri, stepJournal } from "../utils.js"
+import { buildPrefixBlock, CDP, objectsOf, parseTtl, PATHS, shrink, sourceGraph, sourceName, stepIri, stepJournal } from "../utils.js"
 import { token_set_ratio } from "fuzzball"
 import { DataFactory, Writer } from "n3"
 import { createHash } from "crypto"
@@ -10,9 +10,8 @@ const df = DataFactory
 
 const ROOT = path.join(import.meta.dirname, "..")
 const abs = (p) => path.join(ROOT, p)
-const defStore = storeFromTurtles(
-    ["config/federation.ttl", "config/match-knowledge.ttl"].map(p => fs.readFileSync(abs(p), "utf8"))
-)
+const federationTtl = fs.readFileSync(abs(PATHS.federation), "utf8")
+const defStore = storeFromTurtles([federationTtl, fs.readFileSync(abs(PATHS.matchKnowledge), "utf8")])
 
 // Dedupe via a Store and sort by subject so the Writer can emit grouped
 // "subject p1 o1; p2 o2." blocks instead of repeating subjects. Strips
@@ -34,17 +33,14 @@ const writeTurtleFile = (filePath, quads, prefixes = {}) => new Promise((resolve
 
 // ---- Read the sources ----------------------------------------------------
 // The step sequence (clean per source, load, map → match → merge → resolve)
-// is the engine's own shape; config declares only the sources. Paths follow
-// from the source name (see utils.js PATHS).
+// is the engine's own shape; config declares only the sources, processed in
+// :hasSource declaration order. Paths follow from the source name (PATHS).
 
-const sources = (await sparqlSelect(`
-    PREFIX : <https://civic-data.de/pipeline#>
-    SELECT ?source WHERE { :federation :hasSource ?source } ORDER BY ?source`, [defStore])).map(r => r.source)
+const sources = objectsOf(parseTtl(federationTtl), `${CDP}hasSource`)
 
 // ---- Direct-mapping generator ------------------------------------------
 
 const XYZ = "http://sparql.xyz/facade-x/data/"
-const CDP = "https://civic-data.de/pipeline#"
 
 const buildDirectInsert = ({ sourceGraph, source, targetClass, target }, fields) => {
     const prefixes = {
@@ -121,7 +117,7 @@ ${insertBlock}
 
 const runMap = async (queriesDir) => {
     const mappings = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?mapping ?source ?sourceGraph ?target ?targetClass WHERE {
             ?mapping a :Mapping ;
                 :fromSource ?source .
@@ -132,7 +128,7 @@ const runMap = async (queriesDir) => {
 
     for (const m of mappings) {
         const directRows = await sparqlSelect(`
-            PREFIX : <https://civic-data.de/pipeline#>
+            PREFIX : <${CDP}>
             SELECT ?fieldPath ?predicate ?parentPath WHERE {
                 <${m.mapping}> :hasFieldMapping ?fm .
                 ?fm :from ?src ; :to ?tgt .
@@ -155,7 +151,7 @@ const runMap = async (queriesDir) => {
         // :via names a transform of the mapping's source — the script path
         // follows by convention (sources/<source>/transform-<via>.sparql).
         const viaRows = await sparqlSelect(`
-            PREFIX : <https://civic-data.de/pipeline#>
+            PREFIX : <${CDP}>
             SELECT DISTINCT ?via WHERE {
                 <${m.mapping}> :hasFieldMapping/:via ?via .
             } ORDER BY ?via`, [defStore])
@@ -172,7 +168,7 @@ const runMap = async (queriesDir) => {
     // two ends by their cdp:targetSchema. Both ends are still source IRIs here;
     // the merge step rewrites them to the minted cluster IRIs.
     const linkRows = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?mapping ?sourceGraph ?fromSchema ?sourcePredicate ?targetPredicate ?toSchema WHERE {
             ?mapping a :Mapping ;
                 :sourceGraph     ?sourceGraph ;
@@ -236,7 +232,7 @@ const runMatch = async (store, outPath) => {
     // One match rule per target schema; each rule scores its own fields, mints
     // with its own prefix, and clusters only subjects of its :targetClass.
     const rules = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?match ?targetClass ?ns ?prefix ?minScore WHERE {
             ?match a :MatchRule ;
                 :forTarget           ?target ;
@@ -248,7 +244,7 @@ const runMatch = async (store, outPath) => {
     if (!rules.length) throw new Error(":MatchRule config missing in federation.ttl")
 
     const criteriaRows = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?match ?on ?weight ?minSim WHERE {
             ?match a :MatchRule ; :hasWeightedCriterion ?c .
             ?c :on ?on ; :weight ?weight .
@@ -256,7 +252,7 @@ const runMatch = async (store, outPath) => {
         }`, [defStore])
     // Hard criteria: fields that must be identical in both records (pass/fail gates).
     const hardRows = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?match ?on WHERE {
             ?match a :MatchRule ; :hasHardCriterion ?h . ?h :on ?on .
         }`, [defStore])
@@ -425,7 +421,7 @@ const runMatch = async (store, outPath) => {
 
 const runMerge = async (store, outPath, provOutPath) => {
     const [cfg] = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?ns ?originPred WHERE {
             ?match a :MatchRule ; :targetNamespace ?ns .
             ?merge a :MergeRule ; :originPredicate ?originPred .
@@ -485,7 +481,7 @@ const lookupStrategy = (iri) => {
 
 const runResolve = async (store, outPath) => {
     const [cfg] = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?strategy ?ns WHERE {
             ?resolve a :ResolveRule ; :defaultStrategy ?strategy .
             ?match   a :MatchRule   ; :targetNamespace ?ns .
@@ -494,7 +490,7 @@ const runResolve = async (store, outPath) => {
     const defaultPick = lookupStrategy(cfg.strategy)
 
     const overrideRows = await sparqlSelect(`
-        PREFIX : <https://civic-data.de/pipeline#>
+        PREFIX : <${CDP}>
         SELECT ?on ?strategy WHERE {
             ?resolve a :ResolveRule ; :hasOverride [ :on ?on ; :strategy ?strategy ] .
         }`, [defStore])
@@ -516,9 +512,8 @@ const runResolve = async (store, outPath) => {
 
 // ---- Run: clean per source, load, then map → match → merge → resolve -----
 // Each step runs through the journal, which records what executed and is
-// rendered by the webapp's Pipeline page — evidence, not a hand-written plan.
-// The clean steps' predecessors are the other engine's lift steps,
-// referenced by their conventional stepIri.
+// rendered by the webapp's Pipeline page. The clean steps' predecessors are
+// the other engine's lift steps, referenced by their conventional stepIri.
 
 const store = newStore()
 const journal = stepJournal()
@@ -542,7 +537,7 @@ for (const src of sources) {
         }
         await writeTurtleFile(abs(outPath), allQuads, {
             xyz: "http://sparql.xyz/facade-x/data/",
-            cdp: "https://civic-data.de/pipeline#",
+            cdp: CDP,
         })
     }))
 }

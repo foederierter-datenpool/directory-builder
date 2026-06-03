@@ -8,9 +8,8 @@
 //         matches.ttl (clusters + hasMember), merged.ttl (rdf:type, name, links)
 // Does:   returns everything <ColumnGraph> needs + a per-lane nodeY layout.
 
-import { localName, parseTtl, shrink, subjectsOfType } from "../../utils.js"
+import { CDP as NS, localName, parseTtl, shrink, subjectsOfType } from "../../utils.js"
 
-const NS  = "https://civic-data.de/pipeline#"
 const CDF = "https://civic-data.de/federated-directory#"
 const S   = "http://schema.org/"
 const RDF_TYPE   = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"

@@ -3,10 +3,9 @@
 // Reads:  TTL strings passed by mergeOrgs.js; resolves sources via sourceMeta.js
 // Does:   returns org[] (each {iri, label, type, fields[], sources[]})
 
-import { parseTtl, shrink } from "../../utils.js"
+import { CDP as NS, parseTtl, shrink } from "../../utils.js"
 import { compareSources, loadSourceMeta } from "./sourceMeta.js"
 
-const NS = "https://civic-data.de/pipeline#"
 const PROV_DERIVED_FROM = "http://www.w3.org/ns/prov#wasDerivedFrom"
 const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 const RDF_REIFIES = "http://www.w3.org/1999/02/22-rdf-syntax-ns#reifies"

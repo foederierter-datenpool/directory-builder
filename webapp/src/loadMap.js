@@ -3,9 +3,8 @@
 // Reads:  TTL strings passed by MapGraph.jsx (federation, mapped, cleaned source TTL)
 // Does:   returns { nodes, edges } plus per-source / per-org value maps
 
-import { localName, parseTtl, shrink, sourceName, subjectsOfType, typesOf } from "../../utils.js"
+import { CDP as NS, localName, parseTtl, shrink, sourceName, subjectsOfType, typesOf } from "../../utils.js"
 
-const NS = "https://civic-data.de/pipeline#"
 const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label"
 const NODE_TYPES = [`${NS}Source`, `${NS}SourceField`, `${NS}TargetField`, `${NS}TargetSchema`]
 const SUB_FIELD = `${NS}SubField`

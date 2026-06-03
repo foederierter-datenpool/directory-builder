@@ -4,7 +4,7 @@
 
 import { datasetToTurtleWriter } from "@foerderfunke/sem-ops-utils/core"
 import { turtleToJsonLdObj } from "@foerderfunke/sem-ops-utils/jsonld"
-import { groupBySubject, parseTtl, shrink, subjectsOfType } from "../../utils.js"
+import { CDP, groupBySubject, parseTtl, shrink, subjectsOfType } from "../../utils.js"
 import { toSozialplattformJson } from "./exporters/sozialplattform.js"
 import { federationTtl, finalTtl } from "./instanceData.js"
 import React, { useState } from "react"
@@ -18,18 +18,17 @@ const PREFIXES = {
     cdf:    "https://civic-data.de/federated-directory#",
 }
 
-const PIPELINE_NS = "https://civic-data.de/pipeline#"
 
 function readTargetFields() {
     const quads = parseTtl(federationTtl)
-    const isTargetField = subjectsOfType(quads, `${PIPELINE_NS}TargetField`)
+    const isTargetField = subjectsOfType(quads, `${CDP}TargetField`)
     const fieldOrder = []
     const seen = new Set()
     const predicateOf = new Map()
     for (const q of quads) {
-        if (q.predicate.value === `${PIPELINE_NS}hasTargetField`) {
+        if (q.predicate.value === `${CDP}hasTargetField`) {
             if (!seen.has(q.object.value)) { seen.add(q.object.value); fieldOrder.push(q.object.value) }
-        } else if (q.predicate.value === `${PIPELINE_NS}targetPredicate`) {
+        } else if (q.predicate.value === `${CDP}targetPredicate`) {
             predicateOf.set(q.subject.value, q.object.value)
         }
     }

@@ -1,5 +1,5 @@
 import { sparqlSelect, storeFromTurtles } from "@foerderfunke/sem-ops-utils"
-import { PATHS, sourceName, stepJournal } from "../utils.js"
+import { CDP, objectsOf, parseTtl, PATHS, sourceName, stepJournal } from "../utils.js"
 import { execSync, spawnSync } from "child_process"
 import path from "path"
 import fs from "fs"
@@ -7,8 +7,8 @@ import fs from "fs"
 const ROOT = path.join(import.meta.dirname, "..")
 const JAR = path.join(ROOT, "tools/sparql-anything.jar")
 const abs = (p) => path.join(ROOT, p)
-const NS = "https://civic-data.de/pipeline#"
-const defStore = storeFromTurtles(["config/federation.ttl"].map(p => fs.readFileSync(abs(p), "utf8")))
+const federationTtl = fs.readFileSync(abs(PATHS.federation), "utf8")
+const defStore = storeFromTurtles([federationTtl])
 
 const run = (cmd, args) => {
     const r = spawnSync(cmd, args, { stdio: "inherit" })
@@ -18,20 +18,21 @@ const run = (cmd, args) => {
 // ---- Read the sources ----------------------------------------------------
 // The step graph (fetch → lift per source) is the engine's own shape; config
 // declares only the sources and their facts. Lift params are SPARQL Anything
-// variables declared per source.
+// variables declared per source. Sources run in :hasSource declaration order.
 
-const sources = new Map()
+const facts = new Map()
 for (const r of await sparqlSelect(`
-    PREFIX : <${NS}>
+    PREFIX : <${CDP}>
     SELECT ?source ?fetchUrl ?format ?paramName ?paramValue WHERE {
         :federation :hasSource ?source .
         OPTIONAL { ?source :fetchUrl ?fetchUrl }
         OPTIONAL { ?source :format   ?format   }
         OPTIONAL { ?source :hasLiftParam [ :name ?paramName ; :value ?paramValue ] }
-    } ORDER BY ?source`, [defStore])) {
-    if (!sources.has(r.source)) sources.set(r.source, { fetchUrl: r.fetchUrl, format: r.format, params: [] })
-    if (r.paramName) sources.get(r.source).params.push([r.paramName, r.paramValue])
+    }`, [defStore])) {
+    if (!facts.has(r.source)) facts.set(r.source, { fetchUrl: r.fetchUrl, format: r.format, params: [] })
+    if (r.paramName) facts.get(r.source).params.push([r.paramName, r.paramValue])
 }
+const sources = new Map(objectsOf(parseTtl(federationTtl), `${CDP}hasSource`).map((iri) => [iri, facts.get(iri)]))
 for (const [iri, s] of sources) {
     if (!s.format) throw new Error(`${iri} declares no :format (needed to pick the lift query)`)
 }
@@ -57,7 +58,7 @@ if (!haveCurrentJar) {
 // ---- Run steps ----------------------------------------------------------
 
 const PLZS = (await sparqlSelect(`
-    PREFIX : <${NS}>
+    PREFIX : <${CDP}>
     SELECT ?plz WHERE { :federation :hasRunParam [ :name "plz" ; :value ?plz ] } ORDER BY ?plz`, [defStore])).map(r => r.plz)
 
 const runStart = new Date()
@@ -131,7 +132,7 @@ ${journal.toTurtle()}
     prov:endedAtTime   ${dt(new Date().toISOString())}${harvestPart} .
 `
 
-const prefixes = `@prefix :      <${NS}> .
+const prefixes = `@prefix :      <${CDP}> .
 @prefix p-plan: <http://purl.org/net/p-plan#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .

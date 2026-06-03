@@ -7,6 +7,7 @@
 import { federationTtl, ingestLogTtl as logTtl } from "./instanceData.js"
 import Card, { KeyValueTable } from "./Card.jsx"
 import { loadHarvestBySource, loadSourceMeta } from "./sourceMeta.js"
+import { CDP } from "../../utils.js"
 import React, { useState } from "react"
 
 // org.columns are one entry per contributing record (resolved in loadMerge); look
@@ -20,7 +21,7 @@ const tagTitle = (iri) => {
     return t ? `${label}\n\nharvested ${t.slice(0, 19).replace("T", " ")}` : label
 }
 
-export const EXPECTED_MULTI = new Set(["http://schema.org/identifier", "https://civic-data.de/pipeline#fromSource"])
+export const EXPECTED_MULTI = new Set(["http://schema.org/identifier", `${CDP}fromSource`])
 export const isConflict = (f) => !EXPECTED_MULTI.has(f.predicate) && f.values.length > 1
 
 const CONFLICT_LEVELS = [

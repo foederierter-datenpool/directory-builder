@@ -1,5 +1,5 @@
 // Pipeline view: the fetch→lift→…→resolve step graph the engines journaled
-// while running — evidence of the executed pipeline, not a hand-written plan.
+// while running — evidence of the executed pipeline.
 // Reads:  data/ingest/ingest-log.ttl, data/pipeline/federate-log.ttl,
 //         config/federation.ttl (via loadPipeline.js)
 // Does:   renders the Pipeline page (horizontal <ColumnGraph>) with a Source

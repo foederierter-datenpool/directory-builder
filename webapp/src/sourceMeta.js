@@ -5,9 +5,8 @@
 // Reads:  TTL strings passed in (federation, mapped, ingest-log)
 // Does:   returns lookup maps + helpers (used by loadMerge, OrgCard, MapGraph, MatchGraph)
 
-import { parseTtl, PATHS, sourceName } from "../../utils.js"
+import { CDP as NS, parseTtl, PATHS, sourceName } from "../../utils.js"
 
-const NS = "https://civic-data.de/pipeline#"
 const RDFS_LABEL    = "http://www.w3.org/2000/01/rdf-schema#label"
 const SKOS_NOTATION = "http://www.w3.org/2004/02/skos/core#notation"
 const PROV_AT_TIME  = "http://www.w3.org/ns/prov#atTime"

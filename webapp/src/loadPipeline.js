@@ -6,16 +6,15 @@
 //         fill, light-gray border) above each Fetch step, step nodes labelled
 //         by their type (fetch/lift/clean/map/match/merge/resolve), and an
 //         End sink so resolve's output is shown on a visible edge, plus a
-//         boundary node feeding the Match step for each :matchKnowledgeGraph
-//         declared in federation.ttl. Edge labels come from federation.ttl —
+//         boundary node feeding the Match step with the conventional
+//         match-knowledge file. Edge labels come from federation.ttl —
 //         a source's :format (uppercased) and :retrieval — or from the
 //         conventions: Lift emits Turtle (LIFTED_FORMAT), other steps their
 //         output file(s) per PATHS, resolved per source for Clean steps.
 //         Multiple outputs (merge's provenance) stack as newlines.
 
-import { formatFamily, LIFTED_FORMAT, localName, parseTtl, PATHS, sourceName } from "../../utils.js"
+import { CDP as NS, formatFamily, LIFTED_FORMAT, localName, parseTtl, PATHS, sourceName } from "../../utils.js"
 
-const NS = "https://civic-data.de/pipeline#"
 const PPLAN_STEP = "http://purl.org/net/p-plan#Step"
 const PPLAN_IS_PRECEDED_BY = "http://purl.org/net/p-plan#isPrecededBy"
 const RDF_TYPE = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
@@ -23,7 +22,6 @@ const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label"
 const FROM_SOURCE = `${NS}fromSource`
 const RETRIEVAL = `${NS}retrieval`
 const FORMAT = `${NS}format`
-const MATCH_KNOWLEDGE = `${NS}matchKnowledgeGraph`
 const LANE_BORDER = "#bbb"
 
 const basename = (path) => path.replace(/^.*\//, "")
@@ -114,17 +112,15 @@ export function loadPipeline(stepTtls, federationTtl) {
         endEdges.push({ from: resolveIri, to: "end", value: edgeLabel(resolveIri) ?? undefined, centered: true })
     }
 
-    // Side inputs: the Match step consumes the knowledge graph(s) the match
-    // rules declare via :matchKnowledgeGraph in federation.ttl. Each becomes a
-    // boundary node feeding the Match step, labelled with the file basename.
+    // Side input: the Match step consumes the conventional match-knowledge
+    // file — a boundary node labelled with the file basename.
     const matchIri = [...stepType].find(([, t]) => t === "Match")?.[0]
     const inputNodes = []
     const inputEdges = []
-    const knowledgePaths = new Set(fedQuads.filter((q) => q.predicate.value === MATCH_KNOWLEDGE).map((q) => q.object.value))
-    for (const path of matchIri ? knowledgePaths : []) {
-        const inId = `input:${path}`
+    if (matchIri) {
+        const inId = `input:${PATHS.matchKnowledge}`
         inputNodes.push({ id: inId, label: "input", type: "Input", color: "transparent", borderColor: LANE_BORDER })
-        inputEdges.push({ from: inId, to: matchIri, value: basename(path), centered: true, sideInput: true })
+        inputEdges.push({ from: inId, to: matchIri, value: basename(PATHS.matchKnowledge), centered: true, sideInput: true })
     }
 
     return {
