@@ -1,6 +1,6 @@
 import { sparqlSelect, storeFromTurtles } from "@foerderfunke/sem-ops-utils"
 import { PATHS, sourceName, stepJournal } from "../utils.js"
-import { spawnSync } from "child_process"
+import { execSync, spawnSync } from "child_process"
 import path from "path"
 import fs from "fs"
 
@@ -75,7 +75,14 @@ for (const [iri, s] of sources) {
         console.log(`fetch  ${s.fetchUrl ?? PATHS.staticDir(name)} (PLZs ${PLZS.join(", ")}) → ${outDir}`)
         fs.mkdirSync(abs(outDir), { recursive: true })
         run("node", [abs(PATHS.fetchScript(name)), abs(outDir), origin, PLZS.join(",")])
-        harvests.push({ source: iri, time: new Date().toISOString() })
+        const harvest = { source: iri, time: new Date().toISOString() }
+        // Static sources have no live harvest — record the files' git commit
+        // time instead (the freshness the Sources page shows for them).
+        if (!s.fetchUrl) try {
+            const iso = execSync(`git log -1 --format=%cI -- "${PATHS.staticDir(name)}"`, { cwd: ROOT, encoding: "utf8" }).trim()
+            if (iso) harvest.staticCommittedAt = iso
+        } catch { /* not committed yet / no git → omit */ }
+        harvests.push(harvest)
     }))
 }
 
@@ -111,7 +118,8 @@ const runId = "run" + runStart.toISOString().replace(/\D/g, "").slice(0, 14)
 const harvestPart = harvests.length
     ? ` ;\n    :harvested\n` + harvests.map((h) => {
         const local = h.source.split("#").pop()
-        return `        [ :ofSource :${local} ; prov:atTime ${dt(h.time)} ]`
+        const committed = h.staticCommittedAt ? ` ; :staticCommittedAt ${dt(h.staticCommittedAt)}` : ""
+        return `        [ :ofSource :${local} ; prov:atTime ${dt(h.time)}${committed} ]`
     }).join(" ,\n")
     : ""
 

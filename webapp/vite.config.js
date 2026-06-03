@@ -1,7 +1,5 @@
-import { existsSync, readdirSync, readFileSync } from "fs"
+import { existsSync, readFileSync } from "fs"
 import react from "@vitejs/plugin-react"
-import { execSync } from "child_process"
-import { PATHS } from "../utils.js"
 import { defineConfig } from "vite"
 import path from "path"
 
@@ -31,29 +29,8 @@ function serveInstanceData() {
     }
 }
 
-// Static-file sources have no live harvest. Freeze the commit time of each
-// source's static folder (per the PATHS convention) at build time (reflects
-// the committed git state)
-function staticSourceCommits() {
-    const dir = path.join(REPO_ROOT, "sources")
-    if (!existsSync(dir)) return {}
-    const out = {}
-    for (const e of readdirSync(dir, { withFileTypes: true })) {
-        const rel = PATHS.staticDir(e.name).replace(/\/$/, "")
-        if (!e.isDirectory() || !existsSync(path.join(REPO_ROOT, rel))) continue
-        try {
-            const iso = execSync(`git log -1 --format=%cI -- "${rel}"`, { cwd: REPO_ROOT, encoding: "utf8" }).trim()
-            if (iso) out[rel] = iso
-        } catch { /* not committed yet → omit */ }
-    }
-    return out
-}
-
 export default defineConfig({
     base: "/directory-builder/",
     plugins: [react(), serveInstanceData()],
     build: { target: "es2022" },  // top-level await in instanceData.js
-    define: {
-        __STATIC_SOURCE_COMMITS__: JSON.stringify(staticSourceCommits()),
-    },
 })

@@ -80,21 +80,23 @@ export function loadSources(federationTtl, mappedTtl, ingestLogTtl) {
     }
 
     // Latest harvest timestamp per source from ingest-log.ttl. Each :harvested
-    // bnode carries (:ofSource ?source, prov:atTime ?time); find the max time.
+    // bnode carries (:ofSource ?source, prov:atTime ?time) and, for static-file
+    // sources, the files' git commit time (:staticCommittedAt); find the max time.
     const harvestBnode = new Map()
-    for (const q of logQuads) {
-        if (q.predicate.value === `${NS}ofSource`) {
-            if (!harvestBnode.has(q.subject.value)) harvestBnode.set(q.subject.value, {})
-            harvestBnode.get(q.subject.value).source = q.object.value
-        } else if (q.predicate.value === PROV_AT_TIME) {
-            if (!harvestBnode.has(q.subject.value)) harvestBnode.set(q.subject.value, {})
-            harvestBnode.get(q.subject.value).time = q.object.value
-        }
+    const harvest = (bnode) => {
+        if (!harvestBnode.has(bnode)) harvestBnode.set(bnode, {})
+        return harvestBnode.get(bnode)
     }
-    for (const { source, time } of harvestBnode.values()) {
+    for (const q of logQuads) {
+        if (q.predicate.value === `${NS}ofSource`)                 harvest(q.subject.value).source = q.object.value
+        else if (q.predicate.value === PROV_AT_TIME)               harvest(q.subject.value).time = q.object.value
+        else if (q.predicate.value === `${NS}staticCommittedAt`)   harvest(q.subject.value).committedAt = q.object.value
+    }
+    for (const { source, time, committedAt } of harvestBnode.values()) {
         if (!source || !time || !sourceIris.has(source)) continue
         const cur = get(source).lastHarvestedAt
         if (!cur || time > cur) get(source).lastHarvestedAt = time
+        if (committedAt) get(source).staticCommittedAt = committedAt
     }
 
     return [...sourceIris].map((iri) => get(iri))

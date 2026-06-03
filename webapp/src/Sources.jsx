@@ -1,6 +1,6 @@
 // Sources overview: one card per :Source (URL, format, freshness, record/field counts).
 // Reads:  config/federation.ttl, data/pipeline/mapped.ttl,
-//         data/ingest/ingest-log.ttl (via loadSources.js); __STATIC_SOURCE_COMMITS__ (build-time)
+//         data/ingest/ingest-log.ttl (via loadSources.js)
 // Does:   renders the Sources page (list of <Card>)
 
 import { federationTtl, mappedTtl, ingestLogTtl } from "./instanceData.js"
@@ -25,13 +25,11 @@ const sourceUrl = (s) => {
     return "—"
 }
 
-// Commit times of static-source folders, injected at build time (see vite.config.js).
-const STATIC_COMMITS = __STATIC_SOURCE_COMMITS__
-
 // Live sources report when they were last harvested; static sources have no
-// harvest, so show the commit time of when their files entered the repo.
+// harvest, so show the commit time of when their files entered the repo
+// (journaled by ingest into the log's harvest entry).
 const freshnessRow = (s) => s.staticSource
-    ? { key: "added",     label: "Added to repo",  value: formatTime(STATIC_COMMITS[s.staticSource.replace(/\/$/, "")]) }
+    ? { key: "added",     label: "Added to repo",  value: formatTime(s.staticCommittedAt) }
     : { key: "harvested", label: "Last harvested", value: formatTime(s.lastHarvestedAt) }
 
 export default function Sources() {
