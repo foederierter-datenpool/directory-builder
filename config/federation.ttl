@@ -213,9 +213,9 @@ cdf:CounselingCentre a rdfs:Class ;
 
 # ---- Transform nodes --------------------------------------------
 
-:caritasAddressNode a :TransformNode ; :script "src/transforms/caritas-address.sparql" .
-:dhsAddressNode     a :TransformNode ; :script "src/transforms/dhs-address.sparql" .
-:dhsContactNode     a :TransformNode ; :script "src/transforms/dhs-contact.sparql" .
+:caritasAddressNode a :TransformNode ; :script "sources/caritas/transform-address.sparql" .
+:dhsAddressNode     a :TransformNode ; :script "sources/dhs/transform-address.sparql" .
+:dhsContactNode     a :TransformNode ; :script "sources/dhs/transform-contact.sparql" .
 
 # ---- Mappings -----------------------------------------------------------
 

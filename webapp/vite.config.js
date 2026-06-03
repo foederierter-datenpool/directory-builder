@@ -7,14 +7,14 @@ import path from "path"
 const REPO_ROOT = path.resolve(import.meta.dirname, "..")
 
 // Static-file sources have no live harvest. Freeze the commit time of each
-// static-sources/<name> folder at build time (reflects the committed git state)
+// sources/<name>/static folder at build time (reflects the committed git state)
 function staticSourceCommits() {
-    const dir = path.join(REPO_ROOT, "static-sources")
+    const dir = path.join(REPO_ROOT, "sources")
     if (!existsSync(dir)) return {}
     const out = {}
     for (const e of readdirSync(dir, { withFileTypes: true })) {
-        if (!e.isDirectory()) continue
-        const rel = `static-sources/${e.name}`
+        if (!e.isDirectory() || !existsSync(path.join(dir, e.name, "static"))) continue
+        const rel = `sources/${e.name}/static`
         try {
             const iso = execSync(`git log -1 --format=%cI -- "${rel}"`, { cwd: REPO_ROOT, encoding: "utf8" }).trim()
             if (iso) out[rel] = iso
