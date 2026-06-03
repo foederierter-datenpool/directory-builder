@@ -152,17 +152,18 @@ const runMap = async (queriesDir) => {
             await sparqlInsertDelete(query, store)
         }
 
+        // :via names a transform of the mapping's source — the script path
+        // follows by convention (sources/<source>/transform-<via>.sparql).
         const viaRows = await sparqlSelect(`
             PREFIX : <https://civic-data.de/pipeline#>
-            SELECT DISTINCT ?script WHERE {
-                <${m.mapping}> :hasFieldMapping ?fm .
-                ?fm :via ?via .
-                ?via :script ?script .
-            } ORDER BY ?script`, [defStore])
+            SELECT DISTINCT ?via WHERE {
+                <${m.mapping}> :hasFieldMapping/:via ?via .
+            } ORDER BY ?via`, [defStore])
 
         for (const v of viaRows) {
-            console.log(`map  ${v.script}`)
-            await sparqlInsertDelete(fs.readFileSync(abs(v.script), "utf8"), store)
+            const script = PATHS.transform(sourceName(m.source), v.via)
+            console.log(`map  ${script}`)
+            await sparqlInsertDelete(fs.readFileSync(abs(script), "utf8"), store)
         }
     }
 

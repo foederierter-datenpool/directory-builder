@@ -54,6 +54,7 @@ export const PATHS = {
     fetchScript: (name) => `sources/${name}/fetch.js`,
     staticDir:   (name) => `sources/${name}/static/`,
     cleanQuery:  (name) => `sources/${name}/clean.sparql`,
+    transform:   (name, t) => `sources/${name}/transform-${t}.sparql`,
     liftQuery:   (formatIri) => `src/lift/${localName(formatIri).toLowerCase()}.sparql`,
     raw:         (name) => `data/ingest/raw/${name}/`,
     lifted:      (name) => `data/ingest/lifted/${name}/`,

@@ -226,12 +226,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :awo-svc-bagfw-nummer a :SubField ; :fieldPath "nummer" .
 :awo-svc-bagfw-name   a :SubField ; :fieldPath "name" .
 
-# ---- Transform nodes --------------------------------------------
-
-:caritasAddressNode a :TransformNode ; :script "sources/caritas/transform-address.sparql" .
-:dhsAddressNode     a :TransformNode ; :script "sources/dhs/transform-address.sparql" .
-:dhsContactNode     a :TransformNode ; :script "sources/dhs/transform-contact.sparql" .
-
 # ---- Mappings -----------------------------------------------------------
 
 :caritas-beratungsstelle-mapping a :Mapping ;
@@ -245,7 +239,7 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :caritas-LeadLine ; :to :t-category      ] ,
         [ :from :caritas-Link     ; :to :t-detailUrl     ] ,
         [ :from :caritas-Teaser   ; :to :t-streetAddress, :t-postalCode, :t-locality ;
-                                    :via :caritasAddressNode ] .
+                                    :via "address" ] .
 
 # Sozialplattform is offer-first: the clean step splits each row into an office
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
@@ -295,10 +289,10 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :dhs-zeiten       ; :to :t-openingHours            ] ,
         [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary    ] ,
         [ :from :dhs-traeger      ; :to :t-parentOrgClassification ] ,
-        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via :dhsAddressNode ] ,
-        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via :dhsAddressNode ] ,
-        [ :from :dhs-telefon      ; :to :t-telephone               ; :via :dhsContactNode ] ,
-        [ :from :dhs-email        ; :to :t-email                   ; :via :dhsContactNode ] .
+        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via "address" ] ,
+        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via "address" ] ,
+        [ :from :dhs-telefon      ; :to :t-telephone               ; :via "contact" ] ,
+        [ :from :dhs-email        ; :to :t-email                   ; :via "contact" ] .
 
 :awo-traeger-mapping a :Mapping ;
     :fromSource    :awoSource ;

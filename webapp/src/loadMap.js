@@ -3,13 +3,12 @@
 // Reads:  TTL strings passed by MapGraph.jsx (federation, mapped, cleaned source TTL)
 // Does:   returns { nodes, edges } plus per-source / per-org value maps
 
-import { localName, parseTtl, shrink, subjectsOfType, typesOf } from "../../utils.js"
+import { localName, parseTtl, shrink, sourceName, subjectsOfType, typesOf } from "../../utils.js"
 
 const NS = "https://civic-data.de/pipeline#"
 const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label"
-const NODE_TYPES = [`${NS}Source`, `${NS}SourceField`, `${NS}TargetField`, `${NS}TargetSchema`, `${NS}TransformNode`]
+const NODE_TYPES = [`${NS}Source`, `${NS}SourceField`, `${NS}TargetField`, `${NS}TargetSchema`]
 const SUB_FIELD = `${NS}SubField`
-const TRANSFORM = `${NS}TransformNode`
 
 // Prefix map used to render target-predicate IRIs like `schema:identifier`
 // instead of their local TargetField name (`t-identifier`).
@@ -172,10 +171,12 @@ export function loadMap(ttl, { hideUnmappedFields = true, hideUnmappedTargetFiel
 
     // :from and :to on a field-mapping blank node can each carry multiple
     // values (comma-list in turtle), so track them as arrays. :via is
-    // single-valued — it routes the mapping through a transform node.
+    // single-valued — it names a transform of the mapping's source
+    // (sources/<source>/transform-<via>.sparql), rendered as its own node.
     const bnodeFrom = new Map()
     const bnodeTo   = new Map()
     const bnodeVia  = new Map()
+    const fromSourceOf = new Map()
     const appendTo = (map, key, val) => {
         if (!map.has(key)) map.set(key, [])
         map.get(key).push(val)
@@ -189,6 +190,7 @@ export function loadMap(ttl, { hideUnmappedFields = true, hideUnmappedTargetFiel
         else if (q.predicate.value === `${NS}from`) appendTo(bnodeFrom, q.subject.value, q.object.value)
         else if (q.predicate.value === `${NS}to`)   appendTo(bnodeTo,   q.subject.value, q.object.value)
         else if (q.predicate.value === `${NS}via`)  bnodeVia.set(q.subject.value, q.object.value)
+        else if (q.predicate.value === `${NS}fromSource`) fromSourceOf.set(q.subject.value, q.object.value)
         else if (q.predicate.value === `${NS}targetPredicate`) targetPredicate.set(q.subject.value, q.object.value)
         else if (q.predicate.value === `${NS}fieldPath`) fieldPath.set(q.subject.value, q.object.value)
     }
@@ -201,12 +203,16 @@ export function loadMap(ttl, { hideUnmappedFields = true, hideUnmappedTargetFiel
         seen.add(k)
         push(f, t, label, extra)
     }
+    const transformLabel = new Map()  // minted node id -> "source/via" label
     for (const q of quads) {
         if (q.predicate.value === `${NS}hasFieldMapping`) {
             const froms = bnodeFrom.get(q.object.value) ?? []
             const tos   = bnodeTo.get(q.object.value)   ?? []
-            const via   = bnodeVia.get(q.object.value)
-            if (via) {
+            const viaName = bnodeVia.get(q.object.value)
+            if (viaName) {
+                const name = sourceName(fromSourceOf.get(q.subject.value))
+                const via = `transform:${name}:${viaName}`
+                if (!transformLabel.has(via)) { transformLabel.set(via, `${name}/${viaName}`); nodeSet.add(via) }
                 for (const f of froms) pushOnce(f, via, "mapsTo")
                 for (const t of tos)   pushOnce(via, t, "mapsTo")
             } else {
@@ -217,6 +223,7 @@ export function loadMap(ttl, { hideUnmappedFields = true, hideUnmappedTargetFiel
 
     // SubFields render in the SourceField column — they're just nested fields.
     const typeFor = (iri) => {
+        if (transformLabel.has(iri)) return "TransformNode"
         const ts = typeOf.get(iri)
         if (ts?.has(SUB_FIELD)) return "SourceField"
         for (const t of NODE_TYPES) if (ts?.has(t)) return localName(t)
@@ -258,6 +265,8 @@ export function loadMap(ttl, { hideUnmappedFields = true, hideUnmappedTargetFiel
     const visibleEdges = edges.filter((e) => nodeSet.has(e.from) && nodeSet.has(e.to))
 
     const labelFor = (iri) => {
+        const tl = transformLabel.get(iri)
+        if (tl) return tl
         const tp = targetPredicate.get(iri)
         if (tp) return prefixedIri(tp)
         const fp = fieldPath.get(iri)
