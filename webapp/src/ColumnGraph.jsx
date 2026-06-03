@@ -103,10 +103,27 @@ function ValueEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, tar
     )
 }
 
-const nodeTypes = { sideNode: SideNode }
+// Decorative, non-interactive nodes: a per-column title above each lane and a
+// full-height background band behind the "dedup" columns. They live in the flow
+// coordinate space so they pan/zoom in step with the real nodes.
+function HeaderNode({ data, style }) {
+    // A title's first line is the heading; any line(s) after a newline (e.g. the
+    // schema:Class under a lane name) render smaller and muted.
+    const [main, ...rest] = String(data.title).split("\n")
+    return (
+        <div style={{ ...style, textAlign: "center", fontSize: 14, fontWeight: 400, color: "#555", lineHeight: 1.3, pointerEvents: "none", ...data.hstyle }}>
+            {main}
+            {rest.length > 0 && <div style={{ fontSize: 11, color: "#888" }}>{rest.join(" ")}</div>}
+        </div>
+    )
+}
+function BandNode({ style }) { return <div style={{ ...style, pointerEvents: "none" }} /> }
+
+const REL_COLOR = "#9333ea"
+const nodeTypes = { sideNode: SideNode, headerNode: HeaderNode, bandNode: BandNode }
 const edgeTypes = { value: ValueEdge }
 
-function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth) {
+function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth, columnTitles, columnBands, nodeY, columnHeaderStyle) {
     const isVertical = direction === "vertical"
     const centered = new Set(centerColumns ?? [])
     const buckets = Object.fromEntries(columns.map((c) => [c, []]))
@@ -116,7 +133,13 @@ function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, col
     // Logical layout in (col-axis, sibling-axis) coords; swapped at the end for vertical mode.
     const positions = new Map()
 
-    columns.forEach((col, colIdx) => {
+    if (nodeY) {
+        // Caller supplies the sibling-axis coord per node (e.g. a tree layout);
+        // the column still fixes the col-axis coord.
+        columns.forEach((col, colIdx) => {
+            for (const n of buckets[col] ?? []) positions.set(n.id, { x: colIdx * colSpacing, y: nodeY.get(n.id) ?? 0 })
+        })
+    } else columns.forEach((col, colIdx) => {
         const x = colIdx * colSpacing
         const colNodes = buckets[col] ?? []
         if (centered.has(col)) {
@@ -182,19 +205,42 @@ function toFlow({ nodes, edges }, columns, colors, centerColumns, direction, col
         })
     }
 
-    const flowEdges = edges.map((e, i) => ({
-        id: `e-${i}`,
-        source: e.from,
-        target: e.to,
-        ...(e.value !== undefined && { type: "value", data: { value: e.value, idx: i, bg: e.valueBg, centered: e.centered } }),
-        markerEnd: { type: MarkerType.ArrowClosed },
-    }))
+    // Column headers + background bands (horizontal layouts only) — decorative
+    // nodes spanning the full node range, drawn behind (band) / above (header).
+    if (!isVertical && (columnTitles || columnBands)) {
+        const ys = [...positions.values()].map((p) => p.y)
+        const minY = Math.min(...ys), maxY = Math.max(...ys)
+        columns.forEach((col, colIdx) => {
+            const x = colIdx * colSpacing
+            if (columnBands?.[col]) flowNodes.unshift({
+                id: `__band_${col}`, type: "bandNode", position: { x: x - 16, y: minY - 66 },
+                draggable: false, selectable: false, zIndex: -1, data: {},
+                style: { width: nodeWidth + 32, height: (maxY - minY) + 138, background: columnBands[col], borderRadius: 10 },
+            })
+            if (columnTitles?.[col]) flowNodes.push({
+                id: `__hdr_${col}`, type: "headerNode", position: { x, y: minY - 56 },
+                draggable: false, selectable: false, zIndex: 6, data: { title: columnTitles[col], hstyle: columnHeaderStyle?.[col] },
+                style: { width: nodeWidth },
+            })
+        })
+    }
+
+    const flowEdges = edges.map((e, i) => {
+        const base = { id: `e-${i}`, source: e.from, target: e.to, markerEnd: { type: MarkerType.ArrowClosed } }
+        if (e.value !== undefined) { base.type = "value"; base.data = { value: e.value, idx: i, bg: e.valueBg, centered: e.centered } }
+        if (e.rel) {
+            base.style = { stroke: REL_COLOR, strokeWidth: 1.5 }
+            base.markerEnd = { type: MarkerType.ArrowClosed, color: REL_COLOR }
+            base.zIndex = 4
+        }
+        return base
+    })
 
     return { flowNodes, flowEdges }
 }
 
-export default function ColumnGraph({ nodes, edges, columns, colors, centerColumns, direction = "horizontal", colSpacing = DEFAULT_COL_SPACING, siblingGap = DEFAULT_SIBLING_GAP, nodeWidth = DEFAULT_NODE_WIDTH, onNodeClick }) {
-    const { flowNodes, flowEdges } = useMemo(() => toFlow({ nodes, edges }, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth), [nodes, edges, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth])
+export default function ColumnGraph({ nodes, edges, columns, colors, centerColumns, direction = "horizontal", colSpacing = DEFAULT_COL_SPACING, siblingGap = DEFAULT_SIBLING_GAP, nodeWidth = DEFAULT_NODE_WIDTH, columnTitles, columnBands, nodeY, columnHeaderStyle, onNodeClick }) {
+    const { flowNodes, flowEdges } = useMemo(() => toFlow({ nodes, edges }, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth, columnTitles, columnBands, nodeY, columnHeaderStyle), [nodes, edges, columns, colors, centerColumns, direction, colSpacing, siblingGap, nodeWidth, columnTitles, columnBands, nodeY, columnHeaderStyle])
     const [rfNodes, , onNodesChange] = useNodesState(flowNodes)
     const [rfEdges, setRfEdges, onEdgesChange] = useEdgesState(flowEdges)
     const [draggingId, setDraggingId] = useState(null)

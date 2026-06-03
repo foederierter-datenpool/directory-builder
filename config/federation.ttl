@@ -26,6 +26,7 @@ cdf:CounselingCentre a rdfs:Class ;
 
 :traegerSchema a :TargetSchema ;
     :targetClass schema:Organization ;
+    rdfs:label "Träger"@de ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
                     :t-streetAddress, :t-postalCode, :t-locality, :t-country,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
@@ -34,6 +35,7 @@ cdf:CounselingCentre a rdfs:Class ;
 
 :beratungsstelleSchema a :TargetSchema ;
     :targetClass cdf:CounselingCentre ;
+    rdfs:label "Beratungsstelle"@de ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
                     :t-streetAddress, :t-postalCode, :t-locality, :t-country, :t-areaServed,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
@@ -43,6 +45,7 @@ cdf:CounselingCentre a rdfs:Class ;
 
 :angebotSchema a :TargetSchema ;
     :targetClass schema:Service ;
+    rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-areaServed, :t-provider .
 
 :t-identifier           a :TargetField ; :targetPredicate schema:identifier .

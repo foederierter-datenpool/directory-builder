@@ -1,26 +1,22 @@
-// Match view: clusters of records judged to be the same entity, with a per-cluster
-// member-details modal.
-// Reads:  data/pipeline/matches.ttl, data/pipeline/mapped.ttl, config/federation.ttl,
-//         config/match-knowledge.ttl (via loadMatch.js + sourceMeta.js)
-// Does:   renders the Match page (<ColumnGraph> + details modal)
+// Match view: one lane per target schema, each preceded by a tinted "source
+// duplications" column (which source records merged onto the entity), plus the
+// cross-lane :hasRelationship edges between merged entities. All structure — lanes,
+// order, colours, titles, relationships — is derived from federation.ttl inside
+// loadMatch.js; this file only adds node text labels, the stats line and the modal.
+// Reads:  data/pipeline/{matches,merged,mapped}.ttl, config/{federation,match-knowledge}.ttl
+// Does:   renders the Match page (<ColumnGraph> + per-cluster details modal)
 
 import matchKnowledgeTtl from "../../config/match-knowledge.ttl?raw"
 import { loadSourceMeta, loadSourceOfRecord } from "./sourceMeta.js"
 import { groupBySubject, parseTtl, shrink } from "../../utils.js"
 import federationTtl from "../../config/federation.ttl?raw"
+import mergedTtl from "../../data/pipeline/merged.ttl?raw"
 import mappedTtl from "../../data/pipeline/mapped.ttl?raw"
-import ttl from "../../data/pipeline/matches.ttl?raw"
+import matchesTtl from "../../data/pipeline/matches.ttl?raw"
 import React, { useMemo, useState } from "react"
 import ColumnGraph from "./ColumnGraph.jsx"
 import { loadMatch } from "./loadMatch.js"
 
-const COLUMNS = ["Source", "MatchCluster"]
-const COLORS = { Source: "#d4e7ff", MatchCluster: "#f4cfe0" }
-// Org nodes keep COLORS (blue source → pink cluster); service nodes are recoloured
-// per-node on both sides so service rows stand apart from org rows.
-const SERVICE_COLOR = "#cce9cf"
-const CENTER_COLUMNS = ["MatchCluster"]
-const SCHEMA_NAME = "http://schema.org/name"
 const SCHEMA_IDENTIFIER = "http://schema.org/identifier"
 const CDF_NS = "https://civic-data.de/federated-directory#"
 const CDP_NS = "https://civic-data.de/pipeline#"
@@ -36,11 +32,10 @@ const PREFIXES = {
 }
 const prefixed = (iri) => shrink(iri, PREFIXES)
 
-// Label each Source-column member with its :Source notation, resolved via
-// cdp:fromSource in mapped.ttl.
+// Label each source member with its :Source notation, resolved via cdp:fromSource.
 const sourceMeta = loadSourceMeta(federationTtl)
 const sourceOfRecord = loadSourceOfRecord(mappedTtl)
-const sourceCode = (iri) => sourceMeta.get(sourceOfRecord.get(iri)).notation
+const sourceCode = (iri) => { const s = sourceOfRecord.get(iri); return (s && sourceMeta.get(s)?.notation) || "?" }
 
 const criteriaPredicates = (() => {
     const quads = parseTtl(federationTtl)
@@ -49,8 +44,7 @@ const criteriaPredicates = (() => {
     return quads.filter(q => q.predicate.value === ON && bnodes.has(q.subject.value)).map(q => q.object.value)
 })()
 
-// Map<orgIri, Map<predIri, [literalValue]>> — values are arrays even for
-// single-valued predicates; index [0] for first.
+// Map<recordIri, Map<predIri, [literalValue]>> for the per-member details modal.
 const orgInfo = groupBySubject(parseTtl(mappedTtl), { literalsOnly: true })
 
 const manualPairs = parseTtl(matchKnowledgeTtl)
@@ -101,65 +95,51 @@ function MemberDetailsModal({ clusterId, memberIris, onClose }) {
 }
 
 export default function MatchGraph() {
-    const [hideSingletons, setHideSingletons] = useState(true)
+    const [showDuplications, setShowDuplications] = useState(true)
+    const [show1to1, setShow1to1] = useState(false)
     const [openCluster, setOpenCluster] = useState(null)
 
-    const { nodes, edges, members, clusterOf } = useMemo(() => {
-        const r = loadMatch(ttl, { hideSingletons })
-        const members = new Map()
+    const { nodes, edges, members, clusterOf, columns, colors, columnTitles, columnBands, columnHeaderStyle, nodeY } = useMemo(() => {
+        const r = loadMatch(federationTtl, matchesTtl, mergedTtl, { showDuplications, show1to1 })
         const clusterOf = new Map()
-        for (const e of r.edges) {
-            if (!members.has(e.to)) members.set(e.to, [])
-            members.get(e.to).push(e.from)
-            clusterOf.set(e.from, e.to)
-        }
+        for (const [c, ms] of r.members) for (const m of ms) clusterOf.set(m, c)
+
         for (const n of r.nodes) {
-            if (n.type === "Source") {
+            if (n.isCluster) n.subtitle = n.id.startsWith(CDF_NS) ? `cdf:${n.id.slice(CDF_NS.length)}` : prefixed(n.id)
+            else {                                     // a source (dedup) node
                 n.label = sourceCode(n.id)
                 n.subtitle = orgInfo.get(n.id)?.get(SCHEMA_IDENTIFIER)?.[0]
-                if (clusterOf.get(n.id)?.startsWith(`${CDF_NS}service-`)) n.color = SERVICE_COLOR
-            } else if (n.type === "MatchCluster") {
-                const named = members.get(n.id)?.find((m) => orgInfo.get(m)?.get(SCHEMA_NAME))
-                if (named) n.label = orgInfo.get(named).get(SCHEMA_NAME)[0]
-                n.subtitle = n.id.startsWith(CDF_NS) ? `cdf:${n.id.slice(CDF_NS.length)}` : n.id
-                if (n.id.startsWith(`${CDF_NS}service-`)) n.color = SERVICE_COLOR
             }
         }
-        const cluster = (n) => n.type === "MatchCluster" ? n.id : clusterOf.get(n.id)
-        const size = (cid) => members.get(cid)?.length ?? 1
-        r.nodes.sort((a, b) => {
-            if (a.type !== b.type) return 0
-            const ca = cluster(a), cb = cluster(b)
-            return ca && cb ? size(cb) - size(ca) || ca.localeCompare(cb) || a.id.localeCompare(b.id) : 0
-        })
-        return { ...r, members, clusterOf }
-    }, [hideSingletons])
+        // Drop columns that ended up empty (schemas with no source duplication when
+        // collapsed) so they don't leave a blank tinted band.
+        const columns = r.columns.filter((c) => r.nodes.some((n) => n.type === c))
+        return { ...r, clusterOf, columns }
+    }, [showDuplications, show1to1])
 
     const handleNodeClick = (_, node) => {
+        if (node.id.startsWith("__")) return            // header / band decoration
         const cid = members.has(node.id) ? node.id : clusterOf.get(node.id)
         if (cid) setOpenCluster({ clusterId: cid, memberIris: members.get(cid) ?? [] })
     }
 
     return (
         <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <div style={{ display: "flex", gap: "1rem", padding: "0.5rem 1rem", fontSize: 13, borderBottom: "1px solid #ddd" }}>
+            <div style={{ display: "flex", gap: "1rem", alignItems: "center", padding: "0.5rem 1rem", fontSize: 13, borderBottom: "1px solid #ddd" }}>
                 <label style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem" }}>
-                    <input type="checkbox" checked={hideSingletons} onChange={(e) => setHideSingletons(e.target.checked)} />
-                    Only show clusters
+                    <input type="checkbox" checked={showDuplications} onChange={(e) => setShowDuplications(e.target.checked)} />
+                    Show duplications across sources
                 </label>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem", marginLeft: "auto", color: "#666" }}>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
-                        <span style={{ width: 11, height: 11, background: COLORS.MatchCluster, border: "1px solid #888", borderRadius: 2, display: "inline-block" }} />
-                        Organisation
-                    </span>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
-                        <span style={{ width: 11, height: 11, background: SERVICE_COLOR, border: "1px solid #888", borderRadius: 2, display: "inline-block" }} />
-                        Service
-                    </span>
-                </span>
+                <label style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", color: showDuplications ? undefined : "#bbb" }}>
+                    <input type="checkbox" checked={show1to1} disabled={!showDuplications} onChange={(e) => setShow1to1(e.target.checked)} />
+                    Show 1:1 clusters
+                </label>
             </div>
             <div style={{ flex: 1, minHeight: 0 }}>
-                <ColumnGraph key={hideSingletons ? "hide" : "show"} nodes={nodes} edges={edges} columns={COLUMNS} colors={COLORS} centerColumns={CENTER_COLUMNS} onNodeClick={handleNodeClick} />
+                <ColumnGraph key={`${showDuplications}-${show1to1}`} nodes={nodes} edges={edges}
+                    columns={columns} colors={colors} nodeY={nodeY}
+                    columnTitles={columnTitles} columnBands={columnBands} columnHeaderStyle={columnHeaderStyle}
+                    nodeWidth={150} colSpacing={236} onNodeClick={handleNodeClick} />
             </div>
             {openCluster && <MemberDetailsModal clusterId={openCluster.clusterId} memberIris={openCluster.memberIris} onClose={() => setOpenCluster(null)} />}
         </div>
