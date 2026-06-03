@@ -1,5 +1,5 @@
-# directory-builder
-Builds a federated directory from multiple input sources.
+# sosuse-directory-builder
+Builds a federated directory of social support services from multiple input sources.
 
 ## How it works
 
