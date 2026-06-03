@@ -4,12 +4,11 @@
 //         data/pipeline/cleaned/*.ttl (via loadMap.js + sourceMeta.js)
 // Does:   renders the Map page (horizontal <ColumnGraph>)
 
+import { federationTtl as ttl, mappedTtl, cleanedByPath } from "./instanceData.js"
 import { loadMap, loadSources, loadOrgsBySource, loadFieldValuesByOrg } from "./loadMap.js"
 import React, { useEffect, useMemo, useRef, useState } from "react"
-import mappedTtl from "../../data/pipeline/mapped.ttl?raw"
 import { loadCleanedBySource } from "./sourceMeta.js"
 import { SkipBack, SkipForward } from "lucide-react"
-import ttl from "../../config/federation.ttl?raw"
 import ColumnGraph from "./ColumnGraph.jsx"
 
 const COLUMNS = ["Source", "SourceField", "TransformNode", "TargetField", "TargetSchema"]
@@ -29,10 +28,9 @@ const VALUE_LABEL_BG = {
 
 const SOURCES = loadSources(ttl)
 const ORGS_BY_SOURCE = loadOrgsBySource(ttl, mappedTtl)
-// Source-to-file mapping is resolved from config; the glob picks up a new
-// source's cleaned TTL with no edit here.
-const cleanedFiles = import.meta.glob("../../data/pipeline/cleaned/*.ttl", { query: "?raw", import: "default", eager: true })
-const FIELD_VALUES = loadFieldValuesByOrg(ttl, mappedTtl, loadCleanedBySource(ttl, cleanedFiles))
+// Source-to-file mapping is resolved from config: instanceData enumerates the
+// cleaned TTLs from :hasSource, so a new source needs no edit here.
+const FIELD_VALUES = loadFieldValuesByOrg(ttl, mappedTtl, loadCleanedBySource(ttl, cleanedByPath))
 
 function SourcesDropdown({ visible, onChange }) {
     const [open, setOpen] = useState(false)

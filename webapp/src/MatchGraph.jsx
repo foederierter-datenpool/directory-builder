@@ -6,13 +6,9 @@
 // Reads:  data/pipeline/{matches,merged,mapped}.ttl, config/{federation,match-knowledge}.ttl
 // Does:   renders the Match page (<ColumnGraph> + per-cluster details modal)
 
-import matchKnowledgeTtl from "../../config/match-knowledge.ttl?raw"
+import { federationTtl, matchKnowledgeTtl, mappedTtl, matchesTtl, mergedTtl } from "./instanceData.js"
 import { loadSourceMeta, loadSourceOfRecord } from "./sourceMeta.js"
 import { groupBySubject, parseTtl, shrink } from "../../utils.js"
-import federationTtl from "../../config/federation.ttl?raw"
-import mergedTtl from "../../data/pipeline/merged.ttl?raw"
-import mappedTtl from "../../data/pipeline/mapped.ttl?raw"
-import matchesTtl from "../../data/pipeline/matches.ttl?raw"
 import React, { useMemo, useState } from "react"
 import ColumnGraph from "./ColumnGraph.jsx"
 import { loadMatch } from "./loadMatch.js"

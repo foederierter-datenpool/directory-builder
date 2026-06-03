@@ -3,9 +3,7 @@
 //         data/ingest/ingest-log.ttl (via loadSources.js); __STATIC_SOURCE_COMMITS__ (build-time)
 // Does:   renders the Sources page (list of <Card>)
 
-import federationTtl from "../../config/federation.ttl?raw"
-import mappedTtl from "../../data/pipeline/mapped.ttl?raw"
-import ingestLogTtl from "../../data/ingest/ingest-log.ttl?raw"
+import { federationTtl, mappedTtl, ingestLogTtl } from "./instanceData.js"
 import Card, { KeyValueTable } from "./Card.jsx"
 import { loadSources } from "./loadSources.js"
 import React from "react"

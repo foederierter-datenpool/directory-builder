@@ -4,8 +4,7 @@
 //         org objects from loadMerge.js
 // Does:   renders <OrgCard>; exports EXPECTED_MULTI, isConflict (used by mergeOrgs, MergeTables)
 
-import federationTtl from "../../config/federation.ttl?raw"
-import logTtl from "../../data/ingest/ingest-log.ttl?raw"
+import { federationTtl, ingestLogTtl as logTtl } from "./instanceData.js"
 import Card, { KeyValueTable } from "./Card.jsx"
 import { loadHarvestBySource, loadSourceMeta } from "./sourceMeta.js"
 import React, { useState } from "react"

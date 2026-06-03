@@ -4,10 +4,7 @@
 
 import { loadMerge } from "./loadMerge.js"
 import { isConflict } from "./OrgCard.jsx"
-import federationTtl from "../../config/federation.ttl?raw"
-import provTtl from "../../data/pipeline/provenance.ttl?raw"
-import mergedTtl from "../../data/pipeline/merged.ttl?raw"
-import finalTtl from "../../data/pipeline/final.ttl?raw"
+import { federationTtl, provenanceTtl as provTtl, mergedTtl, finalTtl } from "./instanceData.js"
 
 const conflictCount = (org) => org.fields.reduce((n, f) => n + (isConflict(f) ? 1 : 0), 0)
 

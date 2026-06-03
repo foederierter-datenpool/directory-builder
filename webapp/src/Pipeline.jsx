@@ -5,9 +5,7 @@
 // Does:   renders the Pipeline page (horizontal <ColumnGraph>) with a Source
 //         lane-header per Fetch and payload labels on the edges
 
-import ingestLogTtl from "../../data/ingest/ingest-log.ttl?raw"
-import federateLogTtl from "../../data/pipeline/federate-log.ttl?raw"
-import federationTtl from "../../config/federation.ttl?raw"
+import { federationTtl, ingestLogTtl, federateLogTtl } from "./instanceData.js"
 import { loadPipeline } from "./loadPipeline.js"
 import ColumnGraph from "./ColumnGraph.jsx"
 import React from "react"

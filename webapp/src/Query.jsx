@@ -5,7 +5,7 @@
 
 import { storeFromTurtles } from "@foerderfunke/sem-ops-utils/core"
 import { queryEngine } from "@foerderfunke/sem-ops-utils/sparql"
-import finalTtl from "../../data/pipeline/final.ttl?raw"
+import { finalTtl } from "./instanceData.js"
 import React, { useEffect, useRef } from "react"
 import "@zazuko/yasgui/build/yasgui.min.css"
 import Yasgui from "@zazuko/yasgui"
