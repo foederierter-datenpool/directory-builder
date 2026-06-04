@@ -9,4 +9,4 @@ data/
 tools/
 
 # built webapp (npm run webapp:build)
-/dist/
+/webapp/dist/

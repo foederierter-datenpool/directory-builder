@@ -41,12 +41,12 @@ jobs:
 
             - run: npm run pipeline
 
-            # webapp:build stages config/, data/, exporters/ and content/ into
-            # dist/ alongside the bundle — dist/ is the complete site.
+            # webapp:build stages config/, data/ and webapp/{content,exporters}/
+            # into webapp/dist/ alongside the bundle — the complete site.
             - run: npm run webapp:build
 
             - uses: peaceiris/actions-gh-pages@v4
               with:
                   github_token: ${{ secrets.GITHUB_TOKEN }}
-                  publish_dir: ./dist
+                  publish_dir: ./webapp/dist
                   force_orphan: true
