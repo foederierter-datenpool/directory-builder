@@ -8,11 +8,6 @@ import fs from "fs"
 
 const df = DataFactory
 
-const ROOT = path.join(import.meta.dirname, "..")
-const abs = (p) => path.join(ROOT, p)
-const federationTtl = fs.readFileSync(abs(PATHS.federation), "utf8")
-const defStore = storeFromTurtles([federationTtl, fs.readFileSync(abs(PATHS.matchKnowledge), "utf8")])
-
 // Dedupe via a Store and sort by subject so the Writer can emit grouped
 // "subject p1 o1; p2 o2." blocks instead of repeating subjects. Strips
 // graph names (writes triples, not quads).
@@ -30,13 +25,6 @@ const writeTurtleFile = (filePath, quads, prefixes = {}) => new Promise((resolve
         resolve()
     })
 })
-
-// ---- Read the sources ----------------------------------------------------
-// The step sequence (clean per source, load, map → match → merge → resolve)
-// is the engine's own shape; config declares only the sources, processed in
-// :hasSource declaration order. Paths follow from the source name (PATHS).
-
-const sources = objectsOf(parseTtl(federationTtl), `${CDP}hasSource`)
 
 // ---- Direct-mapping generator ------------------------------------------
 
@@ -115,7 +103,7 @@ ${insertBlock}
 }`
 }
 
-const runMap = async (queriesDir) => {
+const runMap = async ({ store, defStore, abs }, queriesDir) => {
     const mappings = await sparqlSelect(`
         PREFIX : <${CDP}>
         SELECT ?mapping ?source ?sourceGraph ?target ?targetClass WHERE {
@@ -228,7 +216,7 @@ const MATCH_CLUSTER = df.namedNode(CDP + "MatchCluster")
 const SIMILARITY_ALGORITHM = "token_set_ratio"
 const similarity = (a, b) => token_set_ratio(a ?? "", b ?? "") / 100
 
-const runMatch = async (store, outPath) => {
+const runMatch = async ({ store, defStore, abs }, outPath) => {
     // One match rule per target schema; each rule scores its own fields, mints
     // with its own prefix, and clusters only subjects of its :targetClass.
     const rules = await sparqlSelect(`
@@ -419,7 +407,7 @@ const runMatch = async (store, outPath) => {
 
 // ---- Merge -------------------------------------------------------------
 
-const runMerge = async (store, outPath, provOutPath) => {
+const runMerge = async ({ store, defStore, abs }, outPath, provOutPath) => {
     const [cfg] = await sparqlSelect(`
         PREFIX : <${CDP}>
         SELECT ?ns ?originPred WHERE {
@@ -479,7 +467,7 @@ const lookupStrategy = (iri) => {
     return fn
 }
 
-const runResolve = async (store, outPath) => {
+const runResolve = async ({ store, defStore, abs }, outPath) => {
     const [cfg] = await sparqlSelect(`
         PREFIX : <${CDP}>
         SELECT ?strategy ?ns WHERE {
@@ -510,62 +498,74 @@ const runResolve = async (store, outPath) => {
     console.log(`resolve: wrote ${finalQuads.length} triples → ${outPath}`)
 }
 
-// ---- Run: clean per source, load, then map → match → merge → resolve -----
-// Each step runs through the journal, which records what executed and is
-// rendered by the webapp's Pipeline page. The clean steps' predecessors are
-// the other engine's lift steps, referenced by their conventional stepIri.
+// ---- Federate engine -----------------------------------------------------
+// Clean per source, load, then map → match → merge → resolve. The step
+// sequence is the engine's own shape; config declares only the sources,
+// processed in :hasSource declaration order. Paths follow from the source
+// name (PATHS), resolved against the instance `root`. Each step runs through
+// the journal, which records what executed and is rendered by the webapp's
+// Pipeline page. The clean steps' predecessors are the other engine's lift
+// steps, referenced by their conventional stepIri.
 
-const store = newStore()
-const journal = stepJournal()
+export async function federate(root = process.cwd()) {
+    const abs = (p) => path.join(root, p)
+    const federationTtl = fs.readFileSync(abs(PATHS.federation), "utf8")
+    const defStore = storeFromTurtles([federationTtl, fs.readFileSync(abs(PATHS.matchKnowledge), "utf8")])
+    const sources = objectsOf(parseTtl(federationTtl), `${CDP}hasSource`)
 
-const cleanSteps = []
-for (const src of sources) {
-    const name = sourceName(src)
-    cleanSteps.push(await journal.step("clean", { source: src, after: [stepIri("lift", name)] }, async () => {
-        const cleanQuery = fs.readFileSync(abs(PATHS.cleanQuery(name)), "utf8")
-        const inDir = PATHS.lifted(name)
-        const outPath = PATHS.cleaned(name)
-        // Run CONSTRUCT per file so each lifted TTL stays isolated in its
-        // own store — the clean SPARQL can't cross-join across documents.
-        const inAbs = abs(inDir)
-        const files = fs.readdirSync(inAbs).filter(f => f.endsWith(".ttl")).sort()
-        console.log(`clean  ${inDir} (${files.length} files) → ${outPath}`)
-        const allQuads = []
-        for (const f of files) {
-            const fileStore = storeFromTurtles([fs.readFileSync(path.join(inAbs, f), "utf8")])
-            allQuads.push(...await sparqlConstruct(cleanQuery, [fileStore]))
-        }
-        await writeTurtleFile(abs(outPath), allQuads, {
-            xyz: "http://sparql.xyz/facade-x/data/",
-            cdp: CDP,
-        })
-    }))
-}
+    const store = newStore()
+    const journal = stepJournal()
+    const ctx = { store, defStore, abs }
 
-// Load each source's cleaned TTL into its own graph — plain mechanics, not a
-// pipeline step.
-for (const src of sources) {
-    const name = sourceName(src)
-    console.log(`load   ${PATHS.cleaned(name)} → <${sourceGraph(name)}>`)
-    const graph = df.namedNode(sourceGraph(name))
-    for (const quad of n3Parser.parse(fs.readFileSync(abs(PATHS.cleaned(name)), "utf8"))) {
-        store.addQuad(df.quad(quad.subject, quad.predicate, quad.object, graph))
+    const cleanSteps = []
+    for (const src of sources) {
+        const name = sourceName(src)
+        cleanSteps.push(await journal.step("clean", { source: src, after: [stepIri("lift", name)] }, async () => {
+            const cleanQuery = fs.readFileSync(abs(PATHS.cleanQuery(name)), "utf8")
+            const inDir = PATHS.lifted(name)
+            const outPath = PATHS.cleaned(name)
+            // Run CONSTRUCT per file so each lifted TTL stays isolated in its
+            // own store — the clean SPARQL can't cross-join across documents.
+            const inAbs = abs(inDir)
+            const files = fs.readdirSync(inAbs).filter(f => f.endsWith(".ttl")).sort()
+            console.log(`clean  ${inDir} (${files.length} files) → ${outPath}`)
+            const allQuads = []
+            for (const f of files) {
+                const fileStore = storeFromTurtles([fs.readFileSync(path.join(inAbs, f), "utf8")])
+                allQuads.push(...await sparqlConstruct(cleanQuery, [fileStore]))
+            }
+            await writeTurtleFile(abs(outPath), allQuads, {
+                xyz: "http://sparql.xyz/facade-x/data/",
+                cdp: CDP,
+            })
+        }))
     }
-}
 
-const mapStep = await journal.step("map", { after: cleanSteps }, async () => {
-    await runMap(PATHS.mappingQueries)
-    const mappedQuads = store.getQuads(null, null, null, MAPPED_GRAPH)
-    await writeTurtleFile(abs(PATHS.mapped), mappedQuads, { ...COMMON_PREFIXES, cdp: CDP })
-    console.log(`map: wrote ${mappedQuads.length} triples → ${PATHS.mapped}`)
-})
-const matchStep   = await journal.step("match",   { after: [mapStep] },   () => runMatch(store, PATHS.matches))
-const mergeStep   = await journal.step("merge",   { after: [matchStep] }, () => runMerge(store, PATHS.merged, PATHS.provenance))
-await journal.step("resolve", { after: [mergeStep] }, () => runResolve(store, PATHS.final))
+    // Load each source's cleaned TTL into its own graph — plain mechanics, not a
+    // pipeline step.
+    for (const src of sources) {
+        const name = sourceName(src)
+        console.log(`load   ${PATHS.cleaned(name)} → <${sourceGraph(name)}>`)
+        const graph = df.namedNode(sourceGraph(name))
+        for (const quad of n3Parser.parse(fs.readFileSync(abs(PATHS.cleaned(name)), "utf8"))) {
+            store.addQuad(df.quad(quad.subject, quad.predicate, quad.object, graph))
+        }
+    }
 
-fs.writeFileSync(abs(PATHS.federateLog), `@prefix :      <${CDP}> .
+    const mapStep = await journal.step("map", { after: cleanSteps }, async () => {
+        await runMap(ctx, PATHS.mappingQueries)
+        const mappedQuads = store.getQuads(null, null, null, MAPPED_GRAPH)
+        await writeTurtleFile(abs(PATHS.mapped), mappedQuads, { ...COMMON_PREFIXES, cdp: CDP })
+        console.log(`map: wrote ${mappedQuads.length} triples → ${PATHS.mapped}`)
+    })
+    const matchStep   = await journal.step("match",   { after: [mapStep] },   () => runMatch(ctx, PATHS.matches))
+    const mergeStep   = await journal.step("merge",   { after: [matchStep] }, () => runMerge(ctx, PATHS.merged, PATHS.provenance))
+    await journal.step("resolve", { after: [mergeStep] }, () => runResolve(ctx, PATHS.final))
+
+    fs.writeFileSync(abs(PATHS.federateLog), `@prefix :      <${CDP}> .
 @prefix p-plan: <http://purl.org/net/p-plan#> .
 
 ${journal.toTurtle()}
 `)
-console.log(`log:   wrote steps → ${PATHS.federateLog}`)
+    console.log(`log:   wrote steps → ${PATHS.federateLog}`)
+}

@@ -2,8 +2,13 @@
   "name": "directory-builder",
   "version": "0.0.1",
   "type": "module",
+  "bin": {
+    "directory-builder": "bin/cli.js"
+  },
   "scripts": {
-    "pipeline": "node src/ingest.js && node src/federate.js"
+    "pipeline": "node bin/cli.js",
+    "ingest": "node bin/cli.js ingest",
+    "federate": "node bin/cli.js federate"
   },
   "dependencies": {
     "@foerderfunke/sem-ops-utils": "^0.5.1",

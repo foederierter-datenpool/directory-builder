@@ -12,10 +12,21 @@ cd webapp && npm install
 ```
 
 ## Run the pipeline
-From `src/`:
+Two ways — both run the same engines, rooted at the instance directory (config/, sources/, data/).
+
+Via command (root = where you invoke):
 ```sh
-node ingest.js
-node federate.js
+npm run pipeline   # ingest + federate
+npm run ingest     # fetch + lift only
+npm run federate   # clean → map → match → merge → resolve only
+```
+
+Or programmatically:
+```js
+import { Pipeline } from "./src/pipeline.js"
+
+const pipeline = new Pipeline() // root defaults to process.cwd()
+await pipeline.run() // ingest + federate
 ```
 Outputs &rarr; `data/`
 
