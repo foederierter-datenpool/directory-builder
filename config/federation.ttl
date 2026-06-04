@@ -17,7 +17,8 @@
     :hasMergeRule    :merge ;
     :hasResolveRule  :resolve ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10365", "10963", "10969", "13347", "13349", "13357" ] ;
-    :hasExporter     "sozialplattform" .
+    :hasExporter     "sozialplattform" ;
+    :repository      "https://github.com/foederierter-datenpool/sosuse-directory-builder" .
 
 # ---- Vocabulary ---------------------------------------------------------
 

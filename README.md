@@ -31,7 +31,7 @@ Outputs &rarr; `data/`
 
 ## Run the webapp
 The webapp ships with `@directory-builder/core`; this repo holds no webapp
-code — only the `exporters/` modules it injects at runtime.
+code — only the `exporters/` modules and `content/` prose it injects at runtime.
 ```sh
 npm run webapp         # dev server against this repo's config/ + data/
 npm run webapp:build   # production build → dist/
