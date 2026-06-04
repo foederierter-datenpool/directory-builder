@@ -16,7 +16,8 @@
     :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
     :hasMergeRule    :merge ;
     :hasResolveRule  :resolve ;
-    :hasRunParam     [ :name "plz" ; :value "10115", "10365", "10963", "10969", "13347", "13349", "13357" ] .
+    :hasRunParam     [ :name "plz" ; :value "10115", "10365", "10963", "10969", "13347", "13349", "13357" ] ;
+    :hasExporter     "sozialplattform" .
 
 # ---- Vocabulary ---------------------------------------------------------
 
