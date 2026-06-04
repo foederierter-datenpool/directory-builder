@@ -2,6 +2,9 @@
   "name": "directory-builder",
   "version": "0.0.1",
   "type": "module",
+  "scripts": {
+    "pipeline": "node src/ingest.js && node src/federate.js"
+  },
   "dependencies": {
     "@foerderfunke/sem-ops-utils": "^0.5.1",
     "fuzzball": "^2.2.6",
