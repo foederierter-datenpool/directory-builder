@@ -52,7 +52,8 @@ cdf:CounselingCentre a rdfs:Class ;
     rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-areaServed, :t-provider .
 
-:t-identifier           a :TargetField ; :targetPredicate schema:identifier .
+# :multiValued - one value per contributing source is expected; the Merge view doesn't flag these as conflicts
+:t-identifier           a :TargetField ; :targetPredicate schema:identifier ; :multiValued true .
 :t-name                 a :TargetField ; :targetPredicate schema:name .
 :t-alternateName        a :TargetField ; :targetPredicate schema:alternateName .
 :t-description          a :TargetField ; :targetPredicate schema:description .

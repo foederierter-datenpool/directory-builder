@@ -10,7 +10,7 @@ import fs from "fs"
 
 const OUT_DIR = process.argv[2]
 const SRC_DIR = process.argv[3]
-const PLZS = (process.argv[4] ?? "").split(",").map((s) => s.trim()).filter(Boolean)
+const { plz: PLZS = [] } = JSON.parse(process.argv[4] || "{}")
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(SRC_DIR, f), "utf8")).data
 

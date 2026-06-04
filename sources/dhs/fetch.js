@@ -3,7 +3,7 @@ import fs from "fs"
 
 const OUT_DIR = process.argv[2]
 const BASE_URL = process.argv[3]
-const PLZS = process.argv[4].split(",")
+const { plz: PLZS = [] } = JSON.parse(process.argv[4] || "{}")
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
