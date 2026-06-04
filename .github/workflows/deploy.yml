@@ -13,10 +13,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
-              # Full history: ingest runs `git log` to date static sources
-              # into the ingest log (see src/ingest.js). A shallow clone has
-              # no parent to diff against, so git would misattribute the add
-              # to the HEAD/deploy commit instead of the real one.
+              # Full history: the ingest engine runs `git log` to date static
+              # sources into the ingest log. A shallow clone has no parent to
+              # diff against, so git would misattribute the add to the
+              # HEAD/deploy commit instead of the real one.
               with:
                   fetch-depth: 0
 
@@ -33,21 +33,20 @@ jobs:
               uses: actions/cache@v4
               with:
                   path: tools
-                  key: sparql-anything-${{ hashFiles('src/ingest.js') }}
+                  # The jar version is pinned in the core engine, so a core
+                  # dependency bump is what can change it.
+                  key: sparql-anything-${{ hashFiles('package.json') }}
 
             - run: npm install
 
             - run: npm run pipeline
 
-            - run: npm install
-              working-directory: webapp
-            - run: npm run build
-              working-directory: webapp
+            - run: npm run webapp:build
 
             - name: Stage publish dir
               run: |
                   mkdir -p _site/config _site/data/ingest _site/data/pipeline
-                  cp -r webapp/dist/. _site/
+                  cp -r dist/. _site/
                   cp -r config/. _site/config/
                   cp -r data/ingest/. _site/data/ingest/
                   cp -r data/pipeline/. _site/data/pipeline/

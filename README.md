@@ -8,7 +8,6 @@ Builds a federated directory of social support services from multiple input sour
 ## Setup
 ```sh
 npm install
-cd webapp && npm install
 ```
 
 ## Run the pipeline
@@ -23,7 +22,7 @@ npm run federate   # clean → map → match → merge → resolve only
 
 Or programmatically:
 ```js
-import { Pipeline } from "./src/pipeline.js"
+import { Pipeline } from "@directory-builder/core"
 
 const pipeline = new Pipeline() // root defaults to process.cwd()
 await pipeline.run() // ingest + federate
@@ -31,9 +30,10 @@ await pipeline.run() // ingest + federate
 Outputs &rarr; `data/`
 
 ## Run the webapp
-From `webapp/`:
+The webapp ships with `@directory-builder/core`; this repo holds no webapp code.
 ```sh
-npm run dev
+npm run webapp         # dev server against this repo's config/ + data/
+npm run webapp:build   # production build → dist/
 ```
 
 ## Deployment
