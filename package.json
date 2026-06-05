@@ -1,6 +1,6 @@
 {
   "name": "sosuse-directory-builder",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "pipeline": "directory-builder",
@@ -10,6 +10,6 @@
     "webapp:build": "directory-builder webapp build --base /sosuse-directory-builder/"
   },
   "dependencies": {
-    "@directory-builder/core": "^0.1.0"
+    "@directory-builder/core": "^0.1.1"
   }
 }
