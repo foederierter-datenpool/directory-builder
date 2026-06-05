@@ -11,6 +11,7 @@
 # ---- Federation ---------------------------------------------------------
 
 :federation a :Federation ;
+    rdfs:label       "Federated directory of social support services in Germany" ;
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
     :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
     :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
