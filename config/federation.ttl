@@ -15,7 +15,6 @@
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
     :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
     :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
-    :hasMergeRule    :merge ;
     :hasResolveRule  :resolve ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10365", "10963", "10969", "13347", "13349", "13357" ] ;
     :hasExporter     "sozialplattform" ;
@@ -235,7 +234,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :caritas-beratungsstelle-mapping a :Mapping ;
     :fromSource    :caritasSource ;
     :toTarget      :beratungsstelleSchema ;
-    :sourceGraph   <urn:source:caritas> ;
     :hasFieldMapping
         [ :from :caritas-Guid     ; :to :t-identifier    ] ,
         [ :from :caritas-Title    ; :to :t-name          ] ,
@@ -250,7 +248,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :sp-beratungsstelle-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
     :toTarget      :beratungsstelleSchema ;
-    :sourceGraph   <urn:source:sozialplattform> ;
     :hasFieldMapping
         [ :from :sp-office_title                 ; :to :t-name          ] ,
         [ :from :sp-office_opening_hours         ; :to :t-openingHours  ] ,
@@ -265,7 +262,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :sp-angebot-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
     :toTarget      :angebotSchema ;
-    :sourceGraph   <urn:source:sozialplattform> ;
     :hasFieldMapping
         [ :from :sp-offer_id                        ; :to :t-identifier ] ,
         [ :from :sp-offer_title                     ; :to :t-name       ] ,
@@ -279,7 +275,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :dhs-beratungsstelle-mapping a :Mapping ;
     :fromSource    :dhsSource ;
     :toTarget      :beratungsstelleSchema ;
-    :sourceGraph   <urn:source:dhs> ;
     :hasFieldMapping
         [ :from :dhs-entryId      ; :to :t-identifier              ] ,
         [ :from :dhs-name         ; :to :t-name                    ] ,
@@ -301,7 +296,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :awo-traeger-mapping a :Mapping ;
     :fromSource    :awoSource ;
     :toTarget      :traegerSchema ;
-    :sourceGraph   <urn:source:awo> ;
     :hasFieldMapping
         [ :from :awo-id          ; :to :t-identifier         ] ,
         [ :from :awo-name        ; :to :t-name               ] ,
@@ -314,7 +308,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :awo-beratungsstelle-mapping a :Mapping ;
     :fromSource    :awoSource ;
     :toTarget      :beratungsstelleSchema ;
-    :sourceGraph   <urn:source:awo> ;
     :hasFieldMapping
         [ :from :awo-id          ; :to :t-identifier         ] ,
         [ :from :awo-name        ; :to :t-name               ] ,
@@ -330,7 +323,6 @@ cdf:CounselingCentre a rdfs:Class ;
 :awo-angebot-mapping a :Mapping ;
     :fromSource    :awoSource ;
     :toTarget      :angebotSchema ;
-    :sourceGraph   <urn:source:awo> ;
     :hasFieldMapping
         [ :from :awo-svc-id           ; :to :t-identifier ] ,
         [ :from :awo-svc-bagfw-name   ; :to :t-category   ] ,
@@ -364,11 +356,6 @@ cdf:CounselingCentre a rdfs:Class ;
     :hasHardCriterion     [ :on schema:provider ] ;
     :minScore             0.85 ;
     :hasWeightedCriterion [ :on schema:name ; :weight 1.0 ] .
-
-# ---- Merge --------------------------------------------------------------
-
-:merge a :MergeRule ;
-    :originPredicate prov:wasDerivedFrom .
 
 # ---- Resolve ------------------------------------------------------------
 
