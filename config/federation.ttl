@@ -204,6 +204,7 @@ cdf:CounselingCentre a rdfs:Class ;
 :awoSource a :Source ;
     rdfs:label    "Arbeiterwohlfahrt (AWO)" ;
     skos:notation "awo" ;
+    :dedupWithinSource false ;
     :retrieval    "Files" ;
     :format       ft:JSON ;
     :hasField   :awo-id, :awo-name, :awo-name_zusatz, :awo-webseite, :awo-parent_name,

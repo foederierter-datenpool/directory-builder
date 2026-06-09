@@ -15,3 +15,9 @@
 # "ZENTRUM FÜR VERHALTENSSUCHT - Frühintervention, Beratung und Nachsorge (Café Beispiellos + Lost in Space)" (caritas) <> "Cafe Beispiellos / Lost in Space Beratungsstelle für Glücksspiel-, Computerspiel- und Internetsüchtige und deren Angehörige" (sozialplattform)
 :sp-org-f0014df88f6e
     owl:sameAs :caritas-e5486914-965e-40b6-9d06-e94f3dcc8d3e .
+
+# AWO's two Schuldnerberatung listings are the same service entered twice
+# ("Schuldner- und Insolvenzberatung" / "Schuldnerberatung und
+# Insolvenzberatung", both Badstr. 33). AWO no longer self-dedups
+# (:dedupWithinSource false), so assert the merge explicitly.
+:awo-8858 owl:sameAs :awo-8862 .
