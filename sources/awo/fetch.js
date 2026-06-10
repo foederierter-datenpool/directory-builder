@@ -14,7 +14,8 @@ const { plz: PLZS = [] } = JSON.parse(process.argv[4] || "{}")
 
 const read = (f) => JSON.parse(fs.readFileSync(path.join(SRC_DIR, f), "utf8")).data
 
-// The static files cover all of Berlin
+// The static files cover Bezirk Mitte plus two adjacent PLZs (16 PLZs in
+// 10115–13407: Kreisverband Berlin-Mitte + Stiftung SPI)
 const inPlz = (plz) => PLZS.length === 0 || PLZS.includes(String(plz))
 const orgs    = read("organisations_filtered.json")
 const orgsAll = read("organisations_all_filtered.json")
