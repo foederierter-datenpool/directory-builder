@@ -52,7 +52,8 @@ cdf:CounselingCentre a rdfs:Class ;
 :angebotSchema a :TargetSchema ;
     :targetClass schema:Service ;
     rdfs:label "Angebot"@de ;
-    :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-areaServed, :t-provider .
+    :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-audience,
+                    :t-areaServed, :t-detailUrl, :t-provider .
 
 # :multiValued - one value per contributing source is expected; the Merge view doesn't flag these as conflicts
 :t-identifier           a :TargetField ; :targetPredicate schema:identifier ; :multiValued true .
@@ -125,14 +126,25 @@ cdf:CounselingCentre a rdfs:Class ;
     :fetchUrl     "https://sozialplattform.de/content/de/api/v1/consultation/search" ;
     :retrieval    "API" ;
     :format       ft:JSON ;
+    :hasEntity  :sp-offer, :sp-office ;
+    :hasField   :sp-search_score .
+
+# The clean step splits each row into these two entities (offer_* / office_*
+# fields); search_score is a query-time artifact belonging to neither.
+:sp-offer a :SourceEntity ;
+    rdfs:label "Offer" ;
     :hasField   :sp-offer_chat_topic, :sp-offer_external_id_booking, :sp-offer_external_service_booking,
                 :sp-offer_external_service_consulting, :sp-offer_external_service_link_text,
                 :sp-offer_external_service_link_url, :sp-offer_external_service_type, :sp-offer_id, :sp-offer_nid,
-                :sp-offer_service_area, :sp-offer_title, :sp-offer_type, :sp-office_address, :sp-office_address_short,
+                :sp-offer_service_area, :sp-offer_title, :sp-offer_type .
+
+:sp-office a :SourceEntity ;
+    rdfs:label "Office" ;
+    :hasField   :sp-office_address, :sp-office_address_short,
                 :sp-office_email, :sp-office_external_id_booking, :sp-office_external_id_consulting,
                 :sp-office_external_service_booking, :sp-office_external_service_consulting,
                 :sp-office_external_service_type, :sp-office_opening_hours, :sp-office_opening_hours_notes,
-                :sp-office_phone, :sp-office_title, :sp-search_score .
+                :sp-office_phone, :sp-office_title .
 
 :sp-offer_chat_topic                   a :SourceField ; :fieldPath "offer_chat_topic"                   .
 :sp-offer_external_id_booking          a :SourceField ; :fieldPath "offer_external_id_booking"          .
@@ -178,9 +190,18 @@ cdf:CounselingCentre a rdfs:Class ;
     :dedupWithinSource false ;
     :retrieval    "Files" ;
     :format       ft:JSON ;
+    :hasEntity  :awo-org, :awo-service .
+
+# The clean step unifies the org files' records into one org entity per id and
+# mints one service entity per services[] element.
+:awo-org a :SourceEntity ;
+    rdfs:label "Organisation" ;
     :hasField   :awo-id, :awo-name, :awo-name_zusatz, :awo-webseite, :awo-parent_name,
-                :awo-adresse, :awo-plz, :awo-ort, :awo-ortsteil, :awo-category,
-                :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .
+                :awo-adresse, :awo-plz, :awo-ort, :awo-ortsteil, :awo-category .
+
+:awo-service a :SourceEntity ;
+    rdfs:label "Service" ;
+    :hasField   :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .
 
 :awo-id          a :SourceField ; :fieldPath "id"          .
 :awo-name        a :SourceField ; :fieldPath "name"        .
