@@ -22,6 +22,13 @@
 # (:dedupWithinSource false), so assert the merge explicitly.
 :awo-8858 owl:sameAs :awo-8862 .
 
+# "Drogenberatung Nord" (awo, via Stiftung SPI) <> "Drogenhilfe Nord" (dhs).
+# Same facility: identical address (Alt-Reinickendorf 23-24, 13407), and the
+# DHS entry's department field is "Drogenberatung Nord" with stiftung-spi.de
+# contact. The fuzzy score misses by a hair (0.545 < minScore 0.55) because
+# "Beratung"/"Hilfe" defeats token matching.
+:awo-8936 owl:sameAs :dhs-4514 .
+
 # ---- Different-from assertions --------------------------------------------
 
 # Caritas's "Mitarbeiterseite Arbeitsrechtliche Kommission Deutscher

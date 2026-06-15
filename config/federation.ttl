@@ -12,7 +12,7 @@
 
 :federation a :Federation ;
     rdfs:label       "Federated directory of social support services in Germany" ;
-    :hasSource       :caritasSource, :sozialplattformSource, :awoSource ;
+    :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
     :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
     :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
     :hasResolveRule  :resolve ;
@@ -184,6 +184,41 @@ cdf:CounselingCentre a rdfs:Class ;
 
 # -------------------------------------------------------------------------
 
+:dhsSource a :Source ;
+    rdfs:label    "Deutsche Hauptstelle für Suchtfragen (DHS)" ;
+    skos:notation "dhs" ;
+    # entryIds are stable and distinct co-located programs (vista WIGWAM
+    # Connect/Support/ZERO) would otherwise fuzzy-merge; true DHS-internal
+    # duplicates still cluster via cross-source bridges (e.g. Birkenstube).
+    :dedupWithinSource false ;
+    :fetchUrl     "https://www.dhs.de/service/suchthilfeverzeichnis/" ;
+    :retrieval    "API" ;
+    :format       ft:HTML ;
+    # Passed to the lift query as a SPARQL Anything variable
+    :hasLiftParam [ :name "selector" ; :value "html" ] ;
+    :hasField   :dhs-angebote, :dhs-arbeit, :dhs-art, :dhs-barrierefrei, :dhs-department, :dhs-detailLink, :dhs-email,
+                :dhs-entryId, :dhs-name, :dhs-plzort, :dhs-strasse, :dhs-telefon, :dhs-traeger, :dhs-website,
+                :dhs-zeiten, :dhs-zielgruppe .
+
+:dhs-angebote     a :SourceField ; :fieldPath "angebote"     .
+:dhs-arbeit       a :SourceField ; :fieldPath "arbeit"       .
+:dhs-art          a :SourceField ; :fieldPath "art"          .
+:dhs-barrierefrei a :SourceField ; :fieldPath "barrierefrei" .
+:dhs-department   a :SourceField ; :fieldPath "department"   .
+:dhs-detailLink   a :SourceField ; :fieldPath "detailLink"   .
+:dhs-email        a :SourceField ; :fieldPath "email"        .
+:dhs-entryId      a :SourceField ; :fieldPath "entryId"      .
+:dhs-name         a :SourceField ; :fieldPath "name"         .
+:dhs-plzort       a :SourceField ; :fieldPath "plzort"       .
+:dhs-strasse      a :SourceField ; :fieldPath "strasse"      .
+:dhs-telefon      a :SourceField ; :fieldPath "telefon"      .
+:dhs-traeger      a :SourceField ; :fieldPath "traeger"      .
+:dhs-website      a :SourceField ; :fieldPath "website"      .
+:dhs-zeiten       a :SourceField ; :fieldPath "zeiten"       .
+:dhs-zielgruppe   a :SourceField ; :fieldPath "zielgruppe"   .
+
+# -------------------------------------------------------------------------
+
 :awoSource a :Source ;
     rdfs:label    "Arbeiterwohlfahrt (AWO)" ;
     skos:notation "awo" ;
@@ -264,6 +299,27 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
     :hasRelationship
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] .
+
+:dhs-beratungsstelle-mapping a :Mapping ;
+    :fromSource    :dhsSource ;
+    :toTarget      :beratungsstelleSchema ;
+    :hasFieldMapping
+        [ :from :dhs-entryId      ; :to :t-identifier              ] ,
+        [ :from :dhs-name         ; :to :t-name                    ] ,
+        [ :from :dhs-department   ; :to :t-alternateName           ] ,
+        [ :from :dhs-detailLink   ; :to :t-detailUrl               ] ,
+        [ :from :dhs-website      ; :to :t-homepage                ] ,
+        [ :from :dhs-art          ; :to :t-category                ] ,
+        [ :from :dhs-angebote     ; :to :t-availableService        ] ,
+        [ :from :dhs-arbeit       ; :to :t-availableService        ] ,
+        [ :from :dhs-zielgruppe   ; :to :t-audience                ] ,
+        [ :from :dhs-zeiten       ; :to :t-openingHours            ] ,
+        [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary    ] ,
+        [ :from :dhs-traeger      ; :to :t-parentOrgClassification ] ,
+        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via "address" ] ,
+        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via "address" ] ,
+        [ :from :dhs-telefon      ; :to :t-telephone               ; :via "contact" ] ,
+        [ :from :dhs-email        ; :to :t-email                   ; :via "contact" ] .
 
 :awo-traeger-mapping a :Mapping ;
     :fromSource    :awoSource ;
