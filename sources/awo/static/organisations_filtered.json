@@ -147,54 +147,6 @@
       ]
     },
     {
-      "id": 8846,
-      "type": "einrichtung",
-      "name": "Wohngemeinschaft Lützowstraße",
-      "name_zusatz": "",
-      "webseite": "",
-      "parent_id": 2,
-      "locations": [
-        {
-          "id": 8964,
-          "plz": "10785",
-          "ort": "Berlin",
-          "ortsteil": "",
-          "adresse": "",
-          "public_fields": [
-            "adresse",
-            "postfach",
-            "kontakt",
-            "allgemein"
-          ],
-          "organisation_id": 8846
-        }
-      ]
-    },
-    {
-      "id": 8847,
-      "type": "einrichtung",
-      "name": "Wohngemeinschaft Antwerpener Straße",
-      "name_zusatz": "",
-      "webseite": "",
-      "parent_id": 2,
-      "locations": [
-        {
-          "id": 8965,
-          "plz": "13353",
-          "ort": "Berlin",
-          "ortsteil": "",
-          "adresse": "Antwerpener Str. 9",
-          "public_fields": [
-            "adresse",
-            "postfach",
-            "kontakt",
-            "allgemein"
-          ],
-          "organisation_id": 8847
-        }
-      ]
-    },
-    {
       "id": 8850,
       "type": "einrichtung",
       "name": "Berliner Zentrum für Gewaltprävention e.V.",
