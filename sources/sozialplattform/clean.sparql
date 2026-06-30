@@ -50,7 +50,11 @@ WHERE {
         BIND(STRSTARTS(STR(?fieldP), CONCAT(STR(xyz:), "office_")) AS ?isOffice)
         FILTER(?isOffice || STRSTARTS(STR(?fieldP), CONCAT(STR(xyz:), "offer_")))
         BIND(IF(?isOffice, ?office, ?service) AS ?subj)
-        BIND(STRDT(REPLACE(STR(?fieldRaw), "[\u00A0\\s]+", " "), datatype(?fieldRaw)) AS ?fieldVal)
+        # office_phone \u2192 digits (keep a leading +) so separator variants of one number
+        # collapse; every other scalar just gets its NBSP/whitespace runs collapsed.
+        BIND(IF(?fieldP = xyz:office_phone,
+                REPLACE(STR(?fieldRaw), "[^0-9+]", ""),
+                STRDT(REPLACE(STR(?fieldRaw), "[\u00A0\\s]+", " "), datatype(?fieldRaw))) AS ?fieldVal)
     }
 
     # office_address sub-node → reattach the mapped subfields under a stable IRI.

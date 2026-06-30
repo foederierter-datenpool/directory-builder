@@ -67,7 +67,7 @@ cdf:CounselingCentre a rdfs:Class ;
 :t-country              a :TargetField ; :targetPredicate schema:addressCountry .
 :t-areaServed           a :TargetField ; :targetPredicate schema:areaServed .
 
-:t-telephone            a :TargetField ; :targetPredicate schema:telephone .
+:t-telephone            a :TargetField ; :targetPredicate schema:telephone ; :multiValued true .
 :t-email                a :TargetField ; :targetPredicate schema:email .
 :t-homepage             a :TargetField ; :targetPredicate foaf:homepage .
 :t-detailUrl            a :TargetField ; :targetPredicate schema:mainEntityOfPage .
@@ -389,4 +389,5 @@ cdf:CounselingCentre a rdfs:Class ;
 
 :resolve a :ResolveRule ;
     :defaultStrategy :alphabeticFirst ;
-    :hasOverride     [ :on schema:availableService ; :strategy :concatenateAll ] .
+    :hasOverride     [ :on schema:availableService ; :strategy :concatenateAll ] ,
+                     [ :on schema:telephone        ; :strategy :keepAll ] .

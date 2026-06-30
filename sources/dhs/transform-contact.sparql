@@ -1,4 +1,6 @@
-# telefon carries labels like "Tel.: ", "Fax.: ", "Mobil: " that are stripped.
+# telefon carries labels like "Tel.: ", "Fax.: ", "Mobil: " that are stripped, then
+# the number is normalised to digits (keep a leading +) so separator variants of one
+# number ("030 447213-53" / "03044721353") collapse — telephone resolves with :keepAll.
 
 PREFIX xyz:    <http://sparql.xyz/facade-x/data/>
 PREFIX schema: <http://schema.org/>
@@ -16,7 +18,7 @@ INSERT {
         ?org cdp:fromSource cdp:dhsSource .
         OPTIONAL {
             ?org xyz:telefon ?telRaw .
-            BIND(REPLACE(?telRaw, "^(Tel|Fax|Mobil)\\.?:\\s*", "") AS ?phone)
+            BIND(REPLACE(REPLACE(?telRaw, "^(Tel|Fax|Mobil)\\.?:\\s*", ""), "[^0-9+]", "") AS ?phone)
         }
         OPTIONAL {
             ?org xyz:email ?emailRaw .
