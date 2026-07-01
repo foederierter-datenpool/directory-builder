@@ -17,6 +17,7 @@
     :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema ;
     :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch ;
     :hasResolveRule  :resolve ;
+    :harvestingModeActive false ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
                        "10435", "10551", "10557", "10559", "10785", "10963", "10969", "13347",
                        "13349", "13353", "13355", "13357", "13359", "13407" ] ;
