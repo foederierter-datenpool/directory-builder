@@ -4,6 +4,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix dct:    <http://purl.org/dc/terms/> .
 @prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix org:    <http://www.w3.org/ns/org#> .
 @prefix prov:   <http://www.w3.org/ns/prov#> .
 @prefix skos:   <http://www.w3.org/2004/02/skos/core#> .
 @prefix ft:     <http://publications.europa.eu/resource/authority/file-type/> .
@@ -13,8 +14,8 @@
 :federation a :Federation ;
     rdfs:label       "Federated directory of social support services in Germany" ;
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
-    :hasTargetSchema :traegerSchema, :beratungsstelleSchema, :angebotSchema ;
-    :hasMatchRule    :traegerMatch, :beratungsstelleMatch, :angebotMatch ;
+    :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema ;
+    :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch ;
     :hasResolveRule  :resolve ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
                        "10435", "10551", "10557", "10559", "10785", "10963", "10969", "13347",
@@ -24,9 +25,7 @@
 
 # ---- Vocabulary ---------------------------------------------------------
 
-cdf:CounselingCentre a rdfs:Class ;
-    rdfs:subClassOf schema:Organization ;
-    rdfs:label "Beratungsstelle"@de, "Counselling centre"@en .
+org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 
 # ---- Target schemas -----------------------------------------------------
 
@@ -39,9 +38,9 @@ cdf:CounselingCentre a rdfs:Class ;
                     :t-parentOrganization,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
-:beratungsstelleSchema a :TargetSchema ;
-    :targetClass cdf:CounselingCentre ;
-    rdfs:label "Beratungsstelle"@de ;
+:einrichtungSchema a :TargetSchema ;
+    :targetClass org:OrganizationalUnit ;
+    rdfs:label "Einrichtung"@de ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
                     :t-streetAddress, :t-postalCode, :t-locality, :t-country, :t-areaServed,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
@@ -259,9 +258,9 @@ cdf:CounselingCentre a rdfs:Class ;
 
 # ---- Mappings -----------------------------------------------------------
 
-:caritas-beratungsstelle-mapping a :Mapping ;
+:caritas-einrichtung-mapping a :Mapping ;
     :fromSource    :caritasSource ;
-    :toTarget      :beratungsstelleSchema ;
+    :toTarget      :einrichtungSchema ;
     :hasFieldMapping
         [ :from :caritas-Guid     ; :to :t-identifier    ] ,
         [ :from :caritas-Title    ; :to :t-name          ] ,
@@ -273,9 +272,9 @@ cdf:CounselingCentre a rdfs:Class ;
 
 # Sozialplattform is offer-first: the clean step splits each row into an office
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
-:sp-beratungsstelle-mapping a :Mapping ;
+:sp-einrichtung-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
-    :toTarget      :beratungsstelleSchema ;
+    :toTarget      :einrichtungSchema ;
     :hasFieldMapping
         [ :from :sp-office_title                 ; :to :t-name          ] ,
         [ :from :sp-office_opening_hours         ; :to :t-openingHours  ] ,
@@ -298,11 +297,11 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :sp-offer_service_area              ; :to :t-areaServed ] ,
         [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] .
 
-:dhs-beratungsstelle-mapping a :Mapping ;
+:dhs-einrichtung-mapping a :Mapping ;
     :fromSource    :dhsSource ;
-    :toTarget      :beratungsstelleSchema ;
+    :toTarget      :einrichtungSchema ;
     :hasFieldMapping
         [ :from :dhs-entryId      ; :to :t-identifier              ] ,
         [ :from :dhs-name         ; :to :t-name                    ] ,
@@ -333,9 +332,9 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-plz         ; :to :t-postalCode         ] ,
         [ :from :awo-ort         ; :to :t-locality           ] .
 
-:awo-beratungsstelle-mapping a :Mapping ;
+:awo-einrichtung-mapping a :Mapping ;
     :fromSource    :awoSource ;
-    :toTarget      :beratungsstelleSchema ;
+    :toTarget      :einrichtungSchema ;
     :hasFieldMapping
         [ :from :awo-id          ; :to :t-identifier         ] ,
         [ :from :awo-name        ; :to :t-name               ] ,
@@ -357,13 +356,13 @@ cdf:CounselingCentre a rdfs:Class ;
         [ :from :awo-svc-bagfw-nummer ; :to :t-codeValue  ] ,
         [ :from :awo-svc-area         ; :to :t-areaServed ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :beratungsstelleSchema ] ,
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] ,
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema ] .
 
 # ---- Match --------------------------------------------------------------
 
-:beratungsstelleMatch a :MatchRule ;
-    :forTarget           :beratungsstelleSchema ;
+:einrichtungMatch a :MatchRule ;
+    :forTarget           :einrichtungSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "org-" ;
     :hasHardCriterion     [ :on schema:postalCode ] ;

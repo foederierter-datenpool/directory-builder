@@ -9,7 +9,7 @@
 # (cdp:awo-service-<id>) linked back via cdp:providedBy. Clean stays in xyz:/cdp:
 # vocabulary — no schema: yet; each subject instead carries cdp:targetSchema so
 # the map routes it to its tier (where the schema: type is assigned): a Träger
-# org → schema:Organization, an einrichtung Beratungsstelle → cdf:CounselingCentre,
+# org → schema:Organization, an einrichtung → org:OrganizationalUnit,
 # and each service → schema:Service. The org still folds in the first service's
 # BAGFW category for now — that moves onto the service when the service mapping is wired.
 
@@ -41,10 +41,10 @@ WHERE {
     ?node xyz:type ?type ; xyz:id ?id .
     BIND(IRI(CONCAT(STR(cdp:), "awo-", STR(?id))) AS ?org)
     # AWO is the one source with an explicit tree: type=traeger is the umbrella
-    # org (→ schema:Organization), type=einrichtung the local Beratungsstelle
-    # (→ cdf:CounselingCentre). Route each to its schema; services (below) hang
+    # org (→ schema:Organization), type=einrichtung the local facility
+    # (→ org:OrganizationalUnit). Route each to its schema; services (below) hang
     # off both tiers, so their cdp:providedBy may point at either.
-    BIND(IF(STR(?type) = "traeger", cdp:traegerSchema, cdp:beratungsstelleSchema) AS ?orgSchema)
+    BIND(IF(STR(?type) = "traeger", cdp:traegerSchema, cdp:einrichtungSchema) AS ?orgSchema)
 
     # The org's own scalar literals (id, name, name_zusatz, webseite, …), with
     # whitespace collapsed. isLiteral skips nested arrays and the xyz:null IRI.

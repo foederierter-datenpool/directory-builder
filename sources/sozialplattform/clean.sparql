@@ -18,7 +18,7 @@ PREFIX cdp: <https://civic-data.de/pipeline#>
 
 CONSTRUCT {
     ?office  cdp:fromSource     cdp:sozialplattformSource ;
-             cdp:targetSchema   cdp:beratungsstelleSchema ;
+             cdp:targetSchema   cdp:einrichtungSchema ;
              xyz:office_address ?addrNode .
     ?service cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:angebotSchema ;
