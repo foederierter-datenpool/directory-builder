@@ -114,7 +114,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :fetchUrl     "https://www.caritas.de/Api/search/searchbyquery" ;
     :retrieval    "API" ;
     :format       ft:JSON ;
-    :hasEntity  :caritas-address ;
+    :hasEntity  :caritas-einrichtung, :caritas-address .
+
+:caritas-einrichtung a :SourceEntity ;
+    rdfs:label "Einrichtung" ;
     :hasField   :caritas-Categories, :caritas-ContentType, :caritas-ContentTypeGuid, :caritas-Date, :caritas-Distance,
                 :caritas-Format, :caritas-Guid, :caritas-Index, :caritas-LeadLine, :caritas-Link,
                 :caritas-OnlineConsultingUrl, :caritas-SearchResultHtml, :caritas-SubTitle, :caritas-Teaser,
@@ -237,7 +240,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :format       ft:HTML ;
     # Passed to the lift query as a SPARQL Anything variable
     :hasLiftParam [ :name "selector" ; :value "html" ] ;
-    :hasEntity  :dhs-address ;
+    :hasEntity  :dhs-einrichtung, :dhs-address .
+
+:dhs-einrichtung a :SourceEntity ;
+    rdfs:label "Einrichtung" ;
     :hasField   :dhs-angebote, :dhs-arbeit, :dhs-art, :dhs-barrierefrei, :dhs-department, :dhs-detailLink, :dhs-email,
                 :dhs-entryId, :dhs-name, :dhs-plzort, :dhs-strasse, :dhs-telefon, :dhs-traeger, :dhs-website,
                 :dhs-zeiten, :dhs-zielgruppe .
