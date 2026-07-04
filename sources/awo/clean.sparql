@@ -26,16 +26,34 @@ CONSTRUCT {
          xyz:ort          ?ort ;
          xyz:ortsteil     ?ortsteil ;
          xyz:category     ?category ;
-         cdp:hasParent    ?parentOrg .
+         cdp:hasParent    ?parentOrg ;
+         cdp:locatedAt    ?addr .
+
+    ?addr cdp:fromSource   cdp:awoSource ;
+          cdp:targetSchema cdp:adresseSchema ;
+          cdp:matchString  ?adrNorm ;
+          xyz:locationId      ?locId ;
+          xyz:streetAddress   ?adrStreet ;
+          xyz:postalCode      ?plz ;
+          xyz:addressLocality ?ort .
 
     ?svc cdp:fromSource     cdp:awoSource ;
          cdp:targetSchema   cdp:angebotSchema ;
          cdp:providedBy     ?org ;
+         cdp:locatedAt      ?svcAddr ;
          xyz:id             ?svcId ;
          xyz:bagfw_category ?svcBc ;
-         xyz:area_served    ?svcArea .
+         xyz:areaServed     ?svcArea .
     ?svcBc xyz:nummer ?svcNum ;
            xyz:name   ?svcName .
+
+    ?svcAddr cdp:fromSource   cdp:awoSource ;
+             cdp:targetSchema cdp:adresseSchema ;
+             cdp:matchString  ?svcAdrNorm ;
+             xyz:locationId      ?svcLocId ;
+             xyz:streetAddress   ?svcAdrStreet ;
+             xyz:postalCode      ?svcLocPlz ;
+             xyz:addressLocality ?svcArea .
 }
 WHERE {
     ?node xyz:type ?type ; xyz:id ?id .
@@ -63,6 +81,26 @@ WHERE {
                  xyz:ort              ?ort .
         OPTIONAL { ?locNode xyz:adresse  ?adresse }
         OPTIONAL { ?locNode xyz:ortsteil ?ortsteil }
+        OPTIONAL { ?locNode xyz:id       ?locId }
+        # Address entity: whitespace collapsed and Str. expanded for display, then
+        # lowercased / diacritics folded / punctuation dropped onto cdp:matchString,
+        # the match step's exact comparison surface. The IRI is content-addressed on
+        # matchString + PLZ, so formatting variants collapse onto one IRI. An empty
+        # street mints nothing: the IF picks the never-bound ?noAddr, erroring the
+        # whole chain away.
+        BIND(REPLACE(REPLACE(REPLACE(STR(?adresse), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?adrStreetA)
+        # Strasse → Straße, house-number letter attached ("33 a" → "33a"), number
+        # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+        # display only; matchString is invariant.
+        BIND(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2") AS ?adrStreet0)
+        BIND(IF(?adrStreet0 != "", ?adrStreet0, ?noAddr) AS ?adrStreet)
+        BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?adrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?adrNorm)
+        # Street-less locations (plz+ort only) still get an entity, keyed by the
+        # native location id instead of a content hash — no matchString, so the
+        # match step correctly never equates them with anything.
+        BIND(COALESCE(
+            IRI(CONCAT(STR(cdp:), "awo-addr-", SUBSTR(SHA1(CONCAT(?adrNorm, "|", STR(?plz))), 1, 12))),
+            IRI(CONCAT(STR(cdp:), "awo-addr-loc", STR(?locId)))) AS ?addr)
     }
 
     OPTIONAL {
@@ -90,6 +128,19 @@ WHERE {
         OPTIONAL {
             ?svcNode xyz:location_id ?svcLocId .
             ?svcLoc xyz:id ?svcLocId ; xyz:ort ?svcArea .
+            OPTIONAL { ?svcLoc xyz:plz     ?svcLocPlz     }
+            OPTIONAL { ?svcLoc xyz:adresse ?svcLocAdresse }
+            # Same address recipe as the org side — same location row, same IRI.
+            BIND(REPLACE(REPLACE(REPLACE(STR(?svcLocAdresse), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?svcAdrStreetA)
+            # Strasse → Straße, house-number letter attached ("33 a" → "33a"), number
+            # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+            # display only; matchString is invariant.
+            BIND(REPLACE(REPLACE(REPLACE(?svcAdrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2") AS ?svcAdrStreet0)
+            BIND(IF(?svcAdrStreet0 != "", ?svcAdrStreet0, ?noAddr) AS ?svcAdrStreet)
+            BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?svcAdrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?svcAdrNorm)
+            BIND(COALESCE(
+                IRI(CONCAT(STR(cdp:), "awo-addr-", SUBSTR(SHA1(CONCAT(?svcAdrNorm, "|", STR(?svcLocPlz))), 1, 12))),
+                IRI(CONCAT(STR(cdp:), "awo-addr-loc", STR(?svcLocId)))) AS ?svcAddr)
         }
     }
 

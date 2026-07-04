@@ -23,10 +23,14 @@ SELECT ?org
        (SAMPLE(?em)  AS ?email)
 WHERE {
     ?org schema:name ?n .
-    OPTIONAL { ?org schema:streetAddress   ?s   }
-    OPTIONAL { ?org schema:postalCode      ?pc  }
-    OPTIONAL { ?org schema:addressLocality ?l   }
-    OPTIONAL { ?org schema:addressCountry  ?co  }
+    # The address lives on the linked Adresse entity (schema:address), not flat
+    # on the org — final.ttl drops the org-side copies via the :drop override.
+    OPTIONAL { ?org schema:address ?adr .
+        OPTIONAL { ?adr schema:streetAddress   ?s  }
+        OPTIONAL { ?adr schema:postalCode      ?pc }
+        OPTIONAL { ?adr schema:addressLocality ?l  }
+        OPTIONAL { ?adr schema:addressCountry  ?co }
+    }
     OPTIONAL { ?org dct:subject            ?cat }
     OPTIONAL { ?org schema:telephone       ?ph  }
     OPTIONAL { ?org schema:email           ?em  }

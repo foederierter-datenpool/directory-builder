@@ -14,8 +14,8 @@
 :federation a :Federation ;
     rdfs:label       "Federated directory of social support services in Germany" ;
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
-    :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema ;
-    :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch ;
+    :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema, :adresseSchema ;
+    :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch, :adresseMatch ;
     :hasResolveRule  :resolve ;
     :harvestingModeActive false ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
@@ -34,26 +34,38 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :targetClass schema:Organization ;
     rdfs:label "Träger"@de ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
-                    :t-streetAddress, :t-postalCode, :t-locality, :t-country,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
-                    :t-parentOrganization,
+                    :t-parentOrganization, :t-address,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
 :einrichtungSchema a :TargetSchema ;
     :targetClass org:OrganizationalUnit ;
     rdfs:label "Einrichtung"@de ;
-    :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
-                    :t-streetAddress, :t-postalCode, :t-locality, :t-country, :t-areaServed,
+    :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description, :t-areaServed,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
                     :t-category, :t-availableService, :t-audience, :t-accessibilitySummary,
-                    :t-openingHours, :t-parentOrganization, :t-parentOrgClassification,
+                    :t-openingHours, :t-parentOrganization, :t-parentOrgClassification, :t-address,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
 :angebotSchema a :TargetSchema ;
     :targetClass schema:Service ;
     rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-audience,
-                    :t-areaServed, :t-detailUrl, :t-provider .
+                    :t-areaServed, :t-detailUrl, :t-provider, :t-address .
+
+# Independent address entities, linked from every other tier via schema:address.
+# Identity is exact, never fuzzy (fuzzy street similarity would glue neighbouring
+# house numbers — "Lehrter Straße 68" vs "69" scores ≈ 0.94): each clean step
+# normalises the street onto cdp:matchString (Str. → Straße, lowercase, diacritics
+# folded, punctuation dropped) and mints one content-addressed IRI per distinct
+# street+PLZ, so formatting variants collapse and the match rule only has to
+# equate identical (PLZ, matchString) pairs across sources.
+:adresseSchema a :TargetSchema ;
+    :targetClass schema:PostalAddress ;
+    rdfs:label "Adresse"@de ;
+    # The Match lane starts deselected (toggle it back on via the lanes dropdown).
+    :hiddenByDefault true ;
+    :hasTargetField :t-identifier, :t-streetAddress, :t-postalCode, :t-locality, :t-country .
 
 # :multiValued - one value per contributing source is expected; the Merge view doesn't flag these as conflicts
 :t-identifier           a :TargetField ; :targetPredicate schema:identifier ; :multiValued true .
@@ -61,10 +73,13 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :t-alternateName        a :TargetField ; :targetPredicate schema:alternateName .
 :t-description          a :TargetField ; :targetPredicate schema:description .
 
+# Address fields live on :adresseSchema entities only; the other tiers link
+# there via :t-address.
 :t-streetAddress        a :TargetField ; :targetPredicate schema:streetAddress .
 :t-postalCode           a :TargetField ; :targetPredicate schema:postalCode .
 :t-locality             a :TargetField ; :targetPredicate schema:addressLocality .
 :t-country              a :TargetField ; :targetPredicate schema:addressCountry .
+
 :t-areaServed           a :TargetField ; :targetPredicate schema:areaServed .
 
 :t-telephone            a :TargetField ; :targetPredicate schema:telephone ; :multiValued true .
@@ -79,6 +94,9 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :t-openingHours         a :TargetField ; :targetPredicate schema:openingHours .
 :t-parentOrganization   a :TargetField ; :targetPredicate schema:parentOrganization .
 :t-provider             a :TargetField ; :targetPredicate schema:provider .
+# Entity link to :adresseSchema. schema.org domains schema:address on organisations
+# and places only; we reuse it on Angebote too rather than invent a second predicate.
+:t-address              a :TargetField ; :targetPredicate schema:address .
 :t-codeValue            a :TargetField ; :targetPredicate schema:codeValue .
 :t-parentOrgClassification a :TargetField ; :targetPredicate cdf:parentOrgClassification .
 
@@ -96,6 +114,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :fetchUrl     "https://www.caritas.de/Api/search/searchbyquery" ;
     :retrieval    "API" ;
     :format       ft:JSON ;
+    :hasEntity  :caritas-address ;
     :hasField   :caritas-Categories, :caritas-ContentType, :caritas-ContentTypeGuid, :caritas-Date, :caritas-Distance,
                 :caritas-Format, :caritas-Guid, :caritas-Index, :caritas-LeadLine, :caritas-Link,
                 :caritas-OnlineConsultingUrl, :caritas-SearchResultHtml, :caritas-SubTitle, :caritas-Teaser,
@@ -118,6 +137,17 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :caritas-Title               a :SourceField ; :fieldPath "Title"               .
 :caritas-ViewType            a :SourceField ; :fieldPath "ViewType"            .
 
+# Address entities, minted by clean from the Teaser (anchor-on-PLZ split).
+# :derivedFrom names a derived field's raw origin — the Map view starts the
+# flow there instead of pretending the field came off the wire.
+:caritas-address a :SourceEntity ;
+    rdfs:label "Adresse" ;
+    :hasField :caritas-addr-street, :caritas-addr-plz, :caritas-addr-ort .
+
+:caritas-addr-street a :SourceField ; :fieldPath "streetAddress"   ; :derivedFrom :caritas-Teaser .
+:caritas-addr-plz    a :SourceField ; :fieldPath "postalCode"      ; :derivedFrom :caritas-Teaser .
+:caritas-addr-ort    a :SourceField ; :fieldPath "addressLocality" ; :derivedFrom :caritas-Teaser .
+
 # -------------------------------------------------------------------------
 
 :sozialplattformSource a :Source ;
@@ -126,7 +156,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :fetchUrl     "https://sozialplattform.de/content/de/api/v1/consultation/search" ;
     :retrieval    "API" ;
     :format       ft:JSON ;
-    :hasEntity  :sp-offer, :sp-office ;
+    :hasEntity  :sp-offer, :sp-office, :sp-address ;
     :hasField   :sp-search_score .
 
 # The clean step splits each row into these two entities (offer_* / office_*
@@ -137,6 +167,17 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
                 :sp-offer_external_service_consulting, :sp-offer_external_service_link_text,
                 :sp-offer_external_service_link_url, :sp-offer_external_service_type, :sp-offer_id, :sp-offer_nid,
                 :sp-offer_service_area, :sp-offer_title, :sp-offer_type .
+
+# Address entities, minted by clean from the office_address sub-node (which the
+# office's own flat mapping keeps navigating untouched).
+:sp-address a :SourceEntity ;
+    rdfs:label "Adresse" ;
+    :hasField :sp-addr-street, :sp-addr-plz, :sp-addr-ort, :sp-addr-country .
+
+:sp-addr-street  a :SourceField ; :fieldPath "streetAddress"   ; :derivedFrom :sp-office_address-address_line1 .
+:sp-addr-plz     a :SourceField ; :fieldPath "postalCode"      ; :derivedFrom :sp-office_address-postal_code   .
+:sp-addr-ort     a :SourceField ; :fieldPath "addressLocality" ; :derivedFrom :sp-office_address-locality      .
+:sp-addr-country a :SourceField ; :fieldPath "addressCountry"  ; :derivedFrom :sp-office_address-country_code  .
 
 :sp-office a :SourceEntity ;
     rdfs:label "Office" ;
@@ -196,6 +237,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :format       ft:HTML ;
     # Passed to the lift query as a SPARQL Anything variable
     :hasLiftParam [ :name "selector" ; :value "html" ] ;
+    :hasEntity  :dhs-address ;
     :hasField   :dhs-angebote, :dhs-arbeit, :dhs-art, :dhs-barrierefrei, :dhs-department, :dhs-detailLink, :dhs-email,
                 :dhs-entryId, :dhs-name, :dhs-plzort, :dhs-strasse, :dhs-telefon, :dhs-traeger, :dhs-website,
                 :dhs-zeiten, :dhs-zielgruppe .
@@ -217,6 +259,15 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :dhs-zeiten       a :SourceField ; :fieldPath "zeiten"       .
 :dhs-zielgruppe   a :SourceField ; :fieldPath "zielgruppe"   .
 
+# Address entities, minted by clean from the strasse + plzort spans.
+:dhs-address a :SourceEntity ;
+    rdfs:label "Adresse" ;
+    :hasField :dhs-addr-street, :dhs-addr-plz, :dhs-addr-ort .
+
+:dhs-addr-street a :SourceField ; :fieldPath "streetAddress"   ; :derivedFrom :dhs-strasse .
+:dhs-addr-plz    a :SourceField ; :fieldPath "postalCode"      ; :derivedFrom :dhs-plzort  .
+:dhs-addr-ort    a :SourceField ; :fieldPath "addressLocality" ; :derivedFrom :dhs-plzort  .
+
 # -------------------------------------------------------------------------
 
 :awoSource a :Source ;
@@ -225,7 +276,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :dedupWithinSource false ;
     :retrieval    "Files" ;
     :format       ft:JSON ;
-    :hasEntity  :awo-org, :awo-service .
+    :hasEntity  :awo-org, :awo-service, :awo-address .
 
 # The clean step unifies the org files' records into one org entity per id and
 # mints one service entity per services[] element.
@@ -237,6 +288,17 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :awo-service a :SourceEntity ;
     rdfs:label "Service" ;
     :hasField   :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .
+
+# Address entities, minted by clean from the locations_filtered rows (the only
+# source with native location IDs; one row can serve several organisations).
+:awo-address a :SourceEntity ;
+    rdfs:label "Adresse" ;
+    :hasField   :awo-addr-locationId, :awo-addr-street, :awo-addr-plz, :awo-addr-ort .
+
+:awo-addr-locationId a :SourceField ; :fieldPath "locationId" .
+:awo-addr-street     a :SourceField ; :fieldPath "streetAddress"   ; :derivedFrom :awo-adresse .
+:awo-addr-plz        a :SourceField ; :fieldPath "postalCode"      ; :derivedFrom :awo-plz     .
+:awo-addr-ort        a :SourceField ; :fieldPath "addressLocality" ; :derivedFrom :awo-ort     .
 
 :awo-id          a :SourceField ; :fieldPath "id"          .
 :awo-name        a :SourceField ; :fieldPath "name"        .
@@ -250,8 +312,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :awo-category    a :SourceField ; :fieldPath "category"    .
 
 # Service-side source fields — one schema:Service per services[] element.
-:awo-svc-id    a :SourceField ; :fieldPath "id"          .
-:awo-svc-area  a :SourceField ; :fieldPath "area_served" .
+:awo-svc-id    a :SourceField ; :fieldPath "id"         .
+:awo-svc-area  a :SourceField ; :fieldPath "areaServed" ; :derivedFrom :awo-ort .
 :awo-svc-bagfw a :SourceField ; :fieldPath "bagfw_category" ;
     :hasSubField :awo-svc-bagfw-nummer, :awo-svc-bagfw-name .
 :awo-svc-bagfw-nummer a :SubField ; :fieldPath "nummer" .
@@ -267,9 +329,17 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :caritas-Title    ; :to :t-name          ] ,
         [ :from :caritas-SubTitle ; :to :t-alternateName ] ,
         [ :from :caritas-LeadLine ; :to :t-category      ] ,
-        [ :from :caritas-Link     ; :to :t-detailUrl     ] ,
-        [ :from :caritas-Teaser   ; :to :t-streetAddress, :t-postalCode, :t-locality ;
-                                    :via "address" ] .
+        [ :from :caritas-Link     ; :to :t-detailUrl     ] ;
+    :hasRelationship
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
+
+:caritas-adresse-mapping a :Mapping ;
+    :fromSource    :caritasSource ;
+    :toTarget      :adresseSchema ;
+    :hasFieldMapping
+        [ :from :caritas-addr-street ; :to :t-streetAddress ] ,
+        [ :from :caritas-addr-plz    ; :to :t-postalCode    ] ,
+        [ :from :caritas-addr-ort    ; :to :t-locality      ] .
 
 # Sozialplattform is offer-first: the clean step splits each row into an office
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
@@ -280,12 +350,19 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :sp-office_title                 ; :to :t-name          ] ,
         [ :from :sp-office_opening_hours         ; :to :t-openingHours  ] ,
         [ :from :sp-office_opening_hours_notes   ; :to :t-openingHours  ] ,
-        [ :from :sp-office_address-address_line1 ; :to :t-streetAddress ] ,
-        [ :from :sp-office_address-postal_code   ; :to :t-postalCode    ] ,
-        [ :from :sp-office_address-locality      ; :to :t-locality      ] ,
-        [ :from :sp-office_address-country_code  ; :to :t-country       ] ,
         [ :from :sp-office_phone                 ; :to :t-telephone     ] ,
-        [ :from :sp-office_email                 ; :to :t-email         ] .
+        [ :from :sp-office_email                 ; :to :t-email         ] ;
+    :hasRelationship
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
+
+:sp-adresse-mapping a :Mapping ;
+    :fromSource    :sozialplattformSource ;
+    :toTarget      :adresseSchema ;
+    :hasFieldMapping
+        [ :from :sp-addr-street  ; :to :t-streetAddress ] ,
+        [ :from :sp-addr-plz     ; :to :t-postalCode    ] ,
+        [ :from :sp-addr-ort     ; :to :t-locality      ] ,
+        [ :from :sp-addr-country ; :to :t-country       ] .
 
 :sp-angebot-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
@@ -298,7 +375,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :sp-offer_service_area              ; :to :t-areaServed ] ,
         [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] ,
+        [ :sourcePredicate :locatedAt  ; :toTargetField :t-address  ; :toTargetSchema :adresseSchema    ] .
 
 :dhs-einrichtung-mapping a :Mapping ;
     :fromSource    :dhsSource ;
@@ -316,10 +394,18 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :dhs-zeiten       ; :to :t-openingHours            ] ,
         [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary    ] ,
         [ :from :dhs-traeger      ; :to :t-parentOrgClassification ] ,
-        [ :from :dhs-strasse      ; :to :t-streetAddress           ; :via "address" ] ,
-        [ :from :dhs-plzort       ; :to :t-postalCode, :t-locality ; :via "address" ] ,
         [ :from :dhs-telefon      ; :to :t-telephone               ; :via "contact" ] ,
-        [ :from :dhs-email        ; :to :t-email                   ; :via "contact" ] .
+        [ :from :dhs-email        ; :to :t-email                   ; :via "contact" ] ;
+    :hasRelationship
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
+
+:dhs-adresse-mapping a :Mapping ;
+    :fromSource    :dhsSource ;
+    :toTarget      :adresseSchema ;
+    :hasFieldMapping
+        [ :from :dhs-addr-street ; :to :t-streetAddress ] ,
+        [ :from :dhs-addr-plz    ; :to :t-postalCode    ] ,
+        [ :from :dhs-addr-ort    ; :to :t-locality      ] .
 
 :awo-traeger-mapping a :Mapping ;
     :fromSource    :awoSource ;
@@ -328,10 +414,9 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :awo-id          ; :to :t-identifier         ] ,
         [ :from :awo-name        ; :to :t-name               ] ,
         [ :from :awo-name_zusatz ; :to :t-alternateName      ] ,
-        [ :from :awo-webseite    ; :to :t-homepage           ] ,
-        [ :from :awo-adresse     ; :to :t-streetAddress      ] ,
-        [ :from :awo-plz         ; :to :t-postalCode         ] ,
-        [ :from :awo-ort         ; :to :t-locality           ] .
+        [ :from :awo-webseite    ; :to :t-homepage           ] ;
+    :hasRelationship
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
 
 :awo-einrichtung-mapping a :Mapping ;
     :fromSource    :awoSource ;
@@ -341,12 +426,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :awo-name        ; :to :t-name               ] ,
         [ :from :awo-name_zusatz ; :to :t-alternateName      ] ,
         [ :from :awo-webseite    ; :to :t-homepage           ] ,
-        [ :from :awo-adresse     ; :to :t-streetAddress      ] ,
-        [ :from :awo-plz         ; :to :t-postalCode         ] ,
-        [ :from :awo-ort         ; :to :t-locality           ] ,
         [ :from :awo-category    ; :to :t-category           ] ;
     :hasRelationship
-        [ :sourcePredicate :hasParent ; :toTargetField :t-parentOrganization ; :toTargetSchema :traegerSchema ] .
+        [ :sourcePredicate :hasParent ; :toTargetField :t-parentOrganization ; :toTargetSchema :traegerSchema ] ,
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address            ; :toTargetSchema :adresseSchema ] .
 
 :awo-angebot-mapping a :Mapping ;
     :fromSource    :awoSource ;
@@ -358,19 +441,32 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :awo-svc-area         ; :to :t-areaServed ] ;
     :hasRelationship
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] ,
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema     ] ,
+        [ :sourcePredicate :locatedAt  ; :toTargetField :t-address  ; :toTargetSchema :adresseSchema     ] .
+
+:awo-adresse-mapping a :Mapping ;
+    :fromSource    :awoSource ;
+    :toTarget      :adresseSchema ;
+    :hasFieldMapping
+        [ :from :awo-addr-locationId ; :to :t-identifier    ] ,
+        [ :from :awo-addr-street     ; :to :t-streetAddress ] ,
+        [ :from :awo-addr-plz        ; :to :t-postalCode    ] ,
+        [ :from :awo-addr-ort        ; :to :t-locality      ] .
 
 # ---- Match --------------------------------------------------------------
 
+# The hard criterion is an entity link: two Einrichtungen must share the same
+# *resolved* address — the minted :adresseSchema identity, curation included.
+# The engine topologically sorts match rules by such link criteria (the
+# :hasRelationship declarations name the linked schema), so :adresseMatch runs
+# before this rule; no explicit ordering is declared here.
 :einrichtungMatch a :MatchRule ;
     :forTarget           :einrichtungSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;
     :mintedSubjectPrefix "org-" ;
-    :hasHardCriterion     [ :on schema:postalCode ] ;
-    :minScore             0.55 ;
-    :hasWeightedCriterion
-        [ :on schema:name          ; :weight 0.5 ] ,
-        [ :on schema:streetAddress ; :weight 0.2 ; :minSimilarity 0.7 ] .
+    :hasHardCriterion     [ :on schema:address ] ;
+    :minScore             0.7 ;
+    :hasWeightedCriterion [ :on schema:name ; :weight 1.0 ] .
 
 :traegerMatch a :MatchRule ;
     :forTarget           :traegerSchema ;
@@ -384,6 +480,14 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :hasHardCriterion     [ :on schema:provider ] ;
     :minScore             0.85 ;
     :hasWeightedCriterion [ :on schema:name ; :weight 1.0 ] .
+
+# Exact matching only: same PLZ and same normalised street (:matchString, built in
+# clean) or nothing. No weighted criteria — see the :adresseSchema note above.
+:adresseMatch a :MatchRule ;
+    :forTarget           :adresseSchema ;
+    :targetNamespace     "https://civic-data.de/federated-directory#" ;
+    :mintedSubjectPrefix "addr-" ;
+    :hasHardCriterion     [ :on schema:postalCode ], [ :on :matchString ] .
 
 # ---- Resolve ------------------------------------------------------------
 

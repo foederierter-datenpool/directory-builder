@@ -8,10 +8,10 @@
 #     thus collapse onto one org IRI (deduplication happens here, in clean).
 # A single variable-predicate pattern routes each scalar by prefix: office_* →
 # the org, offer_* → the service; the service links back via cdp:providedBy. The
-# office_address sub-fields are reattached to the org under a stable IRI. Subjects
-# are typed (cdp:targetSchema) so the map routes each to its schema. All string
-# literals get NBSP/whitespace runs collapsed (the source has stray U+00A0,
-# e.g. "Straße  18").
+# office_address sub-fields feed the address entity (cdp:locatedAt from both org
+# and service). Subjects are typed (cdp:targetSchema) so the map routes each to
+# its schema. All string literals get NBSP/whitespace runs collapsed (the source
+# has stray U+00A0, e.g. "Straße  18").
 
 PREFIX xyz: <http://sparql.xyz/facade-x/data/>
 PREFIX cdp: <https://civic-data.de/pipeline#>
@@ -19,15 +19,19 @@ PREFIX cdp: <https://civic-data.de/pipeline#>
 CONSTRUCT {
     ?office  cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:einrichtungSchema ;
-             xyz:office_address ?addrNode .
+             cdp:locatedAt      ?addrEnt .
     ?service cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:angebotSchema ;
-             cdp:providedBy     ?office .
+             cdp:providedBy     ?office ;
+             cdp:locatedAt      ?addrEnt .
     ?subj ?fieldP ?fieldVal .
-    ?addrNode xyz:address_line1 ?addrLine1 ;
-              xyz:postal_code   ?addrPlz ;
-              xyz:locality      ?addrLocality ;
-              xyz:country_code  ?addrCountry .
+    ?addrEnt cdp:fromSource   cdp:sozialplattformSource ;
+             cdp:targetSchema cdp:adresseSchema ;
+             cdp:matchString  ?adrNorm ;
+             xyz:streetAddress   ?adrStreet ;
+             xyz:postalCode      ?addrPlz ;
+             xyz:addressLocality ?addrLocality ;
+             xyz:addressCountry  ?addrCountry .
 }
 WHERE {
     ?item xyz:offer_id ?offerIdRaw .
@@ -40,7 +44,6 @@ WHERE {
     BIND(REPLACE(COALESCE(STR(?otitleRaw), ""), "[\u00A0\\s]+", " ") AS ?otitle)
     BIND(REPLACE(COALESCE(STR(?oaddrRaw), ""), "[\u00A0\\s]+", " ") AS ?oaddr)
     BIND(IRI(CONCAT(STR(cdp:), "sp-org-", SUBSTR(SHA1(CONCAT(?otitle, "|", ?oaddr)), 1, 12))) AS ?office)
-    BIND(IRI(CONCAT(STR(?office), "-address")) AS ?addrNode)
 
     # Route each office_* / offer_* scalar to the org / service respectively. One
     # variable-predicate pattern (engines choke on several at once in a join).
@@ -57,10 +60,24 @@ WHERE {
                 STRDT(REPLACE(STR(?fieldRaw), "[\u00A0\\s]+", " "), datatype(?fieldRaw))) AS ?fieldVal)
     }
 
-    # office_address sub-node → reattach the mapped subfields under a stable IRI.
-    # Explicit (single-valued) so they don't multiply the routing rows above.
+    # office_address sub-fields, feeding the address entity below. Explicit
+    # (single-valued) so they don't multiply the routing rows above.
     OPTIONAL { ?item xyz:office_address/xyz:address_line1 ?al1 . BIND(REPLACE(STR(?al1), "[\u00A0\\s]+", " ") AS ?addrLine1) }
     OPTIONAL { ?item xyz:office_address/xyz:postal_code   ?aplz . BIND(REPLACE(STR(?aplz), "[\u00A0\\s]+", " ") AS ?addrPlz) }
     OPTIONAL { ?item xyz:office_address/xyz:locality      ?aloc . BIND(REPLACE(STR(?aloc), "[\u00A0\\s]+", " ") AS ?addrLocality) }
     OPTIONAL { ?item xyz:office_address/xyz:country_code  ?acc  . BIND(REPLACE(STR(?acc),  "[\u00A0\\s]+", " ") AS ?addrCountry) }
+
+    # Address entity: Str. expanded for display, then lowercased / diacritics folded /
+    # punctuation dropped onto cdp:matchString, the match step's exact comparison
+    # surface. The IRI is content-addressed on matchString + PLZ so formatting
+    # variants collapse; a missing street or PLZ mints nothing (the IF picks the
+    # never-bound ?noAddr / CONCAT errors on the unbound PLZ).
+    BIND(REPLACE(REPLACE(?addrLine1, "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?adrStreetA)
+    # Strasse → Straße, house-number letter attached ("33 a" → "33a"), number
+    # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+    # display only; matchString is invariant.
+    BIND(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2") AS ?adrStreet0)
+    BIND(IF(?adrStreet0 != "", ?adrStreet0, ?noAddr) AS ?adrStreet)
+    BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?adrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?adrNorm)
+    BIND(IRI(CONCAT(STR(cdp:), "sp-addr-", SUBSTR(SHA1(CONCAT(?adrNorm, "|", STR(?addrPlz))), 1, 12))) AS ?addrEnt)
 }

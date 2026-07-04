@@ -29,6 +29,24 @@
 # "Beratung"/"Hilfe" defeats token matching.
 :awo-8936 owl:sameAs :dhs-4514 .
 
+# "Rathenower Straße 16, Haus H" (dhs) <> "Rathenower Straße 16 H" (sp): one
+# address — Notdienst Berlin e.V.'s Krisenwohnung sits there in both sources
+# (the org level already merges as one cluster). Address matching is exact by
+# design, and "Haus H" vs "H" is beyond safe normalisation, so assert it.
+# Both IRIs hash the normalised street + PLZ — recompute if the source
+# spellings change (find them via cdp:locatedAt in the cleaned TTLs).
+:dhs-addr-4cdda2d52df7 owl:sameAs :sp-addr-83d6984a5f24 .
+
+# "Stromstra0e 47" (dhs — a digit-zero typo for ß in the source) <> "Stromstraße
+# 47" (sp): vista's Ambulante Suchtberatung Mitte, 10551. Without this the
+# einrichtung pair (dhs-6270 / sp-org-5aacf2d3fe99) can't share its address.
+:dhs-addr-e54acf42273a owl:sameAs :sp-addr-607e9bd3af5b .
+
+# "Genter Straße 63" (dhs) <> "Genter Straße 63 4.OG" (sp): one building —
+# the floor marker is sub-address detail, beyond safe normalisation like
+# "Haus H" above. Betreutes Wohnen (dhs-5284 / sp-org-efa46a4192f8).
+:dhs-addr-256021bff712 owl:sameAs :sp-addr-43cf6d0f7743 .
+
 # ---- Different-from assertions --------------------------------------------
 
 # Caritas's "Mitarbeiterseite Arbeitsrechtliche Kommission Deutscher

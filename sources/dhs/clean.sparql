@@ -9,12 +9,20 @@ PREFIX xyz:   <http://sparql.xyz/facade-x/data/>
 PREFIX cdp:   <https://civic-data.de/pipeline#>
 
 CONSTRUCT {
-    ?org cdp:fromSource cdp:dhsSource ;
-         xyz:entryId    ?entryId ;
-         xyz:detailLink ?detailHref ;
-         xyz:name       ?name ;
-         xyz:department ?department ;
-         ?predicate     ?value .
+    ?org cdp:fromSource   cdp:dhsSource ;
+         cdp:targetSchema cdp:einrichtungSchema ;
+         cdp:locatedAt    ?addr ;
+         xyz:entryId      ?entryId ;
+         xyz:detailLink   ?detailHref ;
+         xyz:name         ?name ;
+         xyz:department   ?department ;
+         ?predicate       ?value .
+    ?addr cdp:fromSource   cdp:dhsSource ;
+          cdp:targetSchema cdp:adresseSchema ;
+          cdp:matchString  ?adrNorm ;
+          xyz:streetAddress   ?adrStreet ;
+          xyz:postalCode      ?adrPlz ;
+          xyz:addressLocality ?adrOrt .
 } WHERE {
     ?link a xhtml:link ; xhtml:rel "canonical" ; xhtml:href ?detailHref .
     FILTER(CONTAINS(STR(?detailHref), "%5Bentry%5D="))
@@ -49,5 +57,29 @@ CONSTRUCT {
         BIND(STRAFTER(?fullText, CONCAT(?label, " ")) AS ?value)
         FILTER(STRLEN(?value) > 0)
         BIND(IRI(CONCAT(STR(xyz:), ?className)) AS ?predicate)
+    }
+
+    # Address entity from the strasse + plzort spans — the only address extraction;
+    # the org itself just links via cdp:locatedAt. Street is
+    # whitespace-collapsed and Str. expanded for display, then lowercased /
+    # diacritics folded / punctuation dropped onto cdp:matchString, the match
+    # step's exact comparison surface. The IRI is content-addressed on
+    # matchString + PLZ so formatting variants collapse onto one IRI.
+    OPTIONAL {
+        ?entry (!<urn:_>)+ ?sSpan .
+        ?sSpan a xhtml:span ; xhtml:class "strasse" ; html:innerText ?strasseRaw .
+        ?entry (!<urn:_>)+ ?poSpan .
+        ?poSpan a xhtml:span ; xhtml:class "plzort" ; html:innerText ?plzort .
+        FILTER(REGEX(?plzort, "^\\d{5} "))
+        BIND(STRBEFORE(?plzort, " ") AS ?adrPlz)
+        BIND(STRAFTER(?plzort, " ")  AS ?adrOrt)
+        BIND(REPLACE(REPLACE(REPLACE(STR(?strasseRaw), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?adrStreetA)
+        # Strasse → Straße, house-number letter attached ("33 a" → "33a"), number
+        # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+        # display only; matchString is invariant.
+        BIND(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2") AS ?adrStreet0)
+        BIND(IF(?adrStreet0 != "", ?adrStreet0, ?noAddr) AS ?adrStreet)
+        BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?adrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?adrNorm)
+        BIND(IRI(CONCAT(STR(cdp:), "dhs-addr-", SUBSTR(SHA1(CONCAT(?adrNorm, "|", ?adrPlz)), 1, 12))) AS ?addr)
     }
 }
