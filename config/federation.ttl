@@ -55,7 +55,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 
 # Independent address entities, linked from every other tier via schema:address.
 # Identity is exact, never fuzzy (fuzzy street similarity would glue neighbouring
-# house numbers — "Lehrter Straße 68" vs "69" scores ≈ 0.94): each clean step
+# house numbers — "Lehrter Straße 68" vs "69" scores ≈ 0.94): each extract step
 # normalises the street onto cdp:matchString (Str. → Straße, lowercase, diacritics
 # folded, punctuation dropped) and mints one content-addressed IRI per distinct
 # street+PLZ, so formatting variants collapse and the match rule only has to
@@ -140,7 +140,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :caritas-Title               a :SourceField ; :fieldPath "Title"               .
 :caritas-ViewType            a :SourceField ; :fieldPath "ViewType"            .
 
-# Address entities, minted by clean from the Teaser (anchor-on-PLZ split).
+# Address entities, minted by extract from the Teaser (anchor-on-PLZ split).
 # :derivedFrom names a derived field's raw origin — the Map view starts the
 # flow there instead of pretending the field came off the wire.
 :caritas-address a :SourceEntity ;
@@ -162,7 +162,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :hasEntity  :sp-offer, :sp-office, :sp-address ;
     :hasField   :sp-search_score .
 
-# The clean step splits each row into these two entities (offer_* / office_*
+# The extract step splits each row into these two entities (offer_* / office_*
 # fields); search_score is a query-time artifact belonging to neither.
 :sp-offer a :SourceEntity ;
     rdfs:label "Offer" ;
@@ -171,7 +171,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
                 :sp-offer_external_service_link_url, :sp-offer_external_service_type, :sp-offer_id, :sp-offer_nid,
                 :sp-offer_service_area, :sp-offer_title, :sp-offer_type .
 
-# Address entities, minted by clean from the office_address sub-node (which the
+# Address entities, minted by extract from the office_address sub-node (which the
 # office's own flat mapping keeps navigating untouched).
 :sp-address a :SourceEntity ;
     rdfs:label "Adresse" ;
@@ -265,7 +265,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :dhs-zeiten       a :SourceField ; :fieldPath "zeiten"       .
 :dhs-zielgruppe   a :SourceField ; :fieldPath "zielgruppe"   .
 
-# Address entities, minted by clean from the strasse + plzort spans.
+# Address entities, minted by extract from the strasse + plzort spans.
 :dhs-address a :SourceEntity ;
     rdfs:label "Adresse" ;
     :hasField :dhs-addr-street, :dhs-addr-plz, :dhs-addr-ort .
@@ -284,7 +284,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :format       ft:JSON ;
     :hasEntity  :awo-org, :awo-service, :awo-address .
 
-# The clean step unifies the org files' records into one org entity per id and
+# The extract step unifies the org files' records into one org entity per id and
 # mints one service entity per services[] element.
 :awo-org a :SourceEntity ;
     rdfs:label "Organisation" ;
@@ -295,7 +295,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     rdfs:label "Service" ;
     :hasField   :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .
 
-# Address entities, minted by clean from the locations_filtered rows (the only
+# Address entities, minted by extract from the locations_filtered rows (the only
 # source with native location IDs; one row can serve several organisations).
 :awo-address a :SourceEntity ;
     rdfs:label "Adresse" ;
@@ -347,7 +347,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :caritas-addr-plz    ; :to :t-postalCode    ] ,
         [ :from :caritas-addr-ort    ; :to :t-locality      ] .
 
-# Sozialplattform is offer-first: the clean step splits each row into an office
+# Sozialplattform is offer-first: the extract step splits each row into an office
 # org + an offer service (see sozialplattform.sparql), so it has two mappings.
 :sp-einrichtung-mapping a :Mapping ;
     :fromSource    :sozialplattformSource ;
@@ -488,7 +488,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :hasWeightedCriterion [ :on schema:name ; :weight 1.0 ] .
 
 # Exact matching only: same PLZ and same normalised street (:matchString, built in
-# clean) or nothing. No weighted criteria — see the :adresseSchema note above.
+# extract) or nothing. No weighted criteria — see the :adresseSchema note above.
 :adresseMatch a :MatchRule ;
     :forTarget           :adresseSchema ;
     :targetNamespace     "https://civic-data.de/federated-directory#" ;

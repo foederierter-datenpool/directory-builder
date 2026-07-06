@@ -10,9 +10,9 @@ and holds no engine or webapp code — only what is specific to this federation:
   match/merge/resolve rules, run parameters, exporters, repository URL and
   title. `config/match-knowledge.ttl` adds curated `owl:sameAs` pairs.
 - **Per-source code** lives in `sources/<name>/`: a `fetch.js` (how to get the
-  data), a `clean.sparql` (how to reshape its lifted RDF), optional
-  `transform-*.sparql`, and committed `static/` files for sources without an
-  API.
+  data), an `extract.sparql` (how to extract entities from its lifted RDF),
+  optional `transform-*.sparql`, and committed `static/` files for sources
+  without an API.
 - **Webapp material** lives in `webapp/`: the About page prose, the Query
   page's starting query, and the exporters the Download page loads at runtime.
 
@@ -22,7 +22,7 @@ as p-plan RDF (`data/ingest/ingest-log.ttl`, `data/pipeline/federate-log.ttl`),
 and the webapp renders those journals and the pipeline's artifacts directly —
 the site is a pure function of `config/` + `data/`, fetched at runtime.
 
-The pipeline: fetch → lift (to RDF) → clean → map (onto the target schemas) →
+The pipeline: fetch → lift (to RDF) → extract → map (onto the target schemas) →
 match (cluster duplicates across sources) → merge → resolve (one value per
 field), each stage written to `data/`.
 
@@ -42,7 +42,7 @@ Via command (root = where you invoke):
 ```sh
 npm run pipeline   # ingest + federate
 npm run ingest     # fetch + lift only
-npm run federate   # clean → map → match → merge → resolve only
+npm run federate   # extract → map → match → merge → resolve only
 ```
 
 Or programmatically:

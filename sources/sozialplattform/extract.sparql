@@ -5,7 +5,7 @@
 #   • the service  → cdp:sp-service-<offer_id>
 #   • its office   → cdp:sp-org-<hash(office_title | office_address_short)>,
 #     derived since the office is unidentified — identical offices across offers
-#     thus collapse onto one org IRI (deduplication happens here, in clean).
+#     thus collapse onto one org IRI (deduplication happens here, in extract).
 # A single variable-predicate pattern routes each scalar by prefix: office_* →
 # the org, offer_* → the service; the service links back via cdp:providedBy. The
 # office_address sub-fields feed the address entity (cdp:locatedAt from both org
@@ -20,6 +20,15 @@ CONSTRUCT {
     ?office  cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:einrichtungSchema ;
              cdp:locatedAt      ?addrEnt .
+    # Raw office_address sub-fields kept on the office (unmapped, so they never
+    # reach its output) purely so the preparation artifact can diff the address
+    # derivation — address_line1 → streetAddress, … — against the cleaned address
+    # entity it links to. The other sources emit their address origins flat like
+    # this already; here they arrive via a nested path, so we surface them.
+    ?office  xyz:address_line1  ?al1 ;
+             xyz:postal_code    ?aplz ;
+             xyz:locality       ?aloc ;
+             xyz:country_code   ?acc .
     ?service cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:angebotSchema ;
              cdp:providedBy     ?office ;

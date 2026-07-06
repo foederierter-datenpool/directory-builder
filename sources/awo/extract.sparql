@@ -6,7 +6,7 @@
 # cdp:hasParent (the map step turns that into schema:parentOrganization, an
 # entity link, the same way cdp:providedBy becomes schema:provider).
 # Each element of the org's services[] also becomes its own entity
-# (cdp:awo-service-<id>) linked back via cdp:providedBy. Clean stays in xyz:/cdp:
+# (cdp:awo-service-<id>) linked back via cdp:providedBy. Extract stays in xyz:/cdp:
 # vocabulary — no schema: yet; each subject instead carries cdp:targetSchema so
 # the map routes it to its tier (where the schema: type is assigned): a Träger
 # org → schema:Organization, an einrichtung → org:OrganizationalUnit,

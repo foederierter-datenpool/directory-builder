@@ -5,8 +5,8 @@ import fs from "fs"
 //   - organisations_filtered.json     --> names, webseite, hierarchy
 //   - organisations_all_filtered.json --> BAGFW service categories
 //   - locations_filtered.json         --> addresses
-// Org records share one id per org (the clean step unifies them); location
-// records carry an organisation_id back-link, joined to orgs in the clean step.
+// Org records share one id per org (the extract step unifies them); location
+// records carry an organisation_id back-link, joined to orgs in the extract step.
 
 const OUT_DIR = process.argv[2]
 const SRC_DIR = process.argv[3]
