@@ -73,10 +73,10 @@ WHERE {
     # variants collapse; a missing street or PLZ mints nothing (the IF picks the
     # never-bound ?noAddr / CONCAT errors on the unbound PLZ).
     BIND(REPLACE(REPLACE(?addrLine1, "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?adrStreetA)
-    # Strasse → Straße, house-number letter attached ("33 a" → "33a"), number
+    # Strasse → Straße (a standalone "straße" is capitalised, compounds like Bellermannstraße stay lower); house-number letter attached ("33 a" → "33a"), number
     # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
     # display only; matchString is invariant.
-    BIND(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2") AS ?adrStreet0)
+    BIND(REPLACE(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2"), "(^|\\s)straße", "$1Straße") AS ?adrStreet0)
     BIND(IF(?adrStreet0 != "", ?adrStreet0, ?noAddr) AS ?adrStreet)
     BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?adrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?adrNorm)
     BIND(IRI(CONCAT(STR(cdp:), "sp-addr-", SUBSTR(SHA1(CONCAT(?adrNorm, "|", STR(?addrPlz))), 1, 12))) AS ?addrEnt)
