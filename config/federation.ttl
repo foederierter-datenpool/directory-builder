@@ -400,8 +400,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :dhs-zeiten       ; :to :t-openingHours            ] ,
         [ :from :dhs-barrierefrei ; :to :t-accessibilitySummary    ] ,
         [ :from :dhs-traeger      ; :to :t-parentOrgClassification ] ,
-        [ :from :dhs-telefon      ; :to :t-telephone               ; :via "contact" ] ,
-        [ :from :dhs-email        ; :to :t-email                   ; :via "contact" ] ;
+        [ :from :dhs-telefon      ; :to :t-telephone               ] ,
+        [ :from :dhs-email        ; :to :t-email                   ] ;
     :hasRelationship
         [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
 
