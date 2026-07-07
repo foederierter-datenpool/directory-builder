@@ -42,7 +42,13 @@ await new Promise((resolve, reject) => {
             ;(async () => {
                 try {
                     const html = await (await fetch(url)).text()
-                    fs.writeFileSync(path.join(OUT_DIR, `${id}.html`), html)
+                    // DHS dropped the <link rel="canonical"> from detail pages; the
+                    // entry id (the entity IRI's basis) now lives only in the URL we
+                    // fetched. Restore that link from `url` so the extract step, which
+                    // reads the id off it, keeps working. Skip if the site brings it back.
+                    const page = /rel="canonical"/.test(html) ? html
+                        : html.replace(/<\/head>/i, `<link rel="canonical" href="${url.replace(/&/g, "&amp;")}">$&`)
+                    fs.writeFileSync(path.join(OUT_DIR, `${id}.html`), page)
                     done++
                     process.stdout.write(`\r  ${done}/${queue.length}`)
                     await sleep(100)
