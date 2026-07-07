@@ -1,5 +1,6 @@
-@prefix :    <https://civic-data.de/pipeline#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix :       <https://civic-data.de/pipeline#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix schema: <http://schema.org/> .
 
 # ---- Same-as assertions -------------------------------------------------
 
@@ -56,3 +57,14 @@
 # so the pair clears the street gate and merges at 0.642 without this veto.
 :caritas-d166b142-baff-44e8-918a-2eabfcb7d154
     owl:differentFrom :caritas-e008b4d6-1757-4d52-87aa-f941d6fd9243 .
+
+# ---- Value corrections ----------------------------------------------------
+
+# SP misspells Notdienst Berlin's "Krisenwohnung", and the typo would win the
+# alphabetic sort. Resolve rewrites :wrong to :right on the pinned record's
+# cluster; the SP IRI hashes the misspelt title, so this expires with the typo.
+[] a :ValueCorrection ;
+    :entity :sp-org-5ffca2009b09 ;
+    :on     schema:name ;
+    :wrong  "Kriesenwohnung" ;
+    :right  "Krisenwohnung" .
