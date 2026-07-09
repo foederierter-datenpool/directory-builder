@@ -7,6 +7,10 @@ const { plz: PLZS = [] } = JSON.parse(process.argv[4] || "{}")
 
 fs.mkdirSync(OUT_DIR, { recursive: true })
 
+// One merged file, not one per PLZ: the lift step spawns a JVM per raw file, so
+// at nationwide PLZ counts per-file output would mean thousands of JVM starts.
+// Records are deduped by Guid (a centre can surface under several PLZ queries).
+const byGuid = new Map()
 for (const plz of PLZS) {
     const result = await fetch(URL, {
         method: "POST",
@@ -18,7 +22,10 @@ for (const plz of PLZS) {
         }),
     })
     const json = await result.json()
-    const outPath = path.join(OUT_DIR, `${plz}.json`)
-    fs.writeFileSync(outPath, JSON.stringify(json, null, 2))
-    console.log(`  ${plz} → ${outPath}`)
+    for (const rec of json) byGuid.set(rec.Guid, rec)
+    console.log(`  ${plz}: ${json.length} records (running total ${byGuid.size})`)
 }
+
+const outPath = path.join(OUT_DIR, "caritas.json")
+fs.writeFileSync(outPath, JSON.stringify([...byGuid.values()], null, 2))
+console.log(`  ${byGuid.size} unique records → ${outPath}`)

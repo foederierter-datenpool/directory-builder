@@ -17,15 +17,21 @@ const fetchPage = async (plz, page) => {
 
 fs.mkdirSync(OUT_DIR, { recursive: true })
 
+// One merged file, not one per PLZ: the lift step spawns a JVM per raw file, so
+// per-PLZ output would multiply JVM starts. Offers are deduped by offer_id (one
+// office can serve several PLZ queries).
+const byId = new Map()
 for (const plz of PLZS) {
     const first = await fetchPage(plz, 1)
     const totalPages = Math.ceil(first.total / PER_PAGE)
-    const allItems = [...first.items]
+    const items = [...first.items]
     for (let page = 2; page <= totalPages; page++) {
-        const data = await fetchPage(plz, page)
-        allItems.push(...data.items)
+        items.push(...(await fetchPage(plz, page)).items)
     }
-    const outPath = path.join(OUT_DIR, `${plz}.json`)
-    fs.writeFileSync(outPath, JSON.stringify(allItems, null, 2))
-    console.log(`  ${plz}: ${allItems.length} items (${totalPages} pages) → ${outPath}`)
+    for (const it of items) byId.set(it.offer_id, it)
+    console.log(`  ${plz}: ${items.length} items (${totalPages} pages), running total ${byId.size}`)
 }
+
+const outPath = path.join(OUT_DIR, "sozialplattform.json")
+fs.writeFileSync(outPath, JSON.stringify([...byId.values()], null, 2))
+console.log(`  ${byId.size} unique offers → ${outPath}`)
