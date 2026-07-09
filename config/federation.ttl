@@ -498,6 +498,6 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 # ---- Resolve ------------------------------------------------------------
 
 :resolve a :ResolveRule ;
-    :defaultStrategy :alphabeticFirst ;
+    :defaultStrategy :longestValue ;
     :hasOverride     [ :on schema:availableService ; :strategy :concatenateAll ] ,
                      [ :on schema:telephone        ; :strategy :keepAll ] .
