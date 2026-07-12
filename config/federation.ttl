@@ -15,9 +15,6 @@
     rdfs:label       "Federated directory of social support services in Germany" ;
     :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
     :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema, :adresseSchema ;
-    :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch, :adresseMatch ;
-    :hasResolveRule  :resolve ;
-    :hasEnrichRule   :enrich ;
     :harvestingModeActive false ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
                        "10435", "10551", "10557", "10559", "10785", "10963", "10969", "13347",
