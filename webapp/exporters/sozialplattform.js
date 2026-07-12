@@ -10,7 +10,6 @@ export const mime     = "application/json"
 
 const QUERY = `
 PREFIX schema: <http://schema.org/>
-PREFIX dct:    <http://purl.org/dc/terms/>
 
 SELECT ?org
        (SAMPLE(?n)   AS ?name)
@@ -31,7 +30,7 @@ WHERE {
         OPTIONAL { ?adr schema:addressLocality ?l  }
         OPTIONAL { ?adr schema:addressCountry  ?co }
     }
-    OPTIONAL { ?org dct:subject            ?cat }
+    OPTIONAL { ?org schema:category        ?cat }
     OPTIONAL { ?org schema:telephone       ?ph  }
     OPTIONAL { ?org schema:email           ?em  }
 }
