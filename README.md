@@ -8,7 +8,7 @@ and holds no engine or webapp code — only what is specific to this federation:
 - **Decisions** live in `config/federation.ttl`: the sources and their facts
   (URL, format, lift params), the target schemas and field mappings, the
   match/merge/resolve rules, run parameters, exporters, repository URL and
-  title. `config/match-knowledge.ttl` adds curated `owl:sameAs` /
+  title. `config/curation.ttl` adds curated `owl:sameAs` /
   `owl:differentFrom` pairs and `:ValueCorrection` entries.
 - **Per-source code** lives in `sources/<name>/`: a `fetch.js` (how to get the
   data), an `extract.sparql` (how to extract entities from its lifted RDF),
