@@ -68,3 +68,12 @@
     :on     schema:name ;
     :wrong  "Kriesenwohnung" ;
     :right  "Krisenwohnung" .
+
+# DHS's digit-zero typo (the sameAs above): SP carries the correct spelling,
+# but both literals are 14 chars, so the typo wins the alphabetic tie-break.
+# Rewriting it collapses the conflict — and lets the geocoder find the street.
+[] a :ValueCorrection ;
+    :entity :dhs-addr-e54acf42273a ;
+    :on     schema:streetAddress ;
+    :wrong  "Stromstra0e 47" ;
+    :right  "Stromstraße 47" .

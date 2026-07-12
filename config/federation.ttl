@@ -17,6 +17,7 @@
     :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema, :adresseSchema ;
     :hasMatchRule    :traegerMatch, :einrichtungMatch, :angebotMatch, :adresseMatch ;
     :hasResolveRule  :resolve ;
+    :hasEnrichRule   :enrich ;
     :harvestingModeActive false ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
                        "10435", "10551", "10557", "10559", "10785", "10963", "10969", "13347",
@@ -501,3 +502,11 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :defaultStrategy :longestValue ;
     :hasOverride     [ :on schema:availableService ; :strategy :concatenateAll ] ,
                      [ :on schema:telephone        ; :strategy :keepAll ] .
+
+# ---- Enrich -------------------------------------------------------------
+
+# Geocode the resolved addresses via Nominatim (OSM). Runs past resolve, so
+# each canonical address is looked up once, with curated corrections applied;
+# lookups are cached in registry/geocache.json.
+:enrich a :EnrichRule ;
+    :geocode :adresseSchema .

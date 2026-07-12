@@ -1,0 +1,1012 @@
+{
+    "license": "Data © OpenStreetMap contributors, ODbL 1.0 — https://osm.org/copyright",
+    "endpoint": "https://nominatim.openstreetmap.org/search",
+    "entries": {
+        "https://civic-data.de/federated-directory#addr-0027af8dd02e": {
+            "query": {
+                "street": "Alt-Reinickendorf 23-24",
+                "postalcode": "13407",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5754474",
+            "lon": "13.3518018"
+        },
+        "https://civic-data.de/federated-directory#addr-05ed8e35e136": {
+            "query": {
+                "street": "Bellermannstraße 92",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5543042",
+            "lon": "13.3852602"
+        },
+        "https://civic-data.de/federated-directory#addr-0787320c50e7": {
+            "query": {
+                "street": "Badstraße 10",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5502094",
+            "lon": "13.3856915"
+        },
+        "https://civic-data.de/federated-directory#addr-0830ea9f549d": {
+            "query": {
+                "street": "Schönhauser Allee 182",
+                "postalcode": "10119",
+                "city": "Berlin"
+            },
+            "lat": "52.5303689",
+            "lon": "13.4098617"
+        },
+        "https://civic-data.de/federated-directory#addr-0fed5b8021b2": {
+            "query": {
+                "street": "Oldenburger Straße 2",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5273280",
+            "lon": "13.3356393"
+        },
+        "https://civic-data.de/federated-directory#addr-10e31cd1bdbc": {
+            "query": {
+                "street": "Rathenower Straße 16, Haus H",
+                "postalcode": "10559",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "adjusted": "Rathenower Straße 16",
+            "lat": "52.5298010",
+            "lon": "13.3538075"
+        },
+        "https://civic-data.de/federated-directory#addr-19bb325d85b1": {
+            "query": {
+                "street": "Caroline-Michaelis-Straße 1",
+                "postalcode": "10115",
+                "city": "Berlin"
+            },
+            "lat": "52.5317409",
+            "lon": "13.3852838"
+        },
+        "https://civic-data.de/federated-directory#addr-19da89c63b40": {
+            "query": {
+                "street": "Schulze-Boysen-Straße 26",
+                "postalcode": "10365",
+                "city": "Berlin"
+            },
+            "lat": "52.5099659",
+            "lon": "13.4792455"
+        },
+        "https://civic-data.de/federated-directory#addr-1bf0865fe28e": {
+            "query": {
+                "street": "Wartenburgstraße 8",
+                "postalcode": "10963",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.4957985",
+            "lon": "13.3804309"
+        },
+        "https://civic-data.de/federated-directory#addr-1f508583bd14": {
+            "query": {
+                "street": "Große Hamburger Straße 18",
+                "postalcode": "10115",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5246380",
+            "lon": "13.3990703"
+        },
+        "https://civic-data.de/federated-directory#addr-22396c694bdd": {
+            "query": {
+                "street": "Gotlindestraße 38",
+                "postalcode": "10365",
+                "city": "Berlin"
+            },
+            "lat": "52.5183816",
+            "lon": "13.5006689"
+        },
+        "https://civic-data.de/federated-directory#addr-2366652f8f73": {
+            "query": {
+                "street": "Müllerstraße 163",
+                "postalcode": "13353",
+                "city": "Berlin"
+            },
+            "lat": "52.5434945",
+            "lon": "13.3633056"
+        },
+        "https://civic-data.de/federated-directory#addr-243bf0783cc2": {
+            "query": {
+                "street": "Derfflingerstraße 21",
+                "postalcode": "10785",
+                "city": "Berlin"
+            },
+            "lat": "52.5032660",
+            "lon": "13.3566032"
+        },
+        "https://civic-data.de/federated-directory#addr-2fb8d7fcbf10": {
+            "query": {
+                "street": "Herzbergstraße 82",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5268376",
+            "lon": "13.5040650"
+        },
+        "https://civic-data.de/federated-directory#addr-2fda64a4efeb": {
+            "query": {
+                "street": "Kurfürstenstraße 40",
+                "postalcode": "10785",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5005924",
+            "lon": "13.3601923"
+        },
+        "https://civic-data.de/federated-directory#addr-336728388e53": {
+            "query": {
+                "street": "Rütlistraße 18",
+                "postalcode": "13407",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5634170",
+            "lon": "13.3568959"
+        },
+        "https://civic-data.de/federated-directory#addr-33a609ab7d24": {
+            "query": {
+                "street": "Lübecker Straße 6",
+                "postalcode": "10559",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5276121",
+            "lon": "13.3455920"
+        },
+        "https://civic-data.de/federated-directory#addr-3559dc51a870": {
+            "query": {
+                "street": "Hagenstraße 1",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5122972",
+            "lon": "13.4994319"
+        },
+        "https://civic-data.de/federated-directory#addr-35e4ef384887": {
+            "query": {
+                "street": "Hochstädter Straße 1",
+                "postalcode": "13353",
+                "city": "Berlin"
+            },
+            "lat": "52.5518118",
+            "lon": "13.3653431"
+        },
+        "https://civic-data.de/federated-directory#addr-37dd0607f8a7": {
+            "query": {
+                "street": "Ritterstraße 3",
+                "postalcode": "10969",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5012148",
+            "lon": "13.4134106"
+        },
+        "https://civic-data.de/federated-directory#addr-3a46d3e12781": {
+            "query": {
+                "street": "Osloer Straße 80",
+                "postalcode": "13359",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5565184",
+            "lon": "13.3701489"
+        },
+        "https://civic-data.de/federated-directory#addr-3a4908acdad4": {
+            "query": {
+                "street": "Spenerstraße 37",
+                "postalcode": "10557",
+                "city": "Berlin"
+            },
+            "lat": "52.5232060",
+            "lon": "13.3542563"
+        },
+        "https://civic-data.de/federated-directory#addr-3aabbf3a1ac6": {
+            "query": {
+                "street": "Stromstraße 47",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5294690",
+            "lon": "13.3428362"
+        },
+        "https://civic-data.de/federated-directory#addr-3b5d9110ef3a": {
+            "query": {
+                "street": "Buchberger Straße 4-12",
+                "postalcode": "10365",
+                "city": "Berlin"
+            },
+            "lat": "52.5065417",
+            "lon": "13.4814205"
+        },
+        "https://civic-data.de/federated-directory#addr-3d174698d831": {
+            "query": {
+                "street": "Rigaer Straße 55b",
+                "postalcode": "10115",
+                "city": "Berlin"
+            },
+            "lat": "52.5151977",
+            "lon": "13.4741362"
+        },
+        "https://civic-data.de/federated-directory#addr-3ed1057bcfef": {
+            "query": {
+                "street": "Schulze-Boysen-Straße 10",
+                "postalcode": "10365",
+                "city": "Berlin"
+            },
+            "lat": "52.5115855",
+            "lon": "13.4804973"
+        },
+        "https://civic-data.de/federated-directory#addr-42a06250270b": {
+            "query": {
+                "street": "Tieckstraße 17",
+                "postalcode": "10115",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5295751",
+            "lon": "13.3907546"
+        },
+        "https://civic-data.de/federated-directory#addr-4429f8c9bbb0": {
+            "query": {
+                "street": "Segitzdamm 46",
+                "postalcode": "10969",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.4980024",
+            "lon": "13.4119949"
+        },
+        "https://civic-data.de/federated-directory#addr-4457ddb0549d": {
+            "query": {
+                "street": "Groninger Straße 28",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5530654",
+            "lon": "13.3624598"
+        },
+        "https://civic-data.de/federated-directory#addr-45fe1b3ff480": {
+            "query": {
+                "street": "Badstraße 33",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5529816",
+            "lon": "13.3799103"
+        },
+        "https://civic-data.de/federated-directory#addr-461f379ba256": {
+            "query": {
+                "street": "Bornitzstraße 73-75",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5212181",
+            "lon": "13.4906658"
+        },
+        "https://civic-data.de/federated-directory#addr-46e1cb79d54e": {
+            "query": {
+                "street": "Barfusstraße 22-24",
+                "postalcode": "13349",
+                "city": "Berlin"
+            },
+            "lat": "52.5547481",
+            "lon": "13.3457884"
+        },
+        "https://civic-data.de/federated-directory#addr-49b0e8d541fa": {
+            "query": {
+                "street": "Putbusser Straße 30",
+                "postalcode": "13355",
+                "city": "Berlin"
+            },
+            "lat": "52.5467024",
+            "lon": "13.3917459"
+        },
+        "https://civic-data.de/federated-directory#addr-4b0ca8942b97": {
+            "query": {
+                "street": "Chausseestraße 84",
+                "postalcode": "10115",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5376475",
+            "lon": "13.3735224"
+        },
+        "https://civic-data.de/federated-directory#addr-4e817f3a1401": {
+            "query": {
+                "street": "Bornemannstraße 12",
+                "postalcode": "13357",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5501781",
+            "lon": "13.3710569"
+        },
+        "https://civic-data.de/federated-directory#addr-5147bdfc8050": {
+            "query": {
+                "street": "Arminiusstraße 2-4",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5278334",
+            "lon": "13.3386209"
+        },
+        "https://civic-data.de/federated-directory#addr-517f3ac3ac86": {
+            "query": {
+                "street": "Große Hamburger Straße 5",
+                "postalcode": "10115",
+                "city": "Berlin"
+            },
+            "lat": "52.5259335",
+            "lon": "13.3974885"
+        },
+        "https://civic-data.de/federated-directory#addr-53f00643ac14": {
+            "query": {
+                "street": "Müllerstraße 126",
+                "postalcode": "13349",
+                "city": "Berlin"
+            },
+            "lat": "52.5528656",
+            "lon": "13.3472256"
+        },
+        "https://civic-data.de/federated-directory#addr-5ce91defb637": {
+            "query": {
+                "street": "Ruschestraße 103",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5145073",
+            "lon": "13.4874850"
+        },
+        "https://civic-data.de/federated-directory#addr-600ff606996b": {
+            "query": {
+                "street": "Perleberger Straße 27",
+                "postalcode": "10559",
+                "city": "Berlin"
+            },
+            "lat": "52.5321738",
+            "lon": "13.3489537"
+        },
+        "https://civic-data.de/federated-directory#addr-634ac5a273ca": {
+            "query": {
+                "street": "Herzbergstraße 84",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5264976",
+            "lon": "13.5031522"
+        },
+        "https://civic-data.de/federated-directory#addr-64693174109e": {
+            "query": {
+                "street": "Hochstädter Straße 1",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5518118",
+            "lon": "13.3653431"
+        },
+        "https://civic-data.de/federated-directory#addr-66cc08665815": {
+            "query": {
+                "street": "Oldenburger Straße 45",
+                "postalcode": "10551",
+                "city": "Berlin"
+            },
+            "lat": "52.5278100",
+            "lon": "13.3354463"
+        },
+        "https://civic-data.de/federated-directory#addr-6882f0a17653": {
+            "query": {
+                "street": "Europaplatz 1",
+                "postalcode": "10557",
+                "city": "Berlin"
+            },
+            "lat": "52.5242626",
+            "lon": "13.3705230"
+        },
+        "https://civic-data.de/federated-directory#addr-693aea31d475": {
+            "query": {
+                "street": "Oldenburger Straße 46",
+                "postalcode": "10551",
+                "city": "Berlin"
+            },
+            "lat": "52.5276208",
+            "lon": "13.3353974"
+        },
+        "https://civic-data.de/federated-directory#addr-6b72c879afbc": {
+            "query": {
+                "street": "Rudi-Dutschke-Straße 9",
+                "postalcode": "10969",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5067379",
+            "lon": "13.3954053"
+        },
+        "https://civic-data.de/federated-directory#addr-6c25decee0be": {
+            "query": {
+                "street": "Turmstraße 71",
+                "postalcode": "10551",
+                "city": "Berlin"
+            },
+            "lat": "52.5268490",
+            "lon": "13.3322956"
+        },
+        "https://civic-data.de/federated-directory#addr-6d14d02eb11f": {
+            "query": {
+                "street": "Schöneberger Straße 17a",
+                "postalcode": "10963",
+                "city": "Berlin"
+            },
+            "lat": "52.5009464",
+            "lon": "13.3752385"
+        },
+        "https://civic-data.de/federated-directory#addr-6efe7ba55f8b": {
+            "query": {
+                "street": "Koloniestraße 76",
+                "postalcode": "13359",
+                "city": "Berlin"
+            },
+            "lat": "52.5670275",
+            "lon": "13.3843534"
+        },
+        "https://civic-data.de/federated-directory#addr-738bae5279fa": {
+            "query": {
+                "street": "Obentrautstraße 57",
+                "postalcode": "10963",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.4969240",
+            "lon": "13.3820642"
+        },
+        "https://civic-data.de/federated-directory#addr-756e883a3853": {
+            "query": {
+                "street": "Turmstraße 34",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5265786",
+            "lon": "13.3394173"
+        },
+        "https://civic-data.de/federated-directory#addr-78703837d9b9": {
+            "query": {
+                "street": "Reinhardtstraße 44",
+                "postalcode": "10117",
+                "city": "Berlin"
+            },
+            "lat": "52.5226033",
+            "lon": "13.3789956"
+        },
+        "https://civic-data.de/federated-directory#addr-79a20514840f": {
+            "query": {
+                "street": "Markgrafenstraße 26",
+                "postalcode": "10117",
+                "city": "Berlin"
+            },
+            "lat": "52.5090614",
+            "lon": "13.3941835"
+        },
+        "https://civic-data.de/federated-directory#addr-7a8ea44d8122": {
+            "query": {
+                "street": "Auguststraße 82",
+                "postalcode": "10117",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5263394",
+            "lon": "13.3927056"
+        },
+        "https://civic-data.de/federated-directory#addr-7e6e985f6a20": {
+            "query": {
+                "street": "Brienzer Straße 22",
+                "postalcode": "13407",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5601544",
+            "lon": "13.3606755"
+        },
+        "https://civic-data.de/federated-directory#addr-840851b4025e": {
+            "query": {
+                "street": "Turmstraße 35a",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5267059",
+            "lon": "13.3373256"
+        },
+        "https://civic-data.de/federated-directory#addr-86b16633bc3f": {
+            "query": {
+                "street": "Karl-Liebknecht-Straße 13",
+                "postalcode": "10178",
+                "city": "Berlin"
+            },
+            "lat": "52.5224352",
+            "lon": "13.4070606"
+        },
+        "https://civic-data.de/federated-directory#addr-86c608491416": {
+            "query": {
+                "street": "Badstraße 33a",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5530184",
+            "lon": "13.3796809"
+        },
+        "https://civic-data.de/federated-directory#addr-87295602fcfa": {
+            "query": {
+                "street": "Badstraße 35",
+                "postalcode": "13357",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5530874",
+            "lon": "13.3792476"
+        },
+        "https://civic-data.de/federated-directory#addr-8dac927043da": {
+            "query": {
+                "street": "Müllerstraße 74",
+                "postalcode": "13349",
+                "city": "Berlin"
+            },
+            "lat": "52.5583634",
+            "lon": "13.3392310"
+        },
+        "https://civic-data.de/federated-directory#addr-8de7a6de6581": {
+            "query": {
+                "street": "Antwerpener Straße 40-42",
+                "postalcode": "13353",
+                "city": "Berlin"
+            },
+            "lat": "52.5475988",
+            "lon": "13.3503927"
+        },
+        "https://civic-data.de/federated-directory#addr-9132a6ebaf7a": {
+            "query": {
+                "street": "Kolberger Straße 14",
+                "postalcode": "13357",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5448997",
+            "lon": "13.3769614"
+        },
+        "https://civic-data.de/federated-directory#addr-92eda355da76": {
+            "query": {
+                "street": "Augustenburger Platz 1",
+                "postalcode": "13353",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5422251",
+            "lon": "13.3473481"
+        },
+        "https://civic-data.de/federated-directory#addr-94ecf2317331": {
+            "query": {
+                "street": "Buttmannstraße 9",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5515163",
+            "lon": "13.3773326"
+        },
+        "https://civic-data.de/federated-directory#addr-9a3123891aec": {
+            "query": {
+                "street": "Große Hamburger Straße 5-11",
+                "postalcode": "10115",
+                "city": "Berlin"
+            },
+            "lat": "52.5265703",
+            "lon": "13.3971569"
+        },
+        "https://civic-data.de/federated-directory#addr-9a312febeb18": {
+            "query": {
+                "street": "Reinickendorfer Straße 58a",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5541613",
+            "lon": "13.3664959"
+        },
+        "https://civic-data.de/federated-directory#addr-9ac4db8f63a9": {
+            "query": {
+                "street": "Kopenhagenerstraße 29",
+                "postalcode": "13407",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5762282",
+            "lon": "13.3600219"
+        },
+        "https://civic-data.de/federated-directory#addr-9c8ec44408d3": {
+            "query": {
+                "street": "Pflugstraße 12",
+                "postalcode": "10115",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5361207",
+            "lon": "13.3794633"
+        },
+        "https://civic-data.de/federated-directory#addr-9ef5282694a3": {
+            "query": {
+                "street": "Genter Straße 63 4.OG",
+                "postalcode": "13353",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "adjusted": "Genter Straße 63",
+            "lat": "52.5485822",
+            "lon": "13.3515084"
+        },
+        "https://civic-data.de/federated-directory#addr-9f35e9002f0a": {
+            "query": {
+                "street": "Prinzenstraße 103",
+                "postalcode": "10969",
+                "city": "Berlin"
+            },
+            "lat": "52.4999653",
+            "lon": "13.4074006"
+        },
+        "https://civic-data.de/federated-directory#addr-a1adbf8d0ba5": {
+            "query": {
+                "street": "Reinhardtstraße 13",
+                "postalcode": "10117",
+                "city": "Berlin"
+            },
+            "lat": "52.5233761",
+            "lon": "13.3857971"
+        },
+        "https://civic-data.de/federated-directory#addr-a2d785abd305": {
+            "query": {
+                "street": "Lützowstraße 42",
+                "postalcode": "10785",
+                "city": "Berlin"
+            },
+            "lat": "52.5051452",
+            "lon": "13.3582898"
+        },
+        "https://civic-data.de/federated-directory#addr-a4d64956d883": {
+            "query": {
+                "street": "Grenzstraße 1-5",
+                "postalcode": "13355",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5403218",
+            "lon": "13.3756969"
+        },
+        "https://civic-data.de/federated-directory#addr-ac2f04250f12": {
+            "query": {
+                "street": "Birkenstraße 51",
+                "postalcode": "10559",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5314851",
+            "lon": "13.3436492"
+        },
+        "https://civic-data.de/federated-directory#addr-acb70b1be356": {
+            "query": {
+                "street": "Lehrter Straße 69",
+                "postalcode": "10557",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5262712",
+            "lon": "13.3643837"
+        },
+        "https://civic-data.de/federated-directory#addr-aff5dcfbcc20": {
+            "query": {
+                "street": "Lübecker Straße 50",
+                "postalcode": "10559",
+                "city": "Berlin"
+            },
+            "lat": "52.5269799",
+            "lon": "13.3452245"
+        },
+        "https://civic-data.de/federated-directory#addr-b0217b494a79": {
+            "query": {
+                "street": "Bellermannstraße 65",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5496980",
+            "lon": "13.3924639"
+        },
+        "https://civic-data.de/federated-directory#addr-b494904ee3e8": {
+            "query": {
+                "street": "Heinz-Galinski-Straße 1",
+                "postalcode": "13347",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5553772",
+            "lon": "13.3702144"
+        },
+        "https://civic-data.de/federated-directory#addr-b9dbb620de58": {
+            "query": {
+                "street": "Wilhelmstraße 122",
+                "postalcode": "10963",
+                "city": "Berlin"
+            },
+            "lat": "52.5035086",
+            "lon": "13.3873214"
+        },
+        "https://civic-data.de/federated-directory#addr-bff418638182": {
+            "query": {
+                "street": "Rosenthaler Straße 59",
+                "postalcode": "10119",
+                "city": "Berlin"
+            },
+            "lat": "52.5271618",
+            "lon": "13.4039490"
+        },
+        "https://civic-data.de/federated-directory#addr-c0fc2e8b7e8e": {
+            "query": {
+                "street": "Gudrunstraße 4",
+                "postalcode": "10365",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5126682",
+            "lon": "13.5004607"
+        },
+        "https://civic-data.de/federated-directory#addr-c1863d69ca59": {
+            "query": {
+                "street": "Niederwallstraße 8-9",
+                "postalcode": "10117",
+                "city": "Berlin"
+            },
+            "lat": "52.5125780",
+            "lon": "13.3985013"
+        },
+        "https://civic-data.de/federated-directory#addr-c2654185de3c": {
+            "query": {
+                "street": "Turmstraße 21",
+                "postalcode": "10559",
+                "city": "Berlin"
+            },
+            "lat": "52.5286483",
+            "lon": "13.3464519"
+        },
+        "https://civic-data.de/federated-directory#addr-c4f77af8c41b": {
+            "query": {
+                "street": "Hochstädter Straße 14",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5508076",
+            "lon": "13.3642742"
+        },
+        "https://civic-data.de/federated-directory#addr-c94838c8d007": {
+            "query": {
+                "street": "Prinzenallee 25-26",
+                "postalcode": "13359",
+                "city": "Berlin"
+            },
+            "lat": "52.5567265",
+            "lon": "13.3851562"
+        },
+        "https://civic-data.de/federated-directory#addr-ca98474ddecb": {
+            "query": {
+                "street": "Stettiner Straße 12",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5528757",
+            "lon": "13.3858287"
+        },
+        "https://civic-data.de/federated-directory#addr-cae979e77290": {
+            "query": {
+                "street": "Lehrter Straße 68",
+                "postalcode": "10557",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5269425",
+            "lon": "13.3621018"
+        },
+        "https://civic-data.de/federated-directory#addr-cd002162a139": {
+            "query": {
+                "street": "Feldstraße 20",
+                "postalcode": "13355",
+                "city": "Berlin"
+            },
+            "lat": "52.5373806",
+            "lon": "13.3836596"
+        },
+        "https://civic-data.de/federated-directory#addr-cf33e0c364fc": {
+            "query": {
+                "street": "Wattstraße 9",
+                "postalcode": "13355",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5406946",
+            "lon": "13.3905307"
+        },
+        "https://civic-data.de/federated-directory#addr-d3d49dd2c7c1": {
+            "query": {
+                "street": "Prinzenallee 39-40",
+                "postalcode": "13359",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5574708",
+            "lon": "13.3854711"
+        },
+        "https://civic-data.de/federated-directory#addr-d4c41d0e23f9": {
+            "query": {
+                "street": "Chausseestraße 128-129",
+                "postalcode": "10115",
+                "city": "Berlin-Mitte",
+                "country": "DE"
+            },
+            "lat": "52.5292781",
+            "lon": "13.3882266"
+        },
+        "https://civic-data.de/federated-directory#addr-d77e48dddb2e": {
+            "query": {
+                "street": "Müllerstraße 146",
+                "postalcode": "13353",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5477213",
+            "lon": "13.3562651"
+        },
+        "https://civic-data.de/federated-directory#addr-db73d62aa571": {
+            "query": {
+                "street": "Nazarethkirchstraße 42",
+                "postalcode": "13347",
+                "city": "Berlin-Wedding",
+                "country": "DE"
+            },
+            "lat": "52.5492051",
+            "lon": "13.3613702"
+        },
+        "https://civic-data.de/federated-directory#addr-e07e484190d1": {
+            "query": {
+                "street": "Bandelstraße 41",
+                "postalcode": "10559",
+                "city": "Berlin"
+            },
+            "lat": "52.5271357",
+            "lon": "13.3497034"
+        },
+        "https://civic-data.de/federated-directory#addr-e549d91fb797": {
+            "query": {
+                "street": "Reinickendorferstraße 62",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5543368",
+            "lon": "13.3656993"
+        },
+        "https://civic-data.de/federated-directory#addr-e767e50b5279": {
+            "query": {
+                "street": "Oldenburger Straße 47",
+                "postalcode": "10551",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5273800",
+            "lon": "13.3353728"
+        },
+        "https://civic-data.de/federated-directory#addr-e96cbaada173": {
+            "query": {
+                "street": "Prinzenallee 74",
+                "postalcode": "13357",
+                "city": "Berlin"
+            },
+            "lat": "52.5551983",
+            "lon": "13.3834940"
+        },
+        "https://civic-data.de/federated-directory#addr-ebbdda1700c9": {
+            "query": {
+                "street": "Nazarethkirchstraße 36",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5501313",
+            "lon": "13.3627814"
+        },
+        "https://civic-data.de/federated-directory#addr-ed2327a70a44": {
+            "query": {
+                "street": "Badstraße 22",
+                "postalcode": "13357",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5520193",
+            "lon": "13.3825651"
+        },
+        "https://civic-data.de/federated-directory#addr-f0ab6987370f": {
+            "query": {
+                "street": "Drontheimer Straße 27",
+                "postalcode": "13359",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5594245",
+            "lon": "13.3767253"
+        },
+        "https://civic-data.de/federated-directory#addr-f280cd85e26d": {
+            "query": {
+                "street": "Hannoversche Straße 5",
+                "postalcode": "10115",
+                "city": "Berlin"
+            },
+            "lat": "52.5271029",
+            "lon": "13.3847288"
+        },
+        "https://civic-data.de/federated-directory#addr-f52230c56d84": {
+            "query": {
+                "street": "Genthiner Straße 48",
+                "postalcode": "10785",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5017857",
+            "lon": "13.3581711"
+        },
+        "https://civic-data.de/federated-directory#addr-f61c3e950510": {
+            "query": {
+                "street": "Müllerstraße 120",
+                "postalcode": "13349",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5542730",
+            "lon": "13.3447784"
+        },
+        "https://civic-data.de/federated-directory#addr-f7200f2e0e7e": {
+            "query": {
+                "street": "Friedrichstraße 231",
+                "postalcode": "10969",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5029601",
+            "lon": "13.3907772"
+        },
+        "https://civic-data.de/federated-directory#addr-f93ec34d2a3a": {
+            "query": {
+                "street": "Liebenwalder Straße 59",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5520116",
+            "lon": "13.3652373"
+        },
+        "https://civic-data.de/federated-directory#addr-fbc447bce495": {
+            "query": {
+                "street": "Mauritiuskirchstraße 1",
+                "postalcode": "10365",
+                "city": "Berlin"
+            },
+            "lat": "52.5116757",
+            "lon": "13.4778508"
+        }
+    }
+}
