@@ -49,9 +49,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :targetClass schema:Service ;
     rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-audience,
-                    :t-areaServed, :t-detailUrl, :t-provider, :t-address .
+                    :t-areaServed, :t-detailUrl, :t-provider .
 
-# Independent address entities, linked from every other tier via schema:address.
+# Independent address entities, linked from the Träger and Einrichtung tiers via
+# schema:address; Angebote carry none (an Angebot's place is its provider's).
 # Identity is exact, never fuzzy (fuzzy street similarity would glue neighbouring
 # house numbers — "Lehrter Straße 68" vs "69" scores ≈ 0.94): each extract step
 # normalises the street onto cdp:matchString (Str. → Straße, lowercase, diacritics
@@ -92,8 +93,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :t-openingHours         a :TargetField ; :targetPredicate schema:openingHours .
 :t-parentOrganization   a :TargetField ; :targetPredicate schema:parentOrganization .
 :t-provider             a :TargetField ; :targetPredicate schema:provider .
-# Entity link to :adresseSchema. schema.org domains schema:address on organisations
-# and places only; we reuse it on Angebote too rather than invent a second predicate.
+# Entity link to :adresseSchema, on the Träger and Einrichtung tiers only: an
+# Angebot has no address of its own — its place is its provider's.
 :t-address              a :TargetField ; :targetPredicate schema:address .
 :t-codeValue            a :TargetField ; :targetPredicate schema:codeValue .
 :t-parentOrgClassification a :TargetField ; :targetPredicate cdf:parentOrgClassification .
@@ -293,8 +294,9 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     rdfs:label "Service" ;
     :hasField   :awo-svc-id, :awo-svc-bagfw, :awo-svc-area .
 
-# Address entities, minted by extract from the locations_filtered rows (the only
-# source with native location IDs; one row can serve several organisations).
+# Address entities, minted by extract from the locations_filtered rows — an
+# (org, location) assignment table where the same location id recurs once per
+# assigned org (the only source with native location IDs).
 :awo-address a :SourceEntity ;
     rdfs:label "Adresse" ;
     :hasField   :awo-addr-locationId, :awo-addr-street, :awo-addr-plz, :awo-addr-ort .
@@ -379,8 +381,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :sp-offer_service_area              ; :to :t-areaServed ] ,
         [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
     :hasRelationship
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] ,
-        [ :sourcePredicate :locatedAt  ; :toTargetField :t-address  ; :toTargetSchema :adresseSchema    ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] .
 
 :dhs-einrichtung-mapping a :Mapping ;
     :fromSource    :dhsSource ;
@@ -445,8 +446,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :awo-svc-area         ; :to :t-areaServed ] ;
     :hasRelationship
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] ,
-        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema     ] ,
-        [ :sourcePredicate :locatedAt  ; :toTargetField :t-address  ; :toTargetSchema :adresseSchema     ] .
+        [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :traegerSchema     ] .
 
 :awo-adresse-mapping a :Mapping ;
     :fromSource    :awoSource ;

@@ -8,8 +8,9 @@
 #     thus collapse onto one org IRI (deduplication happens here, in extract).
 # A single variable-predicate pattern routes each scalar by prefix: office_* →
 # the org, offer_* → the service; the service links back via cdp:providedBy. The
-# office_address sub-fields feed the address entity (cdp:locatedAt from both org
-# and service). Subjects are typed (cdp:targetSchema) so the map routes each to
+# office_address sub-fields feed the address entity (cdp:locatedAt from the org
+# only — an offer's place is its office's, so the service carries no address).
+# Subjects are typed (cdp:targetSchema) so the map routes each to
 # its schema. All string literals get NBSP/whitespace runs collapsed (the source
 # has stray U+00A0, e.g. "Straße  18").
 
@@ -31,8 +32,7 @@ CONSTRUCT {
              xyz:country_code   ?acc .
     ?service cdp:fromSource     cdp:sozialplattformSource ;
              cdp:targetSchema   cdp:angebotSchema ;
-             cdp:providedBy     ?office ;
-             cdp:locatedAt      ?addrEnt .
+             cdp:providedBy     ?office .
     ?subj ?fieldP ?fieldVal .
     ?addrEnt cdp:fromSource   cdp:sozialplattformSource ;
              cdp:targetSchema cdp:adresseSchema ;

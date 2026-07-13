@@ -2,7 +2,8 @@
 # xyz:type + xyz:id, so skolemizing each to cdp:awo-<id> unifies them. Copies the
 # org's scalar literals (whitespace collapsed; isLiteral skips nested arrays and
 # the facade-x null IRI), joins the org's address from the locations_filtered
-# table on organisation_id, and links parent_id to the parent org's IRI via
+# table on organisation_id (orgs without an assignment row of their own borrow
+# their service's location instead), and links parent_id to the parent org's IRI via
 # cdp:hasParent (the map step turns that into schema:parentOrganization, an
 # entity link, the same way cdp:providedBy becomes schema:provider).
 # Each element of the org's services[] also becomes its own entity
@@ -27,7 +28,7 @@ CONSTRUCT {
          xyz:ortsteil     ?ortsteil ;
          xyz:category     ?category ;
          cdp:hasParent    ?parentOrg ;
-         cdp:locatedAt    ?addr .
+         cdp:locatedAt    ?addr, ?fbAddr .
 
     ?addr cdp:fromSource   cdp:awoSource ;
           cdp:targetSchema cdp:adresseSchema ;
@@ -40,20 +41,19 @@ CONSTRUCT {
     ?svc cdp:fromSource     cdp:awoSource ;
          cdp:targetSchema   cdp:angebotSchema ;
          cdp:providedBy     ?org ;
-         cdp:locatedAt      ?svcAddr ;
          xyz:id             ?svcId ;
          xyz:bagfw_category ?svcBc ;
          xyz:areaServed     ?svcArea .
     ?svcBc xyz:nummer ?svcNum ;
            xyz:name   ?svcName .
 
-    ?svcAddr cdp:fromSource   cdp:awoSource ;
-             cdp:targetSchema cdp:adresseSchema ;
-             cdp:matchString  ?svcAdrNorm ;
-             xyz:locationId      ?svcLocId ;
-             xyz:streetAddress   ?svcAdrStreet ;
-             xyz:postalCode      ?svcLocPlz ;
-             xyz:addressLocality ?svcArea .
+    ?fbAddr cdp:fromSource   cdp:awoSource ;
+            cdp:targetSchema cdp:adresseSchema ;
+            cdp:matchString  ?fbNorm ;
+            xyz:locationId      ?fbLocId ;
+            xyz:streetAddress   ?fbStreet ;
+            xyz:postalCode      ?fbPlz ;
+            xyz:addressLocality ?fbOrt .
 }
 WHERE {
     ?node xyz:type ?type ; xyz:id ?id .
@@ -70,11 +70,12 @@ WHERE {
     FILTER(isLiteral(?raw))
     BIND(STRDT(REPLACE(STR(?raw), "[\u00A0\\s]+", " "), datatype(?raw)) AS ?scalar)
 
-    # Address from the locations_filtered table, joined on organisation_id —
-    # not from the org's services. Orgs absent from that table (the services-
-    # file-only ones) get no address; their service will carry the location
-    # instead. plz+ort are always present on a location node and absent on
-    # service nodes, so requiring them pins the join to a real location.
+    # Address from the locations_filtered table — an (org, location) assignment
+    # table (the same location id recurs once per assigned org) — joined on
+    # organisation_id. Orgs absent from it borrow their service's location via
+    # the scoped fallback block below; services themselves never
+    # carry addresses. plz+ort are always present on a location node and absent
+    # on service nodes, so requiring them pins the join to a real location.
     OPTIONAL {
         ?locNode xyz:organisation_id ?id ;
                  xyz:plz              ?plz ;
@@ -128,20 +129,37 @@ WHERE {
         OPTIONAL {
             ?svcNode xyz:location_id ?svcLocId .
             ?svcLoc xyz:id ?svcLocId ; xyz:ort ?svcArea .
-            OPTIONAL { ?svcLoc xyz:plz     ?svcLocPlz     }
-            OPTIONAL { ?svcLoc xyz:adresse ?svcLocAdresse }
-            # Same address recipe as the org side — same location row, same IRI.
-            BIND(REPLACE(REPLACE(REPLACE(STR(?svcLocAdresse), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?svcAdrStreetA)
-            # Strasse → Straße (a standalone "straße" is capitalised, compounds like Bellermannstraße stay lower); house-number letter attached ("33 a" → "33a"), number
-            # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
-            # display only; matchString is invariant.
-            BIND(REPLACE(REPLACE(REPLACE(REPLACE(?svcAdrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2"), "(^|\\s)straße", "$1Straße") AS ?svcAdrStreet0)
-            BIND(IF(?svcAdrStreet0 != "", ?svcAdrStreet0, ?noAddr) AS ?svcAdrStreet)
-            BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?svcAdrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?svcAdrNorm)
-            BIND(COALESCE(
-                IRI(CONCAT(STR(cdp:), "awo-addr-", SUBSTR(SHA1(CONCAT(?svcAdrNorm, "|", STR(?svcLocPlz))), 1, 12))),
-                IRI(CONCAT(STR(cdp:), "awo-addr-loc", STR(?svcLocId)))) AS ?svcAddr)
         }
+    }
+
+    # Fallback address for orgs with no assignment row of their own: borrow the
+    # location their services point at (services themselves stay address-free;
+    # directly-assigned orgs never bind here). A sibling block rather than one
+    # nested in the services walk: ?id sits in the group, so the MINUS (sharing
+    # only ?id) drops directly-assigned orgs and the left join correlates on
+    # ?node/?id — a nested block loses that correlation bottom-up, and a
+    # FILTER NOT EXISTS crashes Comunica's optional-hash join.
+    OPTIONAL {
+        ?node xyz:id ?id ;
+              xyz:services ?fbArr .
+        ?fbArr ?fbMember ?fbSvcNode .
+        FILTER(STRSTARTS(STR(?fbMember), "http://www.w3.org/1999/02/22-rdf-syntax-ns#_"))
+        ?fbSvcNode xyz:location_id ?fbLocId .
+        ?fbLoc xyz:id ?fbLocId ; xyz:ort ?fbOrt .
+        MINUS { [] xyz:organisation_id ?id ; xyz:plz [] ; xyz:ort [] }
+        OPTIONAL { ?fbLoc xyz:plz     ?fbPlz     }
+        OPTIONAL { ?fbLoc xyz:adresse ?fbAdresse }
+        # Same address recipe as the org side — same street, same IRI.
+        BIND(REPLACE(REPLACE(REPLACE(STR(?fbAdresse), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?fbStreetA)
+        # Strasse → Straße (a standalone "straße" is capitalised, compounds like Bellermannstraße stay lower); house-number letter attached ("33 a" → "33a"), number
+        # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+        # display only; matchString is invariant.
+        BIND(REPLACE(REPLACE(REPLACE(REPLACE(?fbStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2"), "(^|\\s)straße", "$1Straße") AS ?fbStreet0)
+        BIND(IF(?fbStreet0 != "", ?fbStreet0, ?noAddr) AS ?fbStreet)
+        BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?fbStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?fbNorm)
+        BIND(COALESCE(
+            IRI(CONCAT(STR(cdp:), "awo-addr-", SUBSTR(SHA1(CONCAT(?fbNorm, "|", STR(?fbPlz))), 1, 12))),
+            IRI(CONCAT(STR(cdp:), "awo-addr-loc", STR(?fbLocId)))) AS ?fbAddr)
     }
 
     # Mint the parent's IRI straight from parent_id (same skolem as the org's
