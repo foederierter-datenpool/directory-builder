@@ -13,7 +13,7 @@
 
 :federation a :Federation ;
     rdfs:label       "Federated directory of social support services in Germany" ;
-    :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource ;
+    :hasSource       :caritasSource, :sozialplattformSource, :dhsSource, :awoSource, :destatisSource ;
     :hasTargetSchema :traegerSchema, :einrichtungSchema, :angebotSchema, :adresseSchema ;
     :harvestingModeActive false ;
     :hasRunParam     [ :name "plz" ; :value "10115", "10117", "10119", "10178", "10365",
@@ -325,6 +325,38 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :awo-svc-bagfw-nummer a :SubField ; :fieldPath "nummer" .
 :awo-svc-bagfw-name   a :SubField ; :fieldPath "name" .
 
+# -------------------------------------------------------------------------
+
+:destatisSource a :Source ;
+    rdfs:label    "Schuldnerberatung (Destatis)" ;
+    skos:notation "dsb" ;
+    rdfs:comment  "Adressliste der Beratungsstellen in der Überschuldungsstatistik, aus der Adressdatenbank des Statistischen Bundesamtes" ;
+    :retrieval    "Files" ;
+    :format       ft:XLSX ;
+    :hasEntity  :destatis-einrichtung, :destatis-address .
+
+:destatis-einrichtung a :SourceEntity ;
+    rdfs:label "Einrichtung" ;
+    :hasField   :destatis-refId, :destatis-name, :destatis-bundesland,
+                :destatis-strasse, :destatis-plz, :destatis-stadt .
+
+# refId is the row's content hash (name+PLZ+street), the source's stand-in for a missing native id
+:destatis-refId      a :SourceField ; :fieldPath "refId"      .
+:destatis-name       a :SourceField ; :fieldPath "name"       .
+:destatis-bundesland a :SourceField ; :fieldPath "bundesland" .
+:destatis-strasse    a :SourceField ; :fieldPath "strasse"    .
+:destatis-plz        a :SourceField ; :fieldPath "plz"        .
+:destatis-stadt      a :SourceField ; :fieldPath "stadt"      .
+
+# Address entity, minted by extract from the Strasse + PLZ + Stadt columns.
+:destatis-address a :SourceEntity ;
+    rdfs:label "Adresse" ;
+    :hasField :destatis-addr-street, :destatis-addr-plz, :destatis-addr-ort .
+
+:destatis-addr-street a :SourceField ; :fieldPath "streetAddress"   ; :derivedFrom :destatis-strasse .
+:destatis-addr-plz    a :SourceField ; :fieldPath "postalCode"      ; :derivedFrom :destatis-plz     .
+:destatis-addr-ort    a :SourceField ; :fieldPath "addressLocality" ; :derivedFrom :destatis-stadt   .
+
 # ---- Mappings -----------------------------------------------------------
 
 :caritas-einrichtung-mapping a :Mapping ;
@@ -456,6 +488,26 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
         [ :from :awo-addr-street     ; :to :t-streetAddress ] ,
         [ :from :awo-addr-plz        ; :to :t-postalCode    ] ,
         [ :from :awo-addr-ort        ; :to :t-locality      ] .
+
+# Destatis is names + addresses only: one Einrichtung per row, linked to its
+# minted address. bundesland/strasse/plz/stadt stay unmapped (the address
+# fields carry the location; Bundesland has no target slot here).
+:destatis-einrichtung-mapping a :Mapping ;
+    :fromSource    :destatisSource ;
+    :toTarget      :einrichtungSchema ;
+    :hasFieldMapping
+        [ :from :destatis-refId ; :to :t-identifier ] ,
+        [ :from :destatis-name  ; :to :t-name       ] ;
+    :hasRelationship
+        [ :sourcePredicate :locatedAt ; :toTargetField :t-address ; :toTargetSchema :adresseSchema ] .
+
+:destatis-adresse-mapping a :Mapping ;
+    :fromSource    :destatisSource ;
+    :toTarget      :adresseSchema ;
+    :hasFieldMapping
+        [ :from :destatis-addr-street ; :to :t-streetAddress ] ,
+        [ :from :destatis-addr-plz    ; :to :t-postalCode    ] ,
+        [ :from :destatis-addr-ort    ; :to :t-locality      ] .
 
 # ---- Match --------------------------------------------------------------
 

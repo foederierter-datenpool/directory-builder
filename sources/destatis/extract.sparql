@@ -1,0 +1,62 @@
+# Destatis ships one nationwide .xlsx (columns Bundesland, Beratungsstelle,
+# Strasse, PLZ, Stadt); the spreadsheet lift turns each data row into a node with
+# xyz:<header> properties. The source carries no stable id, so each row is
+# skolemised on a content hash of name + PLZ + street into cdp:destatis-<hash>
+# (identical rows collapse here, distinct ones stay apart for the match step to
+# judge). The row's own street/PLZ/city become one cdp:adresseSchema entity linked
+# via cdp:locatedAt — the same address recipe as the other sources, so a Destatis
+# address folds onto the shared canonical IRI when another source carries it too.
+
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+PREFIX cdp: <https://civic-data.de/pipeline#>
+
+CONSTRUCT {
+    ?org cdp:fromSource   cdp:destatisSource ;
+         cdp:targetSchema cdp:einrichtungSchema ;
+         cdp:locatedAt    ?addr ;
+         xyz:refId        ?id ;
+         xyz:name         ?nameRaw ;
+         xyz:bundesland   ?bundeslandRaw ;
+         xyz:strasse      ?strasseRaw ;
+         xyz:plz          ?plz ;
+         xyz:stadt        ?stadtRaw .
+    ?addr cdp:fromSource   cdp:destatisSource ;
+          cdp:targetSchema cdp:adresseSchema ;
+          cdp:matchString  ?adrNorm ;
+          xyz:streetAddress   ?adrStreet ;
+          xyz:postalCode      ?adrPlz ;
+          xyz:addressLocality ?adrOrt .
+} WHERE {
+    ?row xyz:Beratungsstelle ?nameRaw ;
+         xyz:PLZ             ?plzRaw .
+    BIND(STR(?plzRaw) AS ?plz)
+    # DEV scoping — keep only the federation's run-param PLZs (Bezirk Mitte plus
+    # adjacents), so the national list lines up with the other Berlin-scoped
+    # sources. Drop this FILTER to ingest all of Germany.
+    FILTER(?plz IN ("10115", "10117", "10119", "10178", "10365", "10435", "10551",
+        "10557", "10559", "10785", "10963", "10969", "13347", "13349", "13353",
+        "13355", "13357", "13359", "13407"))
+    OPTIONAL { ?row xyz:Strasse    ?strasseRaw    }
+    OPTIONAL { ?row xyz:Stadt      ?stadtRaw      }
+    OPTIONAL { ?row xyz:Bundesland ?bundeslandRaw }
+
+    BIND(SUBSTR(SHA1(CONCAT(STR(?nameRaw), "|", ?plz, "|", STR(COALESCE(?strasseRaw, "")))), 1, 12) AS ?id)
+    BIND(IRI(CONCAT(STR(cdp:), "destatis-", ?id)) AS ?org)
+
+    # Address entity: whitespace collapsed and Str. expanded for display, then
+    # lowercased / diacritics folded / punctuation dropped onto cdp:matchString,
+    # the match step's exact comparison surface. The IRI is content-addressed on
+    # matchString + PLZ, so formatting variants collapse onto one IRI. An empty
+    # street mints nothing: the IF picks the never-bound ?noAddr, erroring the
+    # whole address chain away (the org then just carries no cdp:locatedAt).
+    BIND(?plz AS ?adrPlz)
+    BIND(?stadtRaw AS ?adrOrt)
+    BIND(REPLACE(REPLACE(REPLACE(STR(?strasseRaw), "[\u00A0\\s]+", " "), "([Ss])tr\\.\\s*", "$1traße "), "^ +| +$", "") AS ?adrStreetA)
+    # Strasse → Straße (a standalone "straße" is capitalised, compounds like Bellermannstraße stay lower); house-number letter attached ("33 a" → "33a"), number
+    # ranges canonicalised to hyphen ("5 - 11" → "5-11", "128/129" → "128-129") —
+    # display only; matchString is invariant.
+    BIND(REPLACE(REPLACE(REPLACE(REPLACE(?adrStreetA, "([Ss])trasse", "$1traße"), "(\\d+) ([a-zA-Z])$", "$1$2"), "(\\d) ?[-/] ?(\\d)", "$1-$2"), "(^|\\s)straße", "$1Straße") AS ?adrStreet0)
+    BIND(IF(?adrStreet0 != "", ?adrStreet0, ?noAddr) AS ?adrStreet)
+    BIND(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(LCASE(?adrStreet), "ä", "ae"), "ö", "oe"), "ü", "ue"), "ß", "ss"), "[^a-z0-9]", "") AS ?adrNorm)
+    BIND(IRI(CONCAT(STR(cdp:), "destatis-addr-", SUBSTR(SHA1(CONCAT(?adrNorm, "|", ?adrPlz)), 1, 12))) AS ?addr)
+}

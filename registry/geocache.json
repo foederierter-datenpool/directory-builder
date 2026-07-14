@@ -21,6 +21,16 @@
             "lat": "52.5543042",
             "lon": "13.3852602"
         },
+        "https://civic-data.de/federated-directory#addr-07186889552c": {
+            "query": {
+                "street": "Lehrter Straße 68",
+                "postalcode": "10557",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5262801",
+            "lon": "13.3628471"
+        },
         "https://civic-data.de/federated-directory#addr-0787320c50e7": {
             "query": {
                 "street": "Badstraße 10",
@@ -92,11 +102,11 @@
             "query": {
                 "street": "Große Hamburger Straße 18",
                 "postalcode": "10115",
-                "city": "Berlin",
+                "city": "Berlin-Mitte",
                 "country": "DE"
             },
-            "lat": "52.5246380",
-            "lon": "13.3990703"
+            "lat": "52.5245411",
+            "lon": "13.3987412"
         },
         "https://civic-data.de/federated-directory#addr-22396c694bdd": {
             "query": {
@@ -124,6 +134,15 @@
             },
             "lat": "52.5032660",
             "lon": "13.3566032"
+        },
+        "https://civic-data.de/federated-directory#addr-2a047e8b0c41": {
+            "query": {
+                "street": "Liebenwalder Straße 8",
+                "postalcode": "13347",
+                "city": "Berlin"
+            },
+            "lat": "52.5521759",
+            "lon": "13.3645166"
         },
         "https://civic-data.de/federated-directory#addr-2fb8d7fcbf10": {
             "query": {
@@ -676,6 +695,16 @@
             "lat": "52.5233761",
             "lon": "13.3857971"
         },
+        "https://civic-data.de/federated-directory#addr-a26276d7eb42": {
+            "query": {
+                "street": "Arminiusstraße 2-4",
+                "postalcode": "10551",
+                "city": "Berlin-Tiergarten",
+                "country": "DE"
+            },
+            "lat": null,
+            "lon": null
+        },
         "https://civic-data.de/federated-directory#addr-a2d785abd305": {
             "query": {
                 "street": "Lützowstraße 42",
@@ -733,6 +762,16 @@
             "lat": "52.5496980",
             "lon": "13.3924639"
         },
+        "https://civic-data.de/federated-directory#addr-b2b82c76bd35": {
+            "query": {
+                "street": "Ritterstraße 3",
+                "postalcode": "10969",
+                "city": "Berlin-Kreuzberg",
+                "country": "DE"
+            },
+            "lat": "52.5012148",
+            "lon": "13.4134106"
+        },
         "https://civic-data.de/federated-directory#addr-b494904ee3e8": {
             "query": {
                 "street": "Heinz-Galinski-Straße 1",
@@ -788,6 +827,16 @@
             },
             "lat": "52.5286483",
             "lon": "13.3464519"
+        },
+        "https://civic-data.de/federated-directory#addr-c34361180e33": {
+            "query": {
+                "street": "Wattstraße 9",
+                "postalcode": "13355",
+                "city": "Berlin",
+                "country": "DE"
+            },
+            "lat": "52.5406946",
+            "lon": "13.3905307"
         },
         "https://civic-data.de/federated-directory#addr-c4f77af8c41b": {
             "query": {

@@ -58,6 +58,19 @@
 :caritas-d166b142-baff-44e8-918a-2eabfcb7d154
     owl:differentFrom :caritas-e008b4d6-1757-4d52-87aa-f941d6fd9243 .
 
+# Destatis's "Caritasverband f. d. Erzbistum Berlin e.V. - Schuldnerberatung"
+# (Große Hamburger Str. 18) is a debt-counselling centre, not the Caritas
+# *Sucht*beratung / Suchtzentrum Mitte the other sources place at that same
+# building. token_set_ratio rides the shared "Caritasverband … Erzbistum Berlin"
+# tokens (0.76 vs the two caritas records, 0.90 vs dhs-4529) and the shared
+# address gates it in, so it needs vetoing against each co-located member it
+# links to. The Destatis IRI hashes name+PLZ+street — recompute if that row's
+# text changes (find it via xyz:name in extracted/destatis.ttl).
+:destatis-ce87403fd44c
+    owl:differentFrom :caritas-73689048-ab16-478e-9814-9ad2a9c5d45e ,
+                      :caritas-f1da2711-9e0c-4498-988c-ab324f0c555e ,
+                      :dhs-4529 .
+
 # ---- Value corrections ----------------------------------------------------
 
 # SP misspells Notdienst Berlin's "Krisenwohnung", and the typo would win the
