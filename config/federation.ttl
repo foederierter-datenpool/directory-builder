@@ -165,10 +165,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 # fields); search_score is a query-time artifact belonging to neither.
 :sp-offer a :SourceEntity ;
     rdfs:label "Offer" ;
-    :hasField   :sp-offer_chat_topic, :sp-offer_external_id_booking, :sp-offer_external_service_booking,
-                :sp-offer_external_service_consulting, :sp-offer_external_service_link_text,
-                :sp-offer_external_service_link_url, :sp-offer_external_service_type, :sp-offer_id, :sp-offer_nid,
-                :sp-offer_service_area, :sp-offer_title, :sp-offer_type .
+    :hasField   :sp-offer_id, :sp-offer_nid, :sp-offer_service_area, :sp-offer_title, :sp-offer_type .
 
 # Address entities, minted by extract from the office_address sub-node (which the
 # office's own flat mapping keeps navigating untouched).
@@ -183,19 +180,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 
 :sp-office a :SourceEntity ;
     rdfs:label "Office" ;
-    :hasField   :sp-office_address, :sp-office_address_short,
-                :sp-office_email, :sp-office_external_id_booking, :sp-office_external_id_consulting,
-                :sp-office_external_service_booking, :sp-office_external_service_consulting,
-                :sp-office_external_service_type, :sp-office_opening_hours, :sp-office_opening_hours_notes,
+    :hasField   :sp-office_address, :sp-office_address_short, :sp-office_email,
+                :sp-office_opening_hours, :sp-office_opening_hours_notes,
                 :sp-office_phone, :sp-office_title .
 
-:sp-offer_chat_topic                   a :SourceField ; :fieldPath "offer_chat_topic"                   .
-:sp-offer_external_id_booking          a :SourceField ; :fieldPath "offer_external_id_booking"          .
-:sp-offer_external_service_booking     a :SourceField ; :fieldPath "offer_external_service_booking"     .
-:sp-offer_external_service_consulting  a :SourceField ; :fieldPath "offer_external_service_consulting"  .
-:sp-offer_external_service_link_text   a :SourceField ; :fieldPath "offer_external_service_link_text"   .
-:sp-offer_external_service_link_url    a :SourceField ; :fieldPath "offer_external_service_link_url"    .
-:sp-offer_external_service_type        a :SourceField ; :fieldPath "offer_external_service_type"        .
 :sp-offer_id                           a :SourceField ; :fieldPath "offer_id"                           .
 :sp-offer_nid                          a :SourceField ; :fieldPath "offer_nid"                          .
 :sp-offer_service_area                 a :SourceField ; :fieldPath "offer_service_area"                 .
@@ -214,11 +202,6 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 
 :sp-office_address_short               a :SourceField ; :fieldPath "office_address_short"               .
 :sp-office_email                       a :SourceField ; :fieldPath "office_email"                       .
-:sp-office_external_id_booking         a :SourceField ; :fieldPath "office_external_id_booking"         .
-:sp-office_external_id_consulting      a :SourceField ; :fieldPath "office_external_id_consulting"      .
-:sp-office_external_service_booking    a :SourceField ; :fieldPath "office_external_service_booking"    .
-:sp-office_external_service_consulting a :SourceField ; :fieldPath "office_external_service_consulting" .
-:sp-office_external_service_type       a :SourceField ; :fieldPath "office_external_service_type"       .
 :sp-office_opening_hours               a :SourceField ; :fieldPath "office_opening_hours"               .
 :sp-office_opening_hours_notes         a :SourceField ; :fieldPath "office_opening_hours_notes"         .
 :sp-office_phone                       a :SourceField ; :fieldPath "office_phone"                       .
@@ -406,12 +389,10 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :fromSource    :sozialplattformSource ;
     :toTarget      :angebotSchema ;
     :hasFieldMapping
-        [ :from :sp-offer_id                        ; :to :t-identifier ] ,
-        [ :from :sp-offer_title                     ; :to :t-name       ] ,
-        [ :from :sp-offer_type                      ; :to :t-category   ] ,
-        [ :from :sp-offer_chat_topic                ; :to :t-audience   ] ,
-        [ :from :sp-offer_service_area              ; :to :t-areaServed ] ,
-        [ :from :sp-offer_external_service_link_url ; :to :t-detailUrl  ] ;
+        [ :from :sp-offer_id           ; :to :t-identifier ] ,
+        [ :from :sp-offer_title        ; :to :t-name       ] ,
+        [ :from :sp-offer_type         ; :to :t-category   ] ,
+        [ :from :sp-offer_service_area ; :to :t-areaServed ] ;
     :hasRelationship
         [ :sourcePredicate :providedBy ; :toTargetField :t-provider ; :toTargetSchema :einrichtungSchema ] .
 
