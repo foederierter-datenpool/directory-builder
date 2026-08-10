@@ -20,7 +20,10 @@
                        "10435", "10551", "10557", "10559", "10785", "10963", "10969", "13347",
                        "13349", "13353", "13355", "13357", "13359", "13407" ] ;
     :hasExporter     "sozialplattform" ;
-    :repository      "https://github.com/foederierter-datenpool/sosuse-directory-builder" .
+    :repository      "https://github.com/foederierter-datenpool/sosuse-directory-builder" ;
+    # Where the webapp is deployed: the webapp build takes its vite base from
+    # this path, and publish builds the catalog's IRIs on it.
+    :baseUrl         "https://foederierter-datenpool.github.io/sosuse-directory-builder/" .
 
 # ---- Vocabulary ---------------------------------------------------------
 
