@@ -23,7 +23,7 @@ SELECT ?org
 WHERE {
     ?org schema:name ?n .
     # The address lives on the linked Adresse entity (schema:address), not flat
-    # on the org — final.ttl drops the org-side copies via the :drop override.
+    # on the org — directory.ttl drops the org-side copies via the :drop override.
     OPTIONAL { ?org schema:address ?adr .
         OPTIONAL { ?adr schema:streetAddress   ?s  }
         OPTIONAL { ?adr schema:postalCode      ?pc }
