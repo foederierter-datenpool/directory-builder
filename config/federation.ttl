@@ -52,7 +52,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :targetClass schema:Service ;
     rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-audience,
-                    :t-areaServed, :t-detailUrl, :t-provider .
+                    :t-areaServed, :t-detailUrl, :t-provider, :t-openingHours .
 
 # Independent address entities, linked from the Träger and Einrichtung tiers via
 # schema:address; Angebote carry none (an Angebot's place is its provider's).
@@ -542,4 +542,14 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 # each canonical address is looked up once, with curated corrections applied;
 # lookups are cached in registry/geocache.json.
 :enrich a :EnrichRule ;
-    :geocode :adresseSchema .
+    :geocode :adresseSchema ;
+    :inherit :inheritEinrichtungToAngebot .
+
+# An Angebot points to its Einrichtung through schema:provider. Audience and
+# opening hours are fallback values: a value directly on the Angebot always
+# wins over the Einrichtung's value.
+:inheritEinrichtungToAngebot a :InheritanceRule ;
+    :from    :einrichtungSchema ;
+    :to      :angebotSchema ;
+    :through schema:provider ;
+    :on      schema:audience, schema:openingHours .
