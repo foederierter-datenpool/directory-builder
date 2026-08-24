@@ -36,7 +36,7 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     rdfs:label "Träger"@de ;
     :hasTargetField :t-identifier, :t-name, :t-alternateName, :t-description,
                     :t-telephone, :t-email, :t-homepage, :t-detailUrl,
-                    :t-parentOrganization, :t-address,
+                    :t-address,
                     :t-harvestedAt, :t-sourceCreated, :t-sourceModified, :t-sourceReviewed .
 
 :einrichtungSchema a :TargetSchema ;
