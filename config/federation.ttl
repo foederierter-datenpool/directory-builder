@@ -52,7 +52,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
     :targetClass schema:Service ;
     rdfs:label "Angebot"@de ;
     :hasTargetField :t-identifier, :t-name, :t-category, :t-codeValue, :t-audience,
-                    :t-areaServed, :t-detailUrl, :t-provider, :t-openingHours .
+                    :t-areaServed, :t-language, :t-isAccessibleForFree,
+                    :t-detailUrl, :t-provider, :t-openingHours .
 
 # Independent address entities, linked from the Träger and Einrichtung tiers via
 # schema:address; Angebote carry none (an Angebot's place is its provider's).
@@ -94,6 +95,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :t-audience             a :TargetField ; :targetPredicate schema:audience .
 :t-accessibilitySummary a :TargetField ; :targetPredicate schema:accessibilitySummary .
 :t-openingHours         a :TargetField ; :targetPredicate schema:openingHours .
+:t-language             a :TargetField ; :targetPredicate dct:language ; :multiValued true .
+:t-isAccessibleForFree  a :TargetField ; :targetPredicate schema:isAccessibleForFree .
 :t-parentOrganization   a :TargetField ; :targetPredicate schema:parentOrganization .
 :t-provider             a :TargetField ; :targetPredicate schema:provider .
 # Entity link to :adresseSchema, on the Träger and Einrichtung tiers only: an
@@ -534,7 +537,8 @@ org:OrganizationalUnit rdfs:label "Einrichtung"@de .
 :resolve a :ResolveRule ;
     :defaultStrategy :longestValue ;
     :hasOverride     [ :on schema:availableService ; :strategy :concatenateAll ] ,
-                     [ :on schema:telephone        ; :strategy :keepAll ] .
+                     [ :on schema:telephone        ; :strategy :keepAll ] ,
+                     [ :on dct:language            ; :strategy :keepAll ] .
 
 # ---- Enrich -------------------------------------------------------------
 
