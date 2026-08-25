@@ -1,0 +1,2136 @@
+PREFIX fx:  <http://sparql.xyz/facade-x/ns/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+
+[ rdf:type  fx:root;
+  rdf:_1    [ xyz:id           "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "Berlin-Mitte";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "AWO Kreisverband Berlin-Mitte e.V.";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "traeger";
+              xyz:webseite     "http://www.awo-mitte.de"
+            ];
+  rdf:_10   [ xyz:id           "8858"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Badstr. 33";
+                                           xyz:id               "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8858"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Schuldner- und Insolvenzberatung";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_100  [ xyz:adresse          "Markgrafenstr. 26";
+              xyz:id               "9058"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8940"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10117"
+            ];
+  rdf:_101  [ xyz:adresse          "Bellermannstr. 65";
+              xyz:id               "9063"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8945"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_102  [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8954"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "Berlin-Mitte";
+              xyz:plz              "13347"
+            ];
+  rdf:_103  [ xyz:adresse          "Prinzenallee 25/26";
+              xyz:id               "9074"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8956"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13359"
+            ];
+  rdf:_104  [ xyz:adresse          "Groninger str. 28";
+              xyz:id               "9089"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8971"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_105  [ xyz:adresse          "Rosenthaler Str. 59";
+              xyz:id               "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8981"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10119"
+            ];
+  rdf:_106  [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9007"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "Berlin-Mitte";
+              xyz:plz              "13347"
+            ];
+  rdf:_107  [ xyz:adresse          "Antwerpener Straße 40/42";
+              xyz:id               "9164"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9046"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13353"
+            ];
+  rdf:_108  [ xyz:adresse          "Derfflingerstraße 21";
+              xyz:id               "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9048"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10785"
+            ];
+  rdf:_109  [ xyz:adresse          "Putbusser Straße 30";
+              xyz:id               "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9050"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13355"
+            ];
+  rdf:_11   [ xyz:id           "8862"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Badstr. 33";
+                                           xyz:id               "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8862"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Schuldnerberatung und Insolvenzberatung";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_110  [ xyz:adresse          "Reinickendorferstraße 62";
+              xyz:id               "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9052"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_111  [ xyz:adresse          "Turmstraße 71";
+              xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9053"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10551"
+            ];
+  rdf:_112  [ xyz:adresse          "Prinzenallee 74";
+              xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9066"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_113  [ xyz:adresse          "Müllerstr. 163";
+              xyz:id               "9188"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9070"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13353"
+            ];
+  rdf:_114  [ xyz:adresse          "Reinickendorfer Str. 58 a";
+              xyz:id               "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9078"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_115  [ xyz:adresse          "Liebenwalder Str. 59";
+              xyz:id               "9095"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9082"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_116  [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9083"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "Berlin-Mitte";
+              xyz:plz              "13347"
+            ];
+  rdf:_117  [ xyz:adresse          "Prinzenallee 74";
+              xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9085"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_118  [ xyz:adresse          "Prinzenallee 74";
+              xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9086"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_119  [ xyz:adresse          "Stettiner Str. 12";
+              xyz:id               "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9093"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_12   [ xyz:id           "8872"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Badstr. 10";
+                                           xyz:id               "8990"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8872"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Interkulturelles Zentrum f. Mädchen und MÄDEA";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_120  [ xyz:adresse          "Stettiner Str. 12";
+              xyz:id               "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9094"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_121  [ xyz:adresse          "";
+              xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10435"
+            ];
+  rdf:_122  [ xyz:adresse          "";
+              xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9100"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10435"
+            ];
+  rdf:_123  [ xyz:adresse          "";
+              xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9101"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10435"
+            ];
+  rdf:_124  [ xyz:adresse          "Buttmannstr. 9";
+              xyz:id               "9220"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9102"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_125  [ xyz:adresse          "Lützowstr. 42";
+              xyz:id               "9224"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9106"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10785"
+            ];
+  rdf:_126  [ xyz:adresse          "Barfusstr. 22/24";
+              xyz:id               "9240"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9122"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13349"
+            ];
+  rdf:_127  [ xyz:adresse          "Spenerstr. 37";
+              xyz:id               "9241"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "9123"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10557"
+            ];
+  rdf:_13   [ xyz:id           "8877"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Derfflingerstraße 21";
+                                           xyz:id               "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8877"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10785";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Maulwurf\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_14   [ xyz:id           "8879"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Putbusser Straße 30";
+                                           xyz:id               "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8879"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13355";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Rosa Marzipan\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_15   [ xyz:id           "8881"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Reinickendorferstraße 62";
+                                           xyz:id               "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8881"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Sonnenblume\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_16   [ xyz:id           "8882"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Turmstraße 71";
+                                           xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8882"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10551";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Kelebek\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_17   [ xyz:id           "8894"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Reinickendorfer Str. 58 a";
+                                           xyz:id               "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8894"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Gerontopsych. Tagespflege Sommergarten";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_18   [ xyz:id           "8906"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Turmstraße 71";
+                                           xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8906"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10551";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Betreutes Einzelwohnen";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_19   [ xyz:id           "8913"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Karl-Liebknecht-Str. 13";
+                                           xyz:id               "9031"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8913"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10178";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Platzmanagement Alexanderplatz Stiftung SPI Berlin";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_2    [ xyz:id           "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Rigaer Str. 55 b";
+                                           xyz:id               "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10115";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "AWO Kreisverband Spree-Wuhle e.V.";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "traeger";
+              xyz:webseite     "http://www.awo-friedrichshain-kreuzberg.de"
+            ];
+  rdf:_20   [ xyz:id           "8936"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Alt-Reinickendorf 23-24";
+                                           xyz:id               "9054"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8936"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13407";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Drogenberatung Nord";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_21   [ xyz:id           "8940"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Markgrafenstr. 26";
+                                           xyz:id               "9058"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8940"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10117";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Tagesfreizeitstätte Werk 9";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_22   [ xyz:id           "8945"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Bellermannstr. 65";
+                                           xyz:id               "9063"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8945"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Suchtprophylaxeprojekt für Kinder u. Jugendliche";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_23   [ xyz:id           "8954"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8954"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "Berlin-Mitte";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Fahrdienst für Behinderte";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_24   [ xyz:id           "8956"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 25/26";
+                                           xyz:id               "9074"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8956"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13359";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Frauenwohnprojekt";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_25   [ xyz:id           "8971"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Groninger str. 28";
+                                           xyz:id               "9089"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8971"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Frauenladen";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_26   [ xyz:id           "8981"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Rosenthaler Str. 59";
+                                           xyz:id               "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8981"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10119";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Abenteuerspielplatz \"Stadt der Kinder\"";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_27   [ xyz:id           "9007"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9007"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "Berlin-Mitte";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Familienpflege";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_28   [ xyz:id           "9046"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Antwerpener Straße 40/42";
+                                           xyz:id               "9164"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9046"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13353";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kindertagesstätte \"Pinocchio\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_29   [ xyz:id           "9048"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Derfflingerstraße 21";
+                                           xyz:id               "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9048"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10785";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kindertagesstätte \"Maulwurf\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_3    [ xyz:id           "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Müllerstraße 74";
+                                           xyz:id               "4908"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "Berlin-Mitte";
+                                           xyz:plz              "13349";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "SPI - Stiftung Sozialpädagogisches Institut Berlin »Walter May«";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "traeger";
+              xyz:webseite     "http://www.stiftung-spi.de/"
+            ];
+  rdf:_30   [ xyz:id           "9050"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Putbusser Straße 30";
+                                           xyz:id               "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9050"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13355";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kindertagesstätte \"Rosa Marzipan\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_31   [ xyz:id           "9052"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Reinickendorferstraße 62";
+                                           xyz:id               "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9052"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kindertagesstätte \"Sonnenblume\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_32   [ xyz:id           "9053"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Turmstraße 71";
+                                           xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9053"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10551";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kindertagesstätte \"Kelebek\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_33   [ xyz:id           "9066"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 74";
+                                           xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9066"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Geschäftsbereich Stadtentwicklung Stiftung SPI";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_34   [ xyz:id           "9070"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Müllerstr. 163";
+                                           xyz:id               "9188"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9070"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13353";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "August-Bebel-Institut Institut f. Soziale Demokratie";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_35   [ xyz:id           "9078"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Reinickendorfer Str. 58 a";
+                                           xyz:id               "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9078"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "AWO Gemeinnützige Pflegegesellschaft mbH Geschäftsstelle";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     "https://www.awo-pflegenetz.de"
+            ];
+  rdf:_36   [ xyz:id           "9082"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Liebenwalder Str. 59";
+                                           xyz:id               "9095"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9082"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Geschäftsstelle Verwaltungsstelle Zivildienst";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_37   [ xyz:id           "9083"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9083"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "Berlin-Mitte";
+                                           xyz:plz              "13347";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "allgem. Beratungsstelle KV Mitte e.V.";
+              xyz:name_zusatz  "Kreisvorsitzender Karl-Heinz Junge";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_38   [ xyz:id           "9085"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 74";
+                                           xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9085"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kleiderkammer  IsA-K Integration statt Ausgrenzung -Kleiderk.";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_39   [ xyz:id           "9086"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 74";
+                                           xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9086"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Kleiderstube";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_4    [ xyz:id           "8813"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8813"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13353";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Behindertenhilfe Betreutes  Wohnen";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_40   [ xyz:id           "9093"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Stettiner Str. 12";
+                                           xyz:id               "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9093"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Migrationsberatung für erwachsene Zuwanderer (MBE) Zentrum für Migration und Integration";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_41   [ xyz:id           "9094"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Stettiner Str. 12";
+                                           xyz:id               "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9094"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Sozialberatung für Migrant*innen Zentrum für Migration und Integration";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_42   [ xyz:id           "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "";
+                                           xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10435";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Clearingstelle Jugendhilfe/Polizei";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_43   [ xyz:id           "9100"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "";
+                                           xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9100"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10435";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Drehscheibe Kinder - und Jugendpolitik";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_44   [ xyz:id           "9101"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "";
+                                           xyz:id               "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9101"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10435";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Berliner Büro f. Diversionsberatung u. Vermittlung";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_45   [ xyz:id           "9102"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Buttmannstr. 9";
+                                           xyz:id               "9220"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9102"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Sozialpädagogische Hilfen Fallschirm, Stiftung SPI Berlin";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_46   [ xyz:id           "9106"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Lützowstr. 42";
+                                           xyz:id               "9224"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9106"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10785";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Jugendkulturzentrum Pumpe";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_47   [ xyz:id           "9122"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Barfusstr. 22/24";
+                                           xyz:id               "9240"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9122"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13349";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Begegnungstätte Schillerpark";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_48   [ xyz:id           "9123"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Spenerstr. 37";
+                                           xyz:id               "9241"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "9123"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10557";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Begegnungsstätte Club 37";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_49   [ xyz:id           "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Kreisverband Berlin-Mitte e.V.";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:anzahl_ehrenamt       "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:anzahl_fsj            "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:anzahl_plaetze        "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:anzahl_teilzeit       "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:anzahl_vollzeit       "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:bagfw_category        [ xyz:id      "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Geschäftsstellen";
+                                                                       xyz:nummer  "8.3.4"
+                                                                     ];
+                                           xyz:bagfw_category_id     "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "3"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "traeger"
+            ];
+  rdf:_5    [ xyz:id           "8818"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8818"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13353";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "BEW für Menschen mit Behinderung";
+              xyz:name_zusatz  "Stützpunkt Turmstraße";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_50   [ xyz:id           "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Kreisverband Spree-Wuhle e.V.";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Geschäftsstellen";
+                                                                       xyz:nummer  "8.3.4"
+                                                                     ];
+                                           xyz:bagfw_category_id     "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "14"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10115"
+                                                                     ];
+                                           xyz:location_id           "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "traeger"
+            ];
+  rdf:_51   [ xyz:id           "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Gemeinnützige Pflegegesellschaft mbH";
+              xyz:name_zusatz  xyz:null;
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Geschäftsstellen";
+                                                                       xyz:nummer  "8.3.4"
+                                                                     ];
+                                           xyz:bagfw_category_id     "194"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "19712"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "traeger"
+            ];
+  rdf:_52   [ xyz:id           "8813"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Behindertenhilfe Betreutes  Wohnen";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "145"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Ambulantes betreutes Wohnen für Menschen mit Behinderung/Menschen mit psych. Erkrankung";
+                                                                       xyz:nummer  "5.3.8"
+                                                                     ];
+                                           xyz:bagfw_category_id     "145"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12715"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13353"
+                                                                     ];
+                                           xyz:location_id           "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8813"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_53   [ xyz:id           "8850"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Berliner Zentrum für Gewaltprävention e.V.";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "77"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Beratungsstellen/ambulante Dienste";
+                                                                       xyz:nummer  "3.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "77"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12752"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8968"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10115"
+                                                                     ];
+                                           xyz:location_id           "8968"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8850"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_54   [ xyz:id           "8854"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Beratung für erwachsene Arbeitslose Stiftung SPI";
+              xyz:name_zusatz  "Geschäftsbereich Stadtentwicklung";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "176"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Beratungsstellen für erwerbslose Menschen";
+                                                                       xyz:nummer  "7.3.11"
+                                                                     ];
+                                           xyz:bagfw_category_id     "176"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12756"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8854"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_55   [ xyz:id           "8858"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Schuldner- und Insolvenzberatung";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "171"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Schuldnerberatungsstellen/Schuldner- und Verbraucherinsolvenzberatung";
+                                                                       xyz:nummer  "7.3.6"
+                                                                     ];
+                                           xyz:bagfw_category_id     "171"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12760"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8858"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_56   [ xyz:id           "8872"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Interkulturelles Zentrum f. Mädchen und MÄDEA";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "63"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Beratungsstellen für arbeitslose Jugendliche/Ausbildungsplatzvermittlung";
+                                                                       xyz:nummer  "2.3.8"
+                                                                     ];
+                                           xyz:bagfw_category_id     "63"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12774"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8990"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "8990"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8872"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_57   [ xyz:id           "8877"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Maulwurf\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Schulen für Kinder/Jugendliche mit Hör-/Sprachbeeinträchtigungen";
+                                                                       xyz:nummer  "5.2.9.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12779"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10785"
+                                                                     ];
+                                           xyz:location_id           "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8877"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_58   [ xyz:id           "8879"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Rosa Marzipan\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Schulen für Kinder/Jugendliche mit Hör-/Sprachbeeinträchtigungen";
+                                                                       xyz:nummer  "5.2.9.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12781"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13355"
+                                                                     ];
+                                           xyz:location_id           "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8879"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_59   [ xyz:id           "8881"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Sonnenblume\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Schulen für Kinder/Jugendliche mit Hör-/Sprachbeeinträchtigungen";
+                                                                       xyz:nummer  "5.2.9.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12783"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8881"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_6    [ xyz:id           "8845"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Hochstädter Str. 1";
+                                           xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8845"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13353";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Wohngemeinschaft f. geistig Behinderte Hochstädter Straße";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_60   [ xyz:id           "8882"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Integrationskindergarten in Kindertagesstätte \"Kelebek\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Schulen für Kinder/Jugendliche mit Hör-/Sprachbeeinträchtigungen";
+                                                                       xyz:nummer  "5.2.9.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "125"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12784"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10551"
+                                                                     ];
+                                           xyz:location_id           "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8882"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_61   [ xyz:id           "8894"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Gerontopsych. Tagespflege Sommergarten";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "91"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Solitäre Tages- und/oder Nachtpflegeeinrichtungen nach § 41 SGB XI";
+                                                                       xyz:nummer  "4.2.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "91"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12796"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8894"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_62   [ xyz:id           "8913"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Platzmanagement Alexanderplatz Stiftung SPI Berlin";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "61"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Beratungs- und Vermittlungsstellen für FSJ/FÖJ, Au pair, Bundesfreiwilligendienst";
+                                                                       xyz:nummer  "2.3.6"
+                                                                     ];
+                                           xyz:bagfw_category_id     "61"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12815"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9031"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10178"
+                                                                     ];
+                                           xyz:location_id           "9031"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8913"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_63   [ xyz:id           "8936"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Drogenberatung Nord";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "140"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Ambulante sozialpsychiatrische Dienste, Kontakt- und Beratungsstellen für Menschen mit psychischen Erkrankungen und Behinderungen ";
+                                                                       xyz:nummer  "5.3.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "140"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12838"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9054"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13407"
+                                                                     ];
+                                           xyz:location_id           "9054"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8936"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_64   [ xyz:id           "8940"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Tagesfreizeitstätte Werk 9";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "48"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Berufsvorbereitende Einrichtungen für arbeitslose Jugendliche";
+                                                                       xyz:nummer  "2.2.5"
+                                                                     ];
+                                           xyz:bagfw_category_id     "48"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12842"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9058"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10117"
+                                                                     ];
+                                           xyz:location_id           "9058"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8940"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_65   [ xyz:id           "8945"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Suchtprophylaxeprojekt für Kinder u. Jugendliche";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "48"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Berufsvorbereitende Einrichtungen für arbeitslose Jugendliche";
+                                                                       xyz:nummer  "2.2.5"
+                                                                     ];
+                                           xyz:bagfw_category_id     "48"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12847"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9063"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "9063"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8945"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_66   [ xyz:id           "8956"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Frauenwohnprojekt";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        xyz:null;
+                                           xyz:bagfw_category_id     "0"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12858"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9074"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13359"
+                                                                     ];
+                                           xyz:location_id           "9074"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8956"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_67   [ xyz:id           "8971"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Frauenladen";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "166"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Migrationsberatung für erwachsene Zugewanderte ";
+                                                                       xyz:nummer  "6.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "166"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12873"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9089"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "9089"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8971"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_68   [ xyz:id           "8974"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Sozialstation Mitte/Tiergarten";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Ambulante Pflegedienste/Sozialstationen (§ 72 SGB XI bzw. § 36 SGB XI)";
+                                                                       xyz:nummer  "4.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "19714"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "15471"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10559"
+                                                                     ];
+                                           xyz:location_id           "15471"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8974"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_69   [ xyz:id           "8977"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Sozialstation Wedding";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Ambulante Pflegedienste/Sozialstationen (§ 72 SGB XI bzw. § 36 SGB XI)";
+                                                                       xyz:nummer  "4.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "19716"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8977"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_7    [ xyz:id           "8850"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "";
+                                           xyz:id               "8968"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8850"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "10115";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Berliner Zentrum für Gewaltprävention e.V.";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_70   [ xyz:id           "8981"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Abenteuerspielplatz \"Stadt der Kinder\"";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "46"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Einrichtungen der örtlichen Erholungshilfe für Kinder und Jugendliche";
+                                                                       xyz:nummer  "2.2.3"
+                                                                     ];
+                                           xyz:bagfw_category_id     "46"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12883"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10119"
+                                                                     ];
+                                           xyz:location_id           "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "8981"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_71   [ xyz:id           "9046"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Kindertagesstätte \"Pinocchio\"";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "45"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Einrichtungen der Tagespflege für Kinder";
+                                                                       xyz:nummer  "2.2.2"
+                                                                     ];
+                                           xyz:bagfw_category_id     "45"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12948"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9164"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13353"
+                                                                     ];
+                                           xyz:location_id           "9164"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9046"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_72   [ xyz:id           "9070"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "August-Bebel-Institut Institut f. Soziale Demokratie";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "245"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Zuordnung offen";
+                                                                       xyz:nummer  "10.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "245"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9188"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13353"
+                                                                     ];
+                                           xyz:location_id           "9188"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9070"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_73   [ xyz:id           "9078"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "AWO Gemeinnützige Pflegegesellschaft mbH Geschäftsstelle";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "8801"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Ambulante Pflegedienste/Sozialstationen (§ 72 SGB XI bzw. § 36 SGB XI)";
+                                                                       xyz:nummer  "4.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "93"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "19717"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13347"
+                                                                     ];
+                                           xyz:location_id           "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9078"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_74   [ xyz:id           "9093"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Migrationsberatung für erwachsene Zuwanderer (MBE) Zentrum für Migration und Integration";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "166"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Migrationsberatung für erwachsene Zugewanderte ";
+                                                                       xyz:nummer  "6.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "166"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "12995"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "9211"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9093"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_75   [ xyz:id           "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Clearingstelle Jugendhilfe/Polizei";
+              xyz:name_zusatz  "Stiftung SPI Berlin";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "56"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Jugendberatungsstellen, Jugendhilfestellen, Jugendfreizeiteinrichtungen (§11 SGB VIII)";
+                                                                       xyz:nummer  "2.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "56"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "13001"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10435"
+                                                                     ];
+                                           xyz:location_id           "9217"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9099"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_76   [ xyz:id           "9102"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Sozialpädagogische Hilfen Fallschirm, Stiftung SPI Berlin";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "56"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Jugendberatungsstellen, Jugendhilfestellen, Jugendfreizeiteinrichtungen (§11 SGB VIII)";
+                                                                       xyz:nummer  "2.3.1"
+                                                                     ];
+                                           xyz:bagfw_category_id     "56"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "13004"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9220"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13357"
+                                                                     ];
+                                           xyz:location_id           "9220"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9102"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_77   [ xyz:id           "9106"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Jugendkulturzentrum Pumpe";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "1"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "233"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Clubs für Jugendliche";
+                                                                       xyz:nummer  "10.4.2.2"
+                                                                     ];
+                                           xyz:bagfw_category_id     "233"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "13008"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9224"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10785"
+                                                                     ];
+                                           xyz:location_id           "9224"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9106"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_78   [ xyz:id           "9122"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Begegnungstätte Schillerpark";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "94"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Seniorenbegegnungsstätten/ Seniorentagesstätten/ Seniorenfreizeitstätten";
+                                                                       xyz:nummer  "4.3.2"
+                                                                     ];
+                                           xyz:bagfw_category_id     "94"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "13024"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9240"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "13349"
+                                                                     ];
+                                           xyz:location_id           "9240"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9122"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_79   [ xyz:id           "9123"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:name         "Begegnungsstätte Club 37";
+              xyz:name_zusatz  "";
+              xyz:parent_id    "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:services     [ rdf:_1  [ xyz:anzahl_bfd            "0";
+                                           xyz:anzahl_ehrenamt       "0";
+                                           xyz:anzahl_fsj            "0";
+                                           xyz:anzahl_plaetze        "0";
+                                           xyz:anzahl_teilzeit       "0";
+                                           xyz:anzahl_vollzeit       "0";
+                                           xyz:bagfw_category        [ xyz:id      "94"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:name    "Seniorenbegegnungsstätten/ Seniorentagesstätten/ Seniorenfreizeitstätten";
+                                                                       xyz:nummer  "4.3.2"
+                                                                     ];
+                                           xyz:bagfw_category_id     "94"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:id                    "13025"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:location              [ xyz:id   "9241"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                                                       xyz:plz  "10557"
+                                                                     ];
+                                           xyz:location_id           "9241"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id       "9123"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:public                true;
+                                           xyz:regional_category_id  "0"^^<http://www.w3.org/2001/XMLSchema#int>
+                                         ]
+                               ];
+              xyz:type         "einrichtung"
+            ];
+  rdf:_8    [ xyz:id           "8854"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 74";
+                                           xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8854"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Beratung für erwachsene Arbeitslose Stiftung SPI";
+              xyz:name_zusatz  "Geschäftsbereich Stadtentwicklung";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_80   [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "2"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "Berlin-Mitte";
+              xyz:plz              "13347"
+            ];
+  rdf:_81   [ xyz:adresse          "Rigaer Str. 55 b";
+              xyz:id               "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "13"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10115"
+            ];
+  rdf:_82   [ xyz:adresse          "Müllerstraße 74";
+              xyz:id               "4908"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "Berlin-Mitte";
+              xyz:plz              "13349"
+            ];
+  rdf:_83   [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8813"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13353"
+            ];
+  rdf:_84   [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8818"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13353"
+            ];
+  rdf:_85   [ xyz:adresse          "Hochstädter Str. 1";
+              xyz:id               "8931"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8845"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13353"
+            ];
+  rdf:_86   [ xyz:adresse          "";
+              xyz:id               "8968"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8850"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10115"
+            ];
+  rdf:_87   [ xyz:adresse          "Prinzenallee 74";
+              xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8854"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_88   [ xyz:adresse          "Prinzenallee 74";
+              xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8856"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_89   [ xyz:adresse          "Badstr. 33";
+              xyz:id               "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8858"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_9    [ xyz:id           "8856"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:locations    [ rdf:_1  [ xyz:adresse          "Prinzenallee 74";
+                                           xyz:id               "8972"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:organisation_id  "8856"^^<http://www.w3.org/2001/XMLSchema#int>;
+                                           xyz:ort              "Berlin";
+                                           xyz:ortsteil         "";
+                                           xyz:plz              "13357";
+                                           xyz:public_fields    [ rdf:_1  "adresse";
+                                                                  rdf:_2  "postfach";
+                                                                  rdf:_3  "kontakt";
+                                                                  rdf:_4  "allgemein"
+                                                                ]
+                                         ]
+                               ];
+              xyz:name         "Schuldnerberatung Stiftung SPI";
+              xyz:name_zusatz  "Geschäftsbereich Stadtentwicklung";
+              xyz:parent_id    "4884"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:type         "einrichtung";
+              xyz:webseite     ""
+            ];
+  rdf:_90   [ xyz:adresse          "Badstr. 33";
+              xyz:id               "8976"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8862"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_91   [ xyz:adresse          "Badstr. 10";
+              xyz:id               "8990"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8872"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13357"
+            ];
+  rdf:_92   [ xyz:adresse          "Derfflingerstraße 21";
+              xyz:id               "8995"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8877"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10785"
+            ];
+  rdf:_93   [ xyz:adresse          "Putbusser Straße 30";
+              xyz:id               "8997"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8879"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13355"
+            ];
+  rdf:_94   [ xyz:adresse          "Reinickendorferstraße 62";
+              xyz:id               "8999"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8881"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_95   [ xyz:adresse          "Turmstraße 71";
+              xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8882"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10551"
+            ];
+  rdf:_96   [ xyz:adresse          "Reinickendorfer Str. 58 a";
+              xyz:id               "9012"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8894"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13347"
+            ];
+  rdf:_97   [ xyz:adresse          "Turmstraße 71";
+              xyz:id               "9000"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8906"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10551"
+            ];
+  rdf:_98   [ xyz:adresse          "Karl-Liebknecht-Str. 13";
+              xyz:id               "9031"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8913"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "10178"
+            ];
+  rdf:_99   [ xyz:adresse          "Alt-Reinickendorf 23-24";
+              xyz:id               "9054"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:organisation_id  "8936"^^<http://www.w3.org/2001/XMLSchema#int>;
+              xyz:ort              "Berlin";
+              xyz:ortsteil         "";
+              xyz:plz              "13407"
+            ]
+] .

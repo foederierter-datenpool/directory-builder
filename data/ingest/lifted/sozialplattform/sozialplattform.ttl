@@ -1,0 +1,1455 @@
+PREFIX fx:  <http://sparql.xyz/facade-x/ns/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xyz: <http://sparql.xyz/facade-x/data/>
+
+[ rdf:type  fx:root;
+  rdf:_1    [ xyz:offer_id                    "bed14473-8569-4274-a883-8ff0ad18642b";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39969";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Alkohol";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Große Hamburger Straße 18";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Große Hamburger Straße 18";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Projekt HaLT";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_10   [ xyz:offer_id                    "cc6c8c5f-d188-4d58-8e52-2d71f3fb71e1";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "41988";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Tieckstraße 17";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Tieckstraße 17";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Notübernachtung für Frauen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_11   [ xyz:offer_id                    "6174c7db-3094-47af-96cd-6b311e6519d5";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40687";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Tieckstraße 17";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Tieckstraße 17";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Notübernachtung Marie";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_12   [ xyz:offer_id                    "2560185e-3d32-4f13-ae46-0f11d30900cf";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40685";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Tieckstraße 17";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Tieckstraße 17";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Wohnraum für Frauen Tieck 17";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_13   [ xyz:offer_id                    "a8363bac-47b5-434e-8030-e5a3c1b2c955";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38121";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Auguststraße 82";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10117"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10117, Auguststraße 82";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Schutz und Neustart für Menschen ohne Obdach";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_14   [ xyz:offer_id                    "9175cb15-471f-4b1a-bdc0-4b30c6564838";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38111";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Schuldnerberatung";
+              xyz:offer_type                  "Schuldnerberatung";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 69";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 69";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "SPEZIALISIERTE SCHULDNER- UND INSOLVENZBERATUNGSSTELLE FÜR KLEINSTSELBSTSTÄNDIGE IN BERLIN";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_15   [ xyz:offer_id                    "ecf9b2a3-678b-4e9d-a4e5-631934952249";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38112";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 68";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 68";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Ambulanz Berliner Stadtmission";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_16   [ xyz:offer_id                    "1c89ab9a-4d23-4f89-b599-3b9884b084f3";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38116";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 68";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 68";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Kleiderkammer";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_17   [ xyz:offer_id                    "9f9a75b1-bbfa-4ebc-a1f3-5d8e33ee0bea";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38115";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 68";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 68";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Kältehilfe";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_18   [ xyz:offer_id                    "9452c623-6a43-4abd-a7f9-4fd704ebf09b";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38117";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 68";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 68";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Logistikküche";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_19   [ xyz:offer_id                    "a76d5b8c-dc17-4bd5-ac66-c1ebef01fd99";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38126";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 69";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 69";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Wohnhilfe Lehrter Straße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_2    [ xyz:offer_id                    "52dc0081-be37-4a77-8aeb-a9807182db73";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39546";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Alkohol, Drogen, Medikamente";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Chausseestraße 128-129";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin-Mitte";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin-Mitte, 10115, Chausseestraße 128-129";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Fachstelle für Suchtprävention im Land Berlin";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_20   [ xyz:offer_id                    "a05abddd-8bf1-41fb-999b-cf2a203e73a9";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38122";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lehrter Straße 69";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10557"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10557, Lehrter Straße 69";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Übergangshaus";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_21   [ xyz:offer_id                    "2e67834c-0437-4df2-91e8-2dd22fbb9761";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39525";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Alkohol, Drogen, Medikamente";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Kurfürstenstraße 40";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10785"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10785, Kurfürstenstraße 40";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Frauentreff Olga";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_22   [ xyz:offer_id                    "a712f7b1-c6ce-457e-a624-c20985e298e2";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39528";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Genthiner Straße 48";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10785"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10785, Genthiner Straße 48";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Psychosoziale Betreuung für Substituierte (PSB)";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_23   [ xyz:offer_id                    "f31da316-b268-4632-bfa6-de8c9bb66953";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39532";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Genthiner Straße 48";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10785"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10785, Genthiner Straße 48";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Zuwendungen Ambulante Einrichtungen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_24   [ xyz:offer_id                    "c709c064-7c41-4867-97c5-c8c5b6072dc8";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39526";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Prävention";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Kurfürstenstraße 40";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10785"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10785, Kurfürstenstraße 40";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Frauentreff Olga";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_25   [ xyz:offer_id                    "89f72b03-57e1-49b7-92a3-5325d010c15a";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39524";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Spielsucht";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Genthiner Straße 48";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10785"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10785, Genthiner Straße 48";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Drogennotdienst";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_26   [ xyz:offer_id                    "e8f84b6e-3967-49cc-ac41-afee7cc10226";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40681";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Segitzdamm 46";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10969"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10969, Segitzdamm 46";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Alkohol- und Medikamentenberatungsstelle";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_27   [ xyz:offer_id                    "c5e938a0-67be-4120-a84d-d1c665e91b08";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39496";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Friedrichstraße 231";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10969"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10969, Friedrichstraße 231";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "StoffBruch-Beratung";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_28   [ xyz:offer_id                    "547e4ae8-86bc-4988-ba3f-3a967eb93d2c";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "43795";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Schuldner- und Insolvenzberatung";
+              xyz:offer_type                  "Schuldnerberatung";
+              xyz:office_address              [ xyz:address_line1  "Ritterstraße 3";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       "de";
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10969"
+                                              ];
+              xyz:office_address_short        "de, DE, Berlin, 10969, Ritterstraße 3";
+              xyz:office_email                "inso@awo-spree-wuhle.de";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "030 2529 3540";
+              xyz:office_title                "Schuldner- und Insolvenzberatung";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_29   [ xyz:offer_id                    "4ef68f96-e5fc-43da-81ec-e2218c5aa0d0";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38137";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Schuldnerberatung";
+              xyz:offer_type                  "Schuldnerberatung";
+              xyz:office_address              [ xyz:address_line1  "Rudi-Dutschke-Straße 9";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       "de";
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10969"
+                                              ];
+              xyz:office_address_short        "de, DE, Berlin, 10969, Rudi-Dutschke-Straße 9";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Schuldner- und Insolvenzberatung Berlin Spree-Wuhle";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_3    [ xyz:offer_id                    "0a120bd9-5f60-4a7f-bcfb-4cb3c72c325c";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38453";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Große Hamburger Straße 18";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Große Hamburger Straße 18";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Integrative Suchtberatung Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_30   [ xyz:offer_id                    "ab01a076-1149-4cf9-87f8-426e69fd023d";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39964";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Müllerstraße 120";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13349"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13349, Müllerstraße 120";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Mühlenstube Kontakt- und Anlaufstelle Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_31   [ xyz:offer_id                    "8fa0d6d8-7de5-480d-9f8c-9ac8fdb3a3f0";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39963";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Drogen";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Müllerstraße 120";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13349"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13349, Müllerstraße 120";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Mühlenstube Kontakt- und Anlaufstelle Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_32   [ xyz:offer_id                    "00c5e6c3-c185-4bed-9d33-53d49eb73dc1";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38138";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Schuldnerberatung";
+              xyz:offer_type                  "Schuldnerberatung";
+              xyz:office_address              [ xyz:address_line1  "Wattstraße 9";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13355"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13355, Wattstraße 9";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Schuldner- und Insolvenzberatung Berlin";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_33   [ xyz:offer_id                    "6ddceda5-9cfe-4839-bbbc-72c6ca36dc42";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "41996";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Grenzstraße 1-5";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13355"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13355, Grenzstraße 1-5";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Aufnahmewohnheim Grenzstraße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_34   [ xyz:offer_id                    "b207ca50-8a53-4c80-ab1d-ffdd22c4d1b0";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42062";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Osloer Straße 80";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13359"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13359, Osloer Straße 80";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Haus \"Panorama Nord\"";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_35   [ xyz:offer_id                    "dfe3aa6c-870b-40af-aba0-2a719cde9845";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42065";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Prinzenallee 39-40";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13359"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13359, Prinzenallee 39-40";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Wili 67";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_36   [ xyz:offer_id                    "4d1f05fe-2287-450a-8173-dd0a92de409e";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "41997";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Drontheimer Straße 27";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13359"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13359, Drontheimer Straße 27";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Übergangshaus Drontheimer Straße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_37   [ xyz:offer_id                    "9c32f9ab-0ead-4715-9a08-ab194ca20613";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40659";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Rütlistraße 18";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13407"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13407, Rütlistraße 18";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Berliner Help Stiftung";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_38   [ xyz:offer_id                    "e93a3858-5443-4fde-bfcd-5e0e88b48c02";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40134";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Brienzer Straße 22";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13407"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13407, Brienzer Straße 22";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Blaukreuz - Zentrum Schillerhöhe";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_39   [ xyz:offer_id                    "6e36389f-e8eb-46fa-9aad-f0545a52eed9";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39966";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Alt-Reinickendorf 23-24";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13407"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13407, Alt-Reinickendorf 23-24";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Drogenhilfe Nord - NordPassage";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_4    [ xyz:offer_id                    "8b9a6770-9713-456d-9cbd-0e78dd57c6fc";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38462";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Drogen";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Große Hamburger Straße  18";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Große Hamburger Straße  18";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Integrative Suchtberatung Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_40   [ xyz:offer_id                    "bcabb817-4189-4f57-a297-7633a5def138";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38123";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Kopenhagenerstraße 29";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13407"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13407, Kopenhagenerstraße 29";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "ASOG-Wohnheim";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_41   [ xyz:offer_id                    "8781c5b4-7491-4d4e-96b3-5444320bcd62";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39500";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Badstraße 35";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13357"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13357, Badstraße 35";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Wohnen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_42   [ xyz:offer_id                    "144a067d-2556-4104-9ac2-f5f160b12f3a";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39501";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Badstraße 35";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13357"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13357, Badstraße 35";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "MutterKindWohnen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_43   [ xyz:offer_id                    "e7db815d-e83b-413d-9b98-2d453f282815";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "41995";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Badstraße 22";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13357"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13357, Badstraße 22";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Ambulante Wohnhilfen Wedding und Reinickendorf";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_44   [ xyz:offer_id                    "65ff6fa3-50ad-42b8-8ea0-334fa21411ea";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42025";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Kolberger Straße  14";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13357"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13357, Kolberger Straße  14";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Einzelwohnen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_45   [ xyz:offer_id                    "d4d11a2b-95a9-4184-bedd-36e2029e90ef";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39729";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Bornemannstraße 12";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13357"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13357, Bornemannstraße 12";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "FrauenbeDacht - Wohnen Plus für Frauen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_46   [ xyz:offer_id                    "cccce6c9-2579-42c3-ba8c-ebc4c1d8e1b7";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40101";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Augustenburger Platz 1";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13353"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13353, Augustenburger Platz 1";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Ambulanz für Suchterkrankungen und Infektionen in der Schwangerschaft";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_47   [ xyz:offer_id                    "0e2ea1ff-a4aa-4ce1-b3cb-da893c215dfe";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39538";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Genter Straße 63 4.OG";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13353"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13353, Genter Straße 63 4.OG";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Wohnen Genter Straße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_48   [ xyz:offer_id                    "8c9cf315-dcac-4768-ac3c-6c7904ee02f6";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "41980";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Müllerstraße 146";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13353"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13353, Müllerstraße 146";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Soziale Wohnhilfe";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_49   [ xyz:offer_id                    "56f2dc2c-d600-4426-8283-6318e5ae193e";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39493";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Alkohol, Drogen, Medikamente";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Nazarethkirchstraße 42";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin-Wedding";
+                                                xyz:postal_code    "13347"
+                                              ];
+              xyz:office_address_short        "DE, Berlin-Wedding, 13347, Nazarethkirchstraße 42";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Frauenladen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_5    [ xyz:offer_id                    "ff7ef8f0-979d-4250-9e9f-9f6cfcc3cae4";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39970";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Drogen";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Große Hamburger Straße 18";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Große Hamburger Straße 18";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Projekt HaLT";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_50   [ xyz:offer_id                    "95bb5161-c377-4ae9-8990-f7d1dee73794";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40857";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Heinz-Galinski-Straße 1";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "13347"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 13347, Heinz-Galinski-Straße 1";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Klinik für Psychiatrie und Psychotherapie";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_51   [ xyz:offer_id                    "75d6bbf2-53a7-4e58-9cae-c39b7db04d08";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39494";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Prävention";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Nazarethkirchstraße 42";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin-Wedding";
+                                                xyz:postal_code    "13347"
+                                              ];
+              xyz:office_address_short        "DE, Berlin-Wedding, 13347, Nazarethkirchstraße 42";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Frauenladen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_52   [ xyz:offer_id                    "59463009-0dc7-4ee9-a9da-1a1586d5f758";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39767";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Alkohol, Drogen, Medikamente";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Obentrautstraße 57";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10963"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10963, Obentrautstraße 57";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Kibo – ambulante Drogentherapie";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_53   [ xyz:offer_id                    "8cbdbb11-ad12-41af-942e-bd56ab43fdf9";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38469";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Wartenburgstraße 8";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10963"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10963, Wartenburgstraße 8";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Cafe Beispiellos / Lost in Space Beratungsstelle für Glücksspiel-, Computerspiel- und Internetsüchtige und deren Angehörige";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_54   [ xyz:offer_id                    "291412a2-f700-41f3-af55-add3f2caaa90";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39768";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Therapie";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Obentrautstraße 57";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10963"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10963, Obentrautstraße 57";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Kibo – ambulante Drogentherapie";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_55   [ xyz:offer_id                    "4b7bd3f5-d291-4ce4-997a-76766b130c1d";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39945";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Birkenstraße 51";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10559"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10559, Birkenstraße 51";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Birkenstube - Kontakt- und Anlaufstelle Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_56   [ xyz:offer_id                    "6619535c-0cba-4dd2-ac4c-8155c0e99fc1";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39535";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Rathenower Straße 16 H";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10559"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10559, Rathenower Straße 16 H";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Kriesenwohnung";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_57   [ xyz:offer_id                    "80504bfb-065a-4c2f-8322-1c66f2314215";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42077";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Lübecker Straße 6";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10559"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10559, Lübecker Straße 6";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Haus Lübecker Straße (HLS6)";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_58   [ xyz:offer_id                    "a236dca3-d753-45de-aeef-11c4abbdf8fe";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39952";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Stromstraße 47";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Stromstraße 47";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Ambulante Suchtberatung Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_59   [ xyz:offer_id                    "8f3df874-b04d-4dbd-b9cb-00fa8c5fafb8";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39533";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Turmstraße 34";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Turmstraße 34";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Wohnen Turmstraße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_6    [ xyz:offer_id                    "d82695a4-b850-4030-a7a0-b477fe601905";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39547";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Prävention";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Chausseestraße 128-129";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin-Mitte";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin-Mitte, 10115, Chausseestraße 128-129";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Fachstelle für Suchtprävention im Land Berlin";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_60   [ xyz:offer_id                    "36888454-211d-4788-86fd-cf9e24b15c47";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38130";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Schuldnerberatung";
+              xyz:offer_type                  "Schuldnerberatung";
+              xyz:office_address              [ xyz:address_line1  "Arminiusstraße 2-4";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Arminiusstraße 2-4";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Schuldner- und Insolvenzberatung Berlin";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_61   [ xyz:offer_id                    "a176f0cd-4cab-4ef5-839c-e631205532d3";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42379";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Oldenburger Straße 47";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Oldenburger Straße 47";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Ambulante Wohnungslosenhilfe Moabit";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_62   [ xyz:offer_id                    "b9a1e77f-19d2-465a-b4d5-8d7500af1822";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42070";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Oldenburger Straße  2";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Oldenburger Straße  2";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "sbh Wohnungslosen- & Eingliederungshilfe";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_63   [ xyz:offer_id                    "73889a10-0cb7-418a-99ae-3d00490fc2c5";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "38127";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Turmstraße 35 a";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10551"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10551, Turmstraße 35 a";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Wohnhilfe Turmstraße";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_64   [ xyz:offer_id                    "f2c028aa-4477-46a3-be8e-f33c01989abc";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39534";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Ruschestraße 103";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Ruschestraße 103";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "AID Lichtenberg";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_65   [ xyz:offer_id                    "e431346b-48b5-4c8d-a407-716d44dbd2c3";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39986";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Allgemeine Suchtberatung";
+              xyz:offer_type                  "Suchtberatung";
+              xyz:office_address              [ xyz:address_line1  "Herzbergstraße 82";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Herzbergstraße 82";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Tagesstätte Lichtenberg";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_66   [ xyz:offer_id                    "470ab600-5b04-44af-996a-03adacf95add";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42060";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Herzbergstraße 84";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Herzbergstraße 84";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreute Einzelwohnen Lichtenberg";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_67   [ xyz:offer_id                    "a42b05a2-f5f9-47d5-80e4-89c59dc108f6";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42036";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Hagenstraße 1";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Hagenstraße 1";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Wohnen casa nostra";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_68   [ xyz:offer_id                    "48e4160e-0dc7-4e02-87a7-36c7d317816c";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "39642";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Bornitzstraße 73-75";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Bornitzstraße 73-75";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Immanuel Beratung Lichtenberg";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_69   [ xyz:offer_id                    "5df1d43f-a1bd-4426-861a-740776bc0bf5";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42069";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Gudrunstraße 4";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10365"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10365, Gudrunstraße 4";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "WIN/Wohn- und INtegrationshilfen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_7    [ xyz:offer_id                    "e2490c38-045b-4f89-832f-80c964cccbe4";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "40686";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Tieckstraße 17";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Tieckstraße 17";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Betreutes Einzelwohnen (§ 67 SGB XII) & Appartements für wohnungslose Frauen";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_8    [ xyz:offer_id                    "0d7348e9-15e0-4c99-af02-8a98823691e5";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42075";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Pflugstraße 12";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Pflugstraße 12";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Das Gesundheitszentrum";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ];
+  rdf:_9    [ xyz:offer_id                    "734dec00-404e-4495-87da-a5b05cbe04d1";
+              xyz:offer_langcode              "de";
+              xyz:offer_nid                   "42387";
+              xyz:offer_service_area          "";
+              xyz:offer_title                 "Wohnungsnothilfe";
+              xyz:offer_type                  "Wohnungsnotfallhilfe";
+              xyz:office_address              [ xyz:address_line1  "Chausseestraße 84";
+                                                xyz:address_line3  xyz:null;
+                                                xyz:country_code   "DE";
+                                                xyz:langcode       xyz:null;
+                                                xyz:locality       "Berlin";
+                                                xyz:postal_code    "10115"
+                                              ];
+              xyz:office_address_short        "DE, Berlin, 10115, Chausseestraße 84";
+              xyz:office_email                "";
+              xyz:office_opening_hours        "";
+              xyz:office_opening_hours_notes  "";
+              xyz:office_phone                "";
+              xyz:office_title                "Neue Chance Mitte";
+              xyz:search_score                "12"^^<http://www.w3.org/2001/XMLSchema#int>
+            ]
+] .
